@@ -122,7 +122,7 @@ export default function Page() {
                 <section className="flex flex-col gap-4">
                     <Card title={`Netlify Context: running in ${ctx} mode.`}>
                         {ctx === 'dev' ? (
-                            <p className="text-primary-content">You're currently in development mode. Expect frequent updates as I refine my work.</p>
+                            <p className="text-primary-content">Currently in development mode. Expect frequent updates as I refine my work.</p>
                         ) : (
                             <p className="text-primary-content">This portfolio is statically generated for optimal performance and reliability.</p>
                         )}

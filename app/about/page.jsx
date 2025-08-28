@@ -10,7 +10,7 @@ export default function Page() {
             <h1 className="mb-6 text-4xl font-bold text-accent">About Me</h1>
             <section className="mb-10">
                 <p className="text-lg text-primary-content mb-4">
-                    Hi, I'm Zack! I'm passionate about computer vision, AI, and building digital experiences that make a difference.
+                    Hi, I&#39m Zack! I&#39m passionate about computer vision, AI, and building digital experiences that make a difference.
                 </p>
             </section>
 
