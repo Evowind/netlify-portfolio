@@ -5,7 +5,7 @@ export function Footer() {
         <footer className="bg-[#232946] border-t border-accent mt-16 pt-8 pb-6 text-center text-primary-content shadow-lg">
             <div className="max-w-4xl mx-auto flex flex-col items-center gap-2">
                 <p className="text-sm">
-                    &copy; {new Date().getFullYear()} Zack’s Portfolio. All rights reserved.
+                    &copy; {new Date().getFullYear()} Samy’s Portfolio. All rights reserved.
                 </p>
                 <p className="text-xs">
                     Built with <Link href="https://nextjs.org/" className="text-accent underline">Next.js</Link> &amp; <Link href="https://www.netlify.com/" className="text-accent underline">Netlify</Link>.

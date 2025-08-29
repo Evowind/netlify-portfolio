@@ -30,11 +30,8 @@ export function RandomQuote() {
             {quote ? (
                 <>
                     <h3 className="text-neutral-900">&ldquo;{quote.text}&rdquo;</h3>
-                    <p>
-                        - {quote.playedBy} as {quote.character} in &ldquo;{quote.film}&rdquo; ({quote.year})
-                    </p>
                     <p className="pt-2 mt-2 text-sm italic border-t border-dashed text-secondary border-neutral-300">
-                        loaded at {time}. <a href={quote.dataSource}>Original data source.</a>
+                        loaded at {time}
                     </p>
                 </>
             ) : (
