@@ -250,7 +250,7 @@ export default function ResumePage() {
 
             {/* Contact Information */}
             <section className="text-center bg-gradient-to-r from-accent/5 to-accent/10 rounded-2xl p-8">
-                <h2 className="text-2xl font-bold text-primary mb-4">Let's Connect</h2>
+                <h2 className="text-2xl font-bold text-primary mb-4">Let&apos;s Connect</h2>
                 <p className="text-primary-content mb-6">
                     Interested in my background or potential collaboration opportunities?
                 </p>

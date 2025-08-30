@@ -24,7 +24,7 @@ export default function Page() {
                     <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-4">
                         <div>
                             <h3 className="text-xl font-semibold text-accent mb-2">
-                                Licence en Informatique (Bachelor's in Computer Science)
+                                Licence en Informatique (Bachelor&apos;s in Computer Science)
                             </h3>
                             <p className="text-primary-content mb-3">
                                 French University • 2021 — Present
@@ -179,22 +179,22 @@ export default function Page() {
                 <div className="card p-6">
                     <p className="text-primary-content leading-relaxed mb-4">
                         My passion lies at the intersection of theoretical computer science and practical application development. 
-                        I'm particularly interested in how artificial intelligence can solve real-world problems, 
+                        I&apos;m particularly interested in how artificial intelligence can solve real-world problems, 
                         from document processing automation to intelligent user interfaces.
                     </p>
                     <p className="text-primary-content leading-relaxed">
                         I enjoy the challenge of translating complex algorithms into efficient, user-friendly software solutions, 
-                        and I'm always eager to explore emerging technologies in AI, computer vision, and distributed systems.
+                        and I&apos;m always eager to explore emerging technologies in AI, computer vision, and distributed systems.
                     </p>
                 </div>
             </section>
 
             {/* Contact CTA */}
             <section className="text-center bg-gradient-to-r from-accent/5 to-accent/10 rounded-2xl p-8">
-                <h2 className="text-2xl font-bold text-primary mb-4">Let's Connect</h2>
+                <h2 className="text-2xl font-bold text-primary mb-4">Let&apos;s Connect</h2>
                 <p className="text-primary-content mb-6 max-w-2xl mx-auto">
                     Interested in discussing technology, potential collaborations, or opportunities? 
-                    I'd love to hear from you.
+                    I&apos;d love to hear from you.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <a 

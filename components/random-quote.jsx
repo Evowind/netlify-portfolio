@@ -69,7 +69,7 @@ export function RandomQuote() {
                 <div className="text-center py-8">
                     <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
                         <p className="text-red-400">
-                            Oops! Couldn't load the fun fact right now. 
+                            Oops! Couldn&apos;t load the fun fact right now. 
                         </p>
                         <p className="text-red-400/70 text-sm mt-1">
                             Try refreshing the page!

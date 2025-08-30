@@ -108,7 +108,7 @@ export default function Page() {
                 <div className="relative flex flex-col items-center justify-center text-center py-20 px-6">
                     <div className="max-w-4xl">
                         <h1 className="mb-6 text-4xl sm:text-5xl lg:text-6xl font-bold text-primary leading-tight">
-                            Samy's
+                            Samy&apos;s
                             <span className="block text-accent mt-2">Developer Portfolio</span>
                         </h1>
                         <p className="mb-8 text-lg sm:text-xl text-primary-content max-w-3xl mx-auto leading-relaxed">
