@@ -4,16 +4,17 @@ import githubLogo from 'public/images/github-mark-white.svg';
 
 const navItems = [
     { linkText: 'Home', href: '/' },
+    { linkText: 'Resume', href: '/resume' },
     { linkText: 'Projects', href: '/projects' },
+    { linkText: 'Skills & Technologies', href: '/skills' },
     { linkText: 'About', href: '/about' },
-    { linkText: 'Blog', href: '/blog' },
     { linkText: 'Contact', href: '/contact' },
 ];
 
 export function Header() {
     return (
-        <header className="bg-[#232946] border-b border-accent shadow-lg">
-            <nav className="flex flex-wrap items-center gap-4 px-6 pt-6 pb-6 sm:pt-12 md:pb-12 max-w-6xl mx-auto">
+        <header className="sticky top-0 z-50 bg-[#232946] border-b border-accent shadow-lg backdrop-blur-sm">
+            <nav className="flex flex-wrap items-center gap-4 px-6 py-4 max-w-6xl mx-auto">
                 {!!navItems?.length && (
                     <ul className="flex flex-wrap gap-x-4 gap-y-1">
                         {navItems.map((item, index) => (

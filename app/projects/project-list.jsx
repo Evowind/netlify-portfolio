@@ -62,7 +62,7 @@ const projects = [
         complexity: 'Intermediate'
     },
     {
-        title: 'DockerEye 007',
+        title: 'DockerEye 007 (Work in Progress)',
         image: '/images/dockereye.jpg',
         description: 'JavaScript-based Docker monitoring and management tool for container oversight.',
         fullDescription: 'Comprehensive Docker monitoring solution with real-time metrics, container management, and alerting capabilities.',

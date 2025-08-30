@@ -31,7 +31,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html suppressHydrationWarning={true}>
             <head>
                 <link rel="icon" href="/portfolio.svg" sizes="any" />
             </head>
