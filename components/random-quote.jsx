@@ -43,7 +43,7 @@ export function RandomQuote() {
                     <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
                         <div className="relative">
                             {/* Opening quote mark */}
-                            <div className="absolute -top-2 -left-2 text-4xl text-accent/30 font-serif">"</div>
+                            <div className="absolute -top-2 -left-2 text-4xl text-accent/30 font-serif">&ldquo;</div>
                             
                             {/* Quote text */}
                             <blockquote className="text-lg text-primary-content leading-relaxed italic text-center px-4">
@@ -51,7 +51,7 @@ export function RandomQuote() {
                             </blockquote>
                             
                             {/* Closing quote mark */}
-                            <div className="absolute -bottom-6 -right-2 text-4xl text-accent/30 font-serif">"</div>
+                            <div className="absolute -bottom-6 -right-2 text-4xl text-accent/30 font-serif">&rdquo;</div>
                         </div>
                     </div>
                     
