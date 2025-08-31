@@ -20,31 +20,44 @@ export default function ResumePage() {
             ]
         },
         {
-            title: 'Master in Computer Science',
-            company: 'Université Paris Cité',
-            period: 'Sep 2024 — Jul 2026',
-            location: 'Paris, France',
-            type: 'Education',
-            description: 'Pursuing a Master’s degree in Computer Science at UFR de mathématiques et informatique.',
-            achievements: [
-                'Specializing in advanced topics in algorithms, systems, and AI',
-                'Developing strong foundations in research and applied computing'
+            title: "Master in Computer Science - Vision & Machine Intelligence",
+            company: "Université Paris Cité",
+            period: "2024 — Present",
+            location: "Paris, France",
+            type: "Education",
+            description: "Pursuing a Master’s degree in Computer Science at UFR de mathématiques et informatique.",
+            coursework: [
+            "Machine Learning & Artificial Intelligence",
+            "Computer Vision & Image Processing",
+            "Optimization & Data Mining",
+            "Advanced Algorithms"
+            ],
+            specializations: [
+            "Deep Learning & Neural Networks",
+            "Pattern Recognition & Image Analysis",
+            "Intelligent Systems"
             ]
         },
-        {
-            title: 'Bachelor in Computer Science',
-            company: 'Université Paris-Est Créteil (UPEC)',
-            period: '2021 — 2024',
-            location: 'France',
-            type: 'Education',
-            description: 'Completed Bachelor’s degree in Computer Science.',
-            achievements: [
-                'Studied programming languages including Java, OCaml, C, and PHP',
-                'Gained expertise in databases (SQL, MySQL, SQLite)',
-                'Experience in web development with HTML, Bootstrap, and Laravel'
+                {
+            title: "Bachelor in Computer Science",
+            company: "Université Paris-Est Créteil (UPEC)",
+            period: "2021 — 2024",
+            location: "France",
+            type: "Education",
+            description: "Completed Bachelor’s degree in Computer Science.",
+            coursework: [
+            "Data Structures & Algorithms",
+            "Systems Programming (C, C++)",
+            "Database Systems & Architecture",
+            "Web Development & Software Engineering"
+            ],
+            specializations: [
+            "Argumentation Frameworks & Logic Systems",
+            "Distributed Systems & DevOps",
+            "Human-Computer Interaction"
             ]
         }
-    ];
+        ];
 
     const skills = {
         'Programming Languages': ['Java', 'OCaml', 'C', 'PHP', 'TypeScript', 'JavaScript'],
@@ -71,53 +84,95 @@ export default function ResumePage() {
             </div>
 
             {/* Professional Summary */}
-            <section className="mb-10 card p-6">
-                <h2 className="text-2xl font-bold text-primary mb-4">Professional Summary</h2>
-                <p className="text-primary-content leading-relaxed">
-                    I am a Computer Science student at Université Paris Cité with a strong foundation in programming 
-                    (Java, C, OCaml, PHP) and experience in mobile and full-stack development. My background spans 
-                    algorithm analysis, system design, and web technologies. I have professional experience as a 
-                    React Native developer and continue to expand my expertise in modern software engineering practices.
-                </p>
-            </section>
-
-            {/* Education & Experience */}
-            <section className="mb-10">
-                <h2 className="text-2xl font-bold text-primary mb-6">Education & Experience</h2>
-                <div className="space-y-6">
-                    {experiences.map((exp, idx) => (
-                        <div key={idx} className="card p-6">
-                            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-4">
-                                <div className="flex-1">
-                                    <h3 className="text-xl font-semibold text-accent mb-1">{exp.title}</h3>
-                                    <div className="text-primary-content mb-2">
-                                        <span className="font-medium">{exp.company}</span>
-                                        {exp.location && <span className="text-primary-content/70"> • {exp.location}</span>}
+                        <section className="mb-10 card p-6">
+                            <h2 className="text-2xl font-bold text-primary mb-4">Professional Summary</h2>
+                            <p className="text-primary-content leading-relaxed">
+                                I am a Computer Science student at Université Paris Cité with a strong foundation in programming 
+                                (Java, C, OCaml, PHP) and experience in mobile and full-stack development. My background spans 
+                                algorithm analysis, system design, and web technologies. I have professional experience as a 
+                                React Native developer and continue to expand my expertise in modern software engineering practices.
+                            </p>
+                        </section>
+                        {/* Experience Section */}
+                        <section className="mb-10">
+                            <h2 className="text-2xl font-bold text-primary mb-6">Experience</h2>
+                            <div className="space-y-6">
+                                {experiences.filter(exp => exp.type === 'Work').map((exp, idx) => (
+                                    <div key={idx} className="card p-6">
+                                        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-4">
+                                            <div className="flex-1">
+                                                <h3 className="text-xl font-semibold text-accent mb-1">{exp.title}</h3>
+                                                <div className="text-primary-content mb-2">
+                                                    <span className="font-medium">{exp.company}</span>
+                                                    {exp.location && <span className="text-primary-content/70"> • {exp.location}</span>}
+                                                </div>
+                                                <p className="text-primary-content text-sm mb-3">{exp.description}</p>
+                                            </div>
+                                            <div className="flex flex-col items-end gap-2">
+                                                <span className="text-primary-content font-medium">{exp.period}</span>
+                                                <span className="text-xs px-2 py-1 rounded-full bg-green-500/20 text-green-300">
+                                                    {exp.type}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <ul className="space-y-2">
+                                            {exp.achievements.map((achievement, achievementIdx) => (
+                                                <li key={achievementIdx} className="flex items-start gap-2 text-primary-content text-sm">
+                                                    <span className="text-accent mt-1 flex-shrink-0">•</span>
+                                                    <span>{achievement}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
-                                    <p className="text-primary-content text-sm mb-3">{exp.description}</p>
-                                </div>
-                                <div className="flex flex-col items-end gap-2">
-                                    <span className="text-primary-content font-medium">{exp.period}</span>
-                                    <span className={`text-xs px-2 py-1 rounded-full ${
-                                        exp.type === 'Education' ? 'bg-blue-500/20 text-blue-300' : 'bg-green-500/20 text-green-300'
-                                    }`}>
-                                        {exp.type}
-                                    </span>
-                                </div>
-                            </div>
-                            <ul className="space-y-2">
-                                {exp.achievements.map((achievement, achievementIdx) => (
-                                    <li key={achievementIdx} className="flex items-start gap-2 text-primary-content text-sm">
-                                        <span className="text-accent mt-1 flex-shrink-0">•</span>
-                                        <span>{achievement}</span>
-                                    </li>
                                 ))}
-                            </ul>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
+                            </div>
+                        </section>
+                        {/* Education Section */}
+                        <section className="mb-10">
+                            <h2 className="text-2xl font-bold text-primary mb-6">Education</h2>
+                            {experiences.filter(exp => exp.type === 'Education').map((edu, idx) => (
+                                <div key={idx} className="card p-6 mb-6">
+                                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-4">
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-accent mb-2">{edu.title}</h3>
+                                            <p className="text-primary-content mb-3">
+                                                {edu.company} • {edu.period}
+                                            </p>
+                                        </div>
+                                        <div className="text-right">
+                                            <span className="inline-block bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">
+                                                {edu.period.includes('Present') ? 'Current Student' : 'Completed'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="grid md:grid-cols-2 gap-6 mt-6">
+                                        <div>
+                                            <h4 className="font-semibold text-primary mb-3">Core Coursework:</h4>
+                                            <ul className="space-y-2 text-primary-content">
+                                                {edu.coursework.map((course, courseIdx) => (
+                                                    <li key={courseIdx} className="flex items-start gap-2">
+                                                        <span className="text-accent mt-1">•</span>
+                                                        <span>{course}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-semibold text-primary mb-3">Specialized Areas:</h4>
+                                            <ul className="space-y-2 text-primary-content">
+                                                {edu.specializations.map((spec, specIdx) => (
+                                                    <li key={specIdx} className="flex items-start gap-2">
+                                                        <span className="text-accent mt-1">•</span>
+                                                        <span>{spec}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </section>
             {/* Technical Skills */}
             <section className="mb-10">
                 <h2 className="text-2xl font-bold text-primary mb-6">Technical Skills</h2>
