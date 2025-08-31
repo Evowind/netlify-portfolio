@@ -7,7 +7,6 @@ const navItems = [
     { linkText: 'Resume', href: '/resume' },
     { linkText: 'Projects', href: '/projects' },
     { linkText: 'Skills & Technologies', href: '/skills' },
-    { linkText: 'About', href: '/about' },
     { linkText: 'Contact', href: '/contact' },
 ];
 
