@@ -11,10 +11,10 @@ export default function SkillsPage() {
             description: 'Core programming languages with hands-on project experience',
             skills: [
                 { name: 'Python', level: 'Advanced', experience: '3+ years', projects: 8, description: 'AI/ML, computer vision, web scraping, data analysis' },
-                { name: 'C/C++', level: 'Advanced', experience: '2+ years', projects: 4, description: 'Systems programming, performance-critical applications' },
+                { name: 'C/C++', level: 'Advanced', experience: '5+ years', projects: 4, description: 'Systems programming, performance-critical applications' },
                 { name: 'JavaScript', level: 'Intermediate', experience: '2+ years', projects: 6, description: 'Full-stack web development, React, Node.js' },
-                { name: 'Java', level: 'Intermediate', experience: '1+ year', projects: 3, description: 'Object-oriented programming, game development' },
-                { name: 'PHP', level: 'Intermediate', experience: '1+ year', projects: 3, description: 'Laravel framework, web applications, database integration' }
+                { name: 'Java', level: 'Advanced', experience: '5+ year', projects: 3, description: 'Object-oriented programming, game development' },
+                { name: 'PHP', level: 'Intermediate', experience: '4+ year', projects: 3, description: 'Laravel framework, web applications, database integration' }
             ]
         },
         {
@@ -22,42 +22,32 @@ export default function SkillsPage() {
             description: 'Artificial intelligence and machine learning technologies',
             skills: [
                 { name: 'OpenCV', level: 'Advanced', experience: '2+ years', projects: 5, description: 'Computer vision, image processing, real-time detection' },
-                { name: 'Scikit-learn', level: 'Intermediate', experience: '1+ year', projects: 4, description: 'Classification, regression, clustering algorithms' },
+                { name: 'Scikit-learn', level: 'Intermediate', experience: '3+ year', projects: 4, description: 'Classification, regression, clustering algorithms' },
                 { name: 'PyTorch', level: 'Intermediate', experience: '1+ year', projects: 2, description: 'Deep learning, neural networks, model training' },
                 { name: 'Deep Learning', level: 'Intermediate', experience: '1+ year', projects: 3, description: 'CNNs, document analysis, feature extraction' },
-                { name: 'Logic Systems', level: 'Advanced', experience: '1+ year', projects: 1, description: 'Argumentation frameworks, logical reasoning' }
+                { name: 'Logic Systems', level: 'Advanced', experience: '3+ year', projects: 1, description: 'Argumentation frameworks, logical reasoning' }
             ]
         },
         {
             category: 'Web Development',
             description: 'Frontend and backend web development technologies',
             skills: [
-                { name: 'React/Next.js', level: 'Intermediate', experience: '1+ year', projects: 3, description: 'Component-based UI, server-side rendering, modern React' },
-                { name: 'Laravel', level: 'Intermediate', experience: '1+ year', projects: 2, description: 'MVC architecture, ORM, authentication systems' },
-                { name: 'MySQL/PostgreSQL', level: 'Intermediate', experience: '2+ years', projects: 6, description: 'Database design, complex queries, optimization' },
-                { name: 'HTML/CSS', level: 'Advanced', experience: '3+ years', projects: 8, description: 'Responsive design, modern CSS, accessibility' },
-                { name: 'Flask', level: 'Intermediate', experience: '1+ year', projects: 2, description: 'Python web framework, API development' }
+                { name: 'React/Next.js', level: 'Beginner', experience: '1+ year', projects: 3, description: 'Component-based UI, server-side rendering, modern React' },
+                { name: 'Laravel', level: 'Intermediate', experience: '5+ year', projects: 2, description: 'MVC architecture, ORM, authentication systems' },
+                { name: 'MySQL/PostgreSQL', level: 'Intermediate', experience: '5+ years', projects: 6, description: 'Database design, complex queries, optimization' },
+                { name: 'HTML/CSS', level: 'Advanced', experience: '5+ years', projects: 8, description: 'Responsive design, modern CSS, accessibility' },
+                { name: 'Flask', level: 'Beginner', experience: '1+ year', projects: 2, description: 'Python web framework, API development' }
             ]
         },
         {
             category: 'DevOps & Systems',
             description: 'Development operations and systems administration',
             skills: [
-                { name: 'Docker', level: 'Intermediate', experience: '1+ year', projects: 3, description: 'Containerization, multi-stage builds, orchestration' },
+                { name: 'Docker', level: 'Intermediate', experience: '2+ year', projects: 3, description: 'Containerization, multi-stage builds, orchestration' },
                 { name: 'Kubernetes', level: 'Beginner', experience: '6 months', projects: 1, description: 'Container orchestration, microservices deployment' },
-                { name: 'Linux', level: 'Intermediate', experience: '3+ years', projects: 'Daily use', description: 'Command line, shell scripting, system administration' },
-                { name: 'Git/GitHub', level: 'Advanced', experience: '3+ years', projects: 'All projects', description: 'Version control, collaboration, CI/CD workflows' },
+                { name: 'Linux', level: 'Intermediate', experience: '4+ years', projects: 'Daily use', description: 'Command line, shell scripting, system administration' },
+                { name: 'Git/GitHub', level: 'Advanced', experience: '5+ years', projects: 'All projects', description: 'Version control, collaboration, CI/CD workflows' },
                 { name: 'Systems Programming', level: 'Intermediate', experience: '2+ years', projects: 2, description: 'Shell implementation, low-level programming' }
-            ]
-        },
-        {
-            category: 'Tools & Frameworks',
-            description: 'Development tools and specialized frameworks',
-            skills: [
-                { name: 'XGBoost', level: 'Beginner', experience: '6 months', projects: 1, description: 'Gradient boosting, ensemble methods' },
-                { name: 'Random Forest', level: 'Beginner', experience: '6 months', projects: 1, description: 'Classification, feature importance analysis' },
-                { name: 'TrueSkill', level: 'Beginner', experience: '3 months', projects: 1, description: 'Player ranking algorithms, tournament systems' },
-                { name: 'Netlify', level: 'Intermediate', experience: '1+ year', projects: 1, description: 'Static site deployment, continuous deployment' }
             ]
         }
     ];
