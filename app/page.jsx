@@ -54,11 +54,11 @@ const quickLinks = [
         count: 'Latest posts'
     },
     {
-        title: 'About',
-        description: 'Learn about my background, skills, and professional journey.',
-        href: '/about',
-        icon: '👨‍💻',
-        count: 'My story'
+        title: 'Skills',
+        description: 'Learn about my technical expertise and tools I use.',
+        href: '/skills',
+        icon: '🛠️',
+        count: 'Core competencies'
     },
     {
         title: 'Contact',
@@ -120,7 +120,7 @@ export default function Page() {
                             <Link href="/projects" className="btn btn-lg px-8 py-3 bg-accent hover:bg-accent-focus text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
                                 View My Projects
                             </Link>
-                            <Link href="/about" className="btn btn-lg px-8 py-3 bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-white font-semibold rounded-xl transition-all duration-300">
+                            <Link href="/resume" className="btn btn-lg px-8 py-3 bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-white font-semibold rounded-xl transition-all duration-300">
                                 Learn About Me
                             </Link>
                         </div>
@@ -254,7 +254,7 @@ export default function Page() {
                 <div className="max-w-4xl mx-auto">
                     <Markdown content={introExplainer} />
                     <div className="mt-8 text-center">
-                        <Link href="/about" className="inline-flex items-center gap-2 text-accent hover:text-accent-focus font-semibold transition-colors">
+                        <Link href="/resume" className="inline-flex items-center gap-2 text-accent hover:text-accent-focus font-semibold transition-colors">
                             Read more about my journey
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
