@@ -129,7 +129,7 @@ const projects = [
         description: 'CV project analyzing document layouts using deep learning and OCR.',
         languages: ['Python', 'OpenCV', 'Deep Learning', 'PyTorch'],
         mainLang: 'Python',
-        githubUrl: 'https://github.com/pontormo/document-layout-analysis',
+        githubUrl: 'https://github.com/Evowind/DocumentLayoutAnalysis',
         updated: 'May 26, 2025',
         status: 'Completed',
         category: 'Computer Vision',
@@ -144,7 +144,7 @@ const projects = [
         description: 'Tournament system with Docker, Kubernetes, and microservices architecture.',
         languages: ['Docker', 'Kubernetes', 'JavaScript', 'Backend', 'Microservices'],
         mainLang: 'JavaScript',
-        githubUrl: 'https://github.com/Kemoory/Prog_Distrib_Project',
+        githubUrl: 'https://github.com/Evowind/ProgDistribProject',
         updated: 'May 30, 2025',
         status: 'Completed',
         category: 'DevOps',
@@ -159,7 +159,7 @@ const projects = [
         description: 'Web app tracking Mario Kart tournaments using TrueSkill ratings.',
         languages: ['HTML', 'CSS', 'JavaScript', 'Flask', 'PostgreSQL', 'Python'],
         mainLang: 'JavaScript',
-        githubUrl: 'https://github.com/Kemoory/mk_reset_online',
+        githubUrl: 'https://github.com/Evowind/MarioKartResetOnline',
         updated: 'May 10, 2025',
         status: 'Completed',
         category: 'Web Development',
@@ -174,7 +174,7 @@ const projects = [
         description: 'CV project detecting and counting stair steps using ML models.',
         languages: ['Python', 'OpenCV', 'Machine Learning', 'Scikit-learn', 'XGBoost'],
         mainLang: 'Python',
-        githubUrl: 'https://github.com/Kemoory/Stairway-to-Data',
+        githubUrl: 'https://github.com/Evowind/StairwayToData',
         updated: 'Mar 30, 2025',
         status: 'Completed',
         category: 'Computer Vision',
@@ -231,7 +231,6 @@ const projects = [
 
 const categories = ['All', 'Computer Vision', 'Machine Learning', 'Web Development', 'Systems Programming', 'DevOps', 'AI/Logic'];
 const statusOptions = ['All', 'Completed', 'In Progress', 'Active'];
-const complexityLevels = ['All', 'Beginner', 'Intermediate', 'Advanced'];
 
 // Enhanced grouping function
 const groupProjects = (projects, groupBy) => {
