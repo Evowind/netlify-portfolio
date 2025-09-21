@@ -8,15 +8,20 @@ export default function ResumePage() {
     const experiences = [
         {
             title: 'React Native Web & Mobile Developer',
-            company: 'ondrh',
+            company: 'Ondrh/Artem5',
             period: 'May 2024 — Jun 2024',
             location: 'Paris, France',
             type: 'Work',
             description: 'Developed mobile and web applications using React Native & TypeScript.',
             achievements: [
-                'Implemented responsive UI components for both mobile and web',
-                'Integrated APIs for data-driven features',
-                'Collaborated in a fast-paced team environment'
+                'Developed and maintained "Socializus" social event app for expatriates using React Native & TypeScript',
+                'Implemented LoginRegister, CreateProfile, and EditProfile sections with data validation and error handling',
+                'Created image cropping system for profile photos and developed SMS verification system',
+                'Migrated JavaScript codebase to TypeScript and configured Webpack for improved project robustness',
+                'Developed reusable components with multilingual support (36 languages)',
+                'Actively participated in Daily Scrum Meetings and maintained detailed Git documentation',
+                'Architecture: React Native Web/Mobile Frontend, Node.js Backend, MongoDB, Geolocation API integration',
+                'Tech stack: React Native CLI, Redux, AsyncStorage, Babel, Webpack, Figma, Git'
             ]
         },
         {
@@ -60,9 +65,9 @@ export default function ResumePage() {
     ];
 
     const skills = {
-        'Programming Languages': ['Java', 'OCaml', 'C', 'PHP', 'TypeScript', 'JavaScript'],
+        'Programming Languages': ['Java', 'Python', 'C', 'PHP', 'TypeScript', 'JavaScript'],
         'Web & Mobile Development': ['React Native', 'Laravel', 'HTML', 'Bootstrap', 'MySQL', 'SQLite'],
-        'Systems & Tools': ['Linux', 'Concurrent Programming (Java)', 'Git'],
+        'Systems & Tools': ['Linux','Windows', 'GitLab', 'Figma', 'Docker', 'Git'],
         'Core Competencies': ['Algorithm Analysis', 'Pattern Recognition']
     };
 
