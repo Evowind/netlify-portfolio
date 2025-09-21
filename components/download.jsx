@@ -2,7 +2,7 @@
 
 export function Download() {
     const handleDownload = () => {
-        const Link = "https://drive.google.com/file/d/1ao8HP0CpuCTKjV3VYGfJiKkhLZ2AgBMV/view?usp=sharing";
+        const Link = "https://docs.google.com/document/d/1dQHVUnKcoxcptqzMPPZSS6Xuvhv0Tz2K/edit?usp=sharing&ouid=106473387452779693940&rtpof=true&sd=true";
         
         const downloadLink = Link; 
         
