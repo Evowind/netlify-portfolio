@@ -30,7 +30,7 @@ export default function Page() {
                     You can also reach out to me directly via email for immediate communication.
                 </p>
                 <a 
-                    href="mailto:tadlysamy@email.com" 
+                    href="mailto:tadlysamy@gmail.com" 
                     className="btn bg-accent hover:bg-accent-focus text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
                 >
                     Send Email Directly
