@@ -1,8 +1,6 @@
 "use client";
-
 import React, { useState, useMemo } from 'react';
-import Tilt from 'react-parallax-tilt';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const projects = [
   {
@@ -33,7 +31,7 @@ const projects = [
   },
 	{
         title: 'DockerEye 007 (Work in Progress)',
-        image: '/images/dockereye.jpg',
+        image: '/images/wip.jpg',
         description: 'JavaScript tool for monitoring and managing Docker containers.',
         languages: ['JavaScript', 'Docker', 'DevOps'],
         mainLang: 'JavaScript',
@@ -253,60 +251,154 @@ const projects = [
     }
 ];
 
-
-const categories = ['All', 'Computer Vision', 'Machine Learning', 'Web Development', 'Systems Programming', 'DevOps', 'AI/Logic'];
+const categories = ['All', 'Computer Vision', 'Machine Learning', 'Web Development', 'Systems Programming', 'DevOps', 'AI/Logic', 'Game Development'];
 const statusOptions = ['All', 'Completed', 'In Progress', 'Active'];
+const complexityOptions = ['All', 'Beginner', 'Intermediate', 'Advanced'];
 
-// Enhanced grouping function
-const groupProjects = (projects, groupBy) => {
-    if (groupBy === 'category') {
-        const groups = {};
-        projects.forEach((proj) => {
-            const key = proj.category || 'Other';
-            if (!groups[key]) groups[key] = [];
-            groups[key].push(proj);
-        });
-        return groups;
-    } else {
-        const groups = {};
-        projects.forEach((proj) => {
-            if (!groups[proj.mainLang]) groups[proj.mainLang] = [];
-            groups[proj.mainLang].push(proj);
-        });
-        return groups;
-    }
-};
-
-// Status color mapping
 const getStatusColor = (status) => {
     switch (status) {
-        case 'Completed': return 'bg-green-500/20 text-green-300';
-        case 'In Progress': return 'bg-blue-500/20 text-blue-300';
-        case 'Active': return 'bg-purple-500/20 text-purple-300';
-        default: return 'bg-gray-500/20 text-gray-300';
+        case 'Completed': return 'bg-green-500/20 text-green-300 border border-green-500/30';
+        case 'In Progress': return 'bg-blue-500/20 text-blue-300 border border-blue-500/30';
+        case 'Active': return 'bg-purple-500/20 text-purple-300 border border-purple-500/30';
+        default: return 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
     }
 };
 
-// Complexity color mapping
 const getComplexityColor = (complexity) => {
     switch (complexity) {
-        case 'Beginner': return 'bg-green-500/20 text-green-300';
-        case 'Intermediate': return 'bg-yellow-500/20 text-yellow-300';
-        case 'Advanced': return 'bg-red-500/20 text-red-300';
-        default: return 'bg-gray-500/20 text-gray-300';
+        case 'Beginner': return 'bg-green-500/20 text-green-300 border border-green-500/30';
+        case 'Intermediate': return 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30';
+        case 'Advanced': return 'bg-red-500/20 text-red-300 border border-red-500/30';
+        default: return 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
     }
 };
 
-export default function EnhancedProjectList() {
+const ProjectCard = ({ project, isExpanded, onToggle }) => {
+  return (
+    <motion.div
+      layout
+      className="card p-0 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300"
+      onClick={onToggle}
+    >
+      {/* Image + Title (Collapsed view) */}
+      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#181c2a] to-[#232946] group">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          onError={(e) => {
+            e.target.src = `https://via.placeholder.com/400x192/232946/7f5af0?text=${encodeURIComponent(project.title)}`;
+          }}
+        />
+        
+        {/* Overlay with title */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-4">
+          <h3 className="text-lg font-semibold text-white line-clamp-2">
+            {project.title}
+          </h3>
+        </div>
+
+        {/* Category - Top Right */}
+        <div className="absolute top-3 right-3 bg-accent text-[#232946] px-3 py-1 rounded-full text-xs font-semibold">
+          {project.category}
+        </div>
+
+        {/* Expand indicator */}
+        <div className="absolute top-3 left-3 text-accent text-xl opacity-0 group-hover:opacity-100 transition-opacity">
+          {isExpanded ? '▼' : '▶'}
+        </div>
+      </div>
+
+      {/* Expanded Content */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-5 space-y-4 bg-[#232946] border-t border-accent/20">
+              
+              {/* Status & Collaborative Info */}
+              <div className="flex flex-wrap gap-2">
+                <div className={`inline-block px-2 py-1 rounded text-xs font-medium ${getStatusColor(project.status)}`}>
+                  {project.status}
+                </div>
+                {project.collaborative && (
+                  <div className="bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-1 rounded text-xs font-medium">
+                    Collaborative with @{project.collaborator}
+                  </div>
+                )}
+              </div>
+
+              {/* Features */}
+              {project.features && (
+                <div>
+                  <p className="text-xs text-accent font-semibold mb-2">Features:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.features.map((feat, idx) => (
+                      <span key={idx} className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
+                        {feat}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Collaborator */}
+              {project.collaborative && (
+                <p className="text-xs text-accent-focus">
+                  <span className="font-semibold">Collaborators:</span> @{project.collaborator}
+                </p>
+              )}
+
+              {/* Tech Stack */}
+              <div>
+                <p className="text-xs text-accent font-semibold mb-2">Tech Stack:</p>
+                <div className="flex flex-wrap gap-1">
+                  {project.languages.map((lang) => (
+                    <span key={lang} className="tag text-xs">
+                      {lang}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer with link and date */}
+              <div className="flex items-center justify-between pt-3 border-t border-accent/10 text-xs text-primary-content/70">
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1 px-3 py-2 bg-accent/10 hover:bg-accent/20 border border-accent/20 hover:border-accent/40 rounded text-accent hover:text-accent-focus transition-all"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  View on GitHub
+                </a>
+                <span>Updated {project.updated}</span>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
+export default function ProjectsRedesigned() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [selectedComplexity, setSelectedComplexity] = useState('All');
-  const [groupBy, setGroupBy] = useState('category');
   const [sortBy, setSortBy] = useState('updated');
-  const [viewMode, setViewMode] = useState('cards');
+  const [expandedProject, setExpandedProject] = useState(null);
 
-  // Filter & Sort
   const filteredAndSortedProjects = useMemo(() => {
     let filtered = projects.filter(project => {
       const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -334,165 +426,13 @@ export default function EnhancedProjectList() {
     return filtered;
   }, [searchTerm, selectedCategory, selectedStatus, selectedComplexity, sortBy]);
 
-  const groupedProjects = groupProjects(filteredAndSortedProjects, groupBy);
-  const groupKeys = Object.keys(groupedProjects);
-  const [openFolders, setOpenFolders] = useState(Object.fromEntries(groupKeys.map(k => [k, true])));
-
-  const toggleFolder = (key) => setOpenFolders(prev => ({ ...prev, [key]: !prev[key] }));
-
-    // Subtle tilt settings for better UX
-    const tiltOptions = {
-        glareEnable: true,
-        glareMaxOpacity: 0.1,
-        scale: 1.02,
-        tiltMaxAngleX: 3,
-        tiltMaxAngleY: 3,
-        transitionSpeed: 300,
-        gyroscope: false // Disable on mobile for better performance
-    };
-
-const ProjectCard = ({ project }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.3 }}
-  >
-    <Tilt {...tiltOptions} className="card bg-[#1b1f33] rounded-xl shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-2xl">
-      <div className="flex flex-col md:flex-row h-auto md:h-[300px]">
-        {/* Image */}
-        <div className="w-full md:w-1/3 h-[180px] md:h-full overflow-hidden relative">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
-            onError={(e) => {
-              e.target.src = `https://via.placeholder.com/300x180/232946/eebbc3?text=${encodeURIComponent(project.title)}`;
-            }}
-          />
-          {project.collaborative && (
-            <div className="absolute top-3 left-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-md text-xs font-semibold shadow-md">
-              Collaborative
-            </div>
-          )}
-        </div>
-
-        {/* Content */}
-        <div className="w-full md:w-2/3 p-5 flex flex-col justify-between">
-          <div className="flex-1">
-            <div className="flex flex-wrap justify-between mb-3 gap-2">
-              <h3 className="text-lg md:text-xl font-semibold text-accent transition-colors hover:text-accent-focus">
-                {project.title}
-              </h3>
-              <div className="flex flex-col items-end gap-1">
-                <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(project.status)}`}>
-                  {project.status}
-                </span>
-                <span className={`text-xs px-2 py-1 rounded-full ${getComplexityColor(project.complexity)}`}>
-                  {project.complexity}
-                </span>
-              </div>
-            </div>
-
-            <p className="text-sm md:text-base text-primary-content mb-3 line-clamp-3">
-              {project.description}
-            </p>
-
-            {/* Key Features */}
-            {project.features && (
-              <div className="mb-3 flex flex-wrap gap-2">
-                {project.features.slice(0, 3).map((feat, idx) => (
-                  <span key={idx} className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
-                    {feat}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {/* Collaboration */}
-            {project.collaborative && (
-              <p className="text-xs text-accent-focus mb-2">
-                With: <span className="font-semibold">@{project.collaborator}</span>
-              </p>
-            )}
-          </div>
-
-          {/* Footer */}
-                    <div className="flex flex-col gap-3 mt-auto">
-                        {/* Tech stack */}
-                        <div className="flex flex-wrap gap-1">
-                            {project.languages.map((lang) => (
-                                <span key={lang} className="tag text-xs">
-                                    {lang}
-                                </span>
-                            ))}
-                        </div>
-
-                        {/* Action buttons and date */}
-                        <div className="flex items-center justify-between gap-3">
-                            <div className="flex items-center gap-2">
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-3 py-2 bg-accent/10 hover:bg-accent/20 border border-accent/20 hover:border-accent/40 rounded-lg text-accent hover:text-accent-focus transition-all duration-200 text-sm font-medium"
-              >
-                                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                    </svg>
-                GitHub
-              </a>
-                            </div>
-                            <div className="flex flex-col items-end">
-              <span className="text-xs text-gray-400">
-                                    Updated
-                                </span>
-                                <span className="text-xs font-medium text-primary-content">
-                                    {project.updated}
-              </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </Tilt>
-    </motion.div>
-);
-
-const ProjectGroup = ({ groupKey, projects, isOpen, onToggle }) => (
-  <div className="bg-[#232946] rounded-xl shadow-lg overflow-hidden">
-    <button
-      onClick={onToggle}
-      className="w-full flex items-center justify-between px-6 py-4 text-lg font-semibold text-primary-content hover:bg-[#181c2a] transition-colors focus:outline-none"
-    >
-      <span>{groupKey} ({projects.length})</span>
-      <span className="text-accent text-xl">{isOpen ? '▼' : '▶'}</span>
-    </button>
-    <motion.div
-      initial={false}
-      animate={{
-        height: isOpen ? 'auto' : 0,
-        opacity: isOpen ? 1 : 0
-      }}
-      transition={{
-        duration: 0.3,
-        ease: 'easeInOut'
-      }}
-      className="overflow-hidden"
-    >
-      <div className="px-6 pb-6 pt-2 space-y-6">
-        {projects.map(project => <ProjectCard key={project.title} project={project} />)}
-      </div>
-    </motion.div>
-  </div>
-);
-
   return (
     <div className="p-6">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-accent mb-2">My Projects</h1>
         <p className="text-primary-content text-sm md:text-base">
-          Explore my work in computer vision, AI, web development, and more. {filteredAndSortedProjects.length} projects found.
+          Click on any project to see details. {filteredAndSortedProjects.length} projects found.
         </p>
       </div>
 
@@ -503,56 +443,61 @@ const ProjectGroup = ({ groupKey, projects, isOpen, onToggle }) => (
           placeholder="Search projects, technologies..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full max-w-md px-4 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content focus:outline-none focus:border-accent"
+          className="w-full px-4 py-3 bg-[#232946] border border-accent/20 rounded-lg text-primary-content focus:outline-none focus:border-accent transition"
         />
-        <div className="flex flex-wrap gap-4">
-          <select value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)} className="px-3 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm">
+        
+        <div className="flex flex-wrap gap-3">
+          <select value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)} className="px-4 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm focus:outline-none focus:border-accent transition">
             {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
           </select>
-          <select value={selectedStatus} onChange={e => setSelectedStatus(e.target.value)} className="px-3 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm">
+          
+          <select value={selectedStatus} onChange={e => setSelectedStatus(e.target.value)} className="px-4 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm focus:outline-none focus:border-accent transition">
             {statusOptions.map(status => <option key={status} value={status}>{status}</option>)}
           </select>
-          <select value={groupBy} onChange={e => setGroupBy(e.target.value)} className="px-3 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm">
-            <option value="category">Group by Category</option>
-            <option value="language">Group by Language</option>
+
+          <select value={selectedComplexity} onChange={e => setSelectedComplexity(e.target.value)} className="px-4 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm focus:outline-none focus:border-accent transition">
+            {complexityOptions.map(comp => <option key={comp} value={comp}>{comp}</option>)}
           </select>
-          <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="px-3 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm">
+          
+          <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="px-4 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm focus:outline-none focus:border-accent transition">
             <option value="updated">Sort by Date</option>
             <option value="title">Sort by Title</option>
             <option value="complexity">Sort by Complexity</option>
           </select>
+
+          <button
+            onClick={() => {
+              setSearchTerm('');
+              setSelectedCategory('All');
+              setSelectedStatus('All');
+              setSelectedComplexity('All');
+              setExpandedProject(null);
+            }}
+            className="px-4 py-2 bg-accent/10 hover:bg-accent/20 border border-accent/20 rounded-lg text-accent text-sm transition"
+          >
+            Reset
+          </button>
         </div>
       </div>
 
-      {/* Project Groups */}
-      <div className="space-y-6">
-        {groupKeys.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-primary-content text-lg">No projects match your filters.</p>
-            <button
-              onClick={() => {
-                setSearchTerm('');
-                setSelectedCategory('All');
-                setSelectedStatus('All');
-                setSelectedComplexity('All');
-              }}
-              className="mt-4 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent-focus transition-colors"
-            >
-              Clear Filters
-            </button>
-          </div>
-        ) : (
-          groupKeys.map(groupKey => (
-            <ProjectGroup
-              key={groupKey}
-              groupKey={groupKey}
-              projects={groupedProjects[groupKey]}
-              isOpen={openFolders[groupKey]}
-              onToggle={() => toggleFolder(groupKey)}
-            />
-          ))
-        )}
-      </div>
+      {/* Projects Grid */}
+      {filteredAndSortedProjects.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-primary-content text-lg">No projects match your filters.</p>
+        </div>
+      ) : (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {filteredAndSortedProjects.map((project, idx) => (
+            <motion.div key={project.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: idx * 0.05 }}>
+              <ProjectCard 
+                project={project} 
+                isExpanded={expandedProject === project.title}
+                onToggle={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
+              />
+            </motion.div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
