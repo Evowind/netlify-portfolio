@@ -1,6 +1,8 @@
 "use client";
+
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Grid3x3, List } from 'lucide-react';
 
 const projects = [
   {
@@ -251,145 +253,234 @@ const projects = [
     }
 ];
 
-const categories = ['All', 'Computer Vision', 'Machine Learning', 'Web Development', 'Systems Programming', 'DevOps', 'AI/Logic', 'Game Development'];
+const categories = ['All', 'Computer Vision', 'Machine Learning', 'Web Development', 'Systems Programming', 'DevOps', 'AI/Logic'];
 const statusOptions = ['All', 'Completed', 'In Progress', 'Active'];
 const complexityOptions = ['All', 'Beginner', 'Intermediate', 'Advanced'];
 
 const getStatusColor = (status) => {
-    switch (status) {
-        case 'Completed': return 'bg-green-500/20 text-green-300 border border-green-500/30';
-        case 'In Progress': return 'bg-blue-500/20 text-blue-300 border border-blue-500/30';
-        case 'Active': return 'bg-purple-500/20 text-purple-300 border border-purple-500/30';
-        default: return 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
-    }
+  switch (status) {
+    case 'Completed': return 'bg-green-500/20 text-green-300 border border-green-500/30';
+    case 'In Progress': return 'bg-blue-500/20 text-blue-300 border border-blue-500/30';
+    case 'Active': return 'bg-purple-500/20 text-purple-300 border border-purple-500/30';
+    default: return 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
+  }
 };
 
 const getComplexityColor = (complexity) => {
-    switch (complexity) {
-        case 'Beginner': return 'bg-green-500/20 text-green-300 border border-green-500/30';
-        case 'Intermediate': return 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30';
-        case 'Advanced': return 'bg-red-500/20 text-red-300 border border-red-500/30';
-        default: return 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
-    }
+  switch (complexity) {
+    case 'Beginner': return 'bg-green-500/20 text-green-300 border border-green-500/30';
+    case 'Intermediate': return 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30';
+    case 'Advanced': return 'bg-red-500/20 text-red-300 border border-red-500/30';
+    default: return 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
+  }
 };
 
-const ProjectCard = ({ project, isExpanded, onToggle }) => {
-  return (
-    <motion.div
-      layout
-      className="card p-0 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300"
-      onClick={onToggle}
-    >
-      {/* Image + Title (Collapsed view) */}
-      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#181c2a] to-[#232946] group">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          onError={(e) => {
-            e.target.src = `https://via.placeholder.com/400x192/232946/7f5af0?text=${encodeURIComponent(project.title)}`;
-          }}
-        />
-        
-        {/* Overlay with title */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-4">
-          <h3 className="text-lg font-semibold text-white line-clamp-2">
-            {project.title}
-          </h3>
-        </div>
-
-        {/* Category - Top Right */}
-        <div className="absolute top-3 right-3 bg-accent text-[#232946] px-3 py-1 rounded-full text-xs font-semibold">
-          {project.category}
-        </div>
-
-        {/* Expand indicator */}
-        <div className="absolute top-3 left-3 text-accent text-xl opacity-0 group-hover:opacity-100 transition-opacity">
-          {isExpanded ? '▼' : '▶'}
-        </div>
+const GridProjectCard = ({ project, isExpanded, onToggle }) => (
+  <motion.div
+    layout
+    className="card p-0 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300"
+    onClick={onToggle}
+  >
+    {/* Image + Title (Collapsed view) */}
+    <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#181c2a] to-[#232946] group">
+      <img
+        src={project.image}
+        alt={project.title}
+        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        onError={(e) => {
+          e.target.src = `https://via.placeholder.com/400x192/232946/7f5af0?text=${encodeURIComponent(project.title)}`;
+        }}
+      />
+      
+      {/* Overlay with title */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-4">
+        <h3 className="text-lg font-semibold text-white line-clamp-2">
+          {project.title}
+        </h3>
       </div>
 
-      {/* Expanded Content */}
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="p-5 space-y-4 bg-[#232946] border-t border-accent/20">
-              
-              {/* Status & Collaborative Info */}
-              <div className="flex flex-wrap gap-2">
-                <div className={`inline-block px-2 py-1 rounded text-xs font-medium ${getStatusColor(project.status)}`}>
-                  {project.status}
-                </div>
-                {project.collaborative && (
-                  <div className="bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-1 rounded text-xs font-medium">
-                    Collaborative with @{project.collaborator}
-                  </div>
-                )}
+      {/* Category - Top Right */}
+      <div className="absolute top-3 right-3 bg-accent text-[#232946] px-3 py-1 rounded-full text-xs font-semibold">
+        {project.category}
+      </div>
+
+      {/* Expand indicator */}
+      <div className="absolute top-3 left-3 text-accent text-xl opacity-0 group-hover:opacity-100 transition-opacity">
+        {isExpanded ? '▼' : '▶'}
+      </div>
+    </div>
+
+    {/* Expanded Content */}
+    <AnimatePresence>
+      {isExpanded && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.3 }}
+          className="overflow-hidden"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="p-5 space-y-4 bg-[#232946] border-t border-accent/20">
+            
+            {/* Status & Collaborative Info */}
+            <div className="flex flex-wrap gap-2">
+              <div className={`inline-block px-2 py-1 rounded text-xs font-medium ${getStatusColor(project.status)}`}>
+                {project.status}
               </div>
-
-              {/* Features */}
-              {project.features && (
-                <div>
-                  <p className="text-xs text-accent font-semibold mb-2">Features:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.features.map((feat, idx) => (
-                      <span key={idx} className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
-                        {feat}
-                      </span>
-                    ))}
-                  </div>
+              {project.collaborative && (
+                <div className="bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-1 rounded text-xs font-medium">
+                  Collaborative with @{project.collaborator}
                 </div>
               )}
+            </div>
 
-              {/* Collaborator */}
-              {project.collaborative && (
-                <p className="text-xs text-accent-focus">
-                  <span className="font-semibold">Collaborators:</span> @{project.collaborator}
-                </p>
-              )}
 
-              {/* Tech Stack */}
+
+            {/* Description */}
+            <p className="text-sm text-primary-content leading-relaxed">
+              {project.description}
+            </p>
+
+            {/* Complexity */}
+            <div>
+              <div className={`inline-block px-2 py-1 rounded text-xs font-medium ${getComplexityColor(project.complexity)}`}>
+                Complexity: {project.complexity}
+              </div>
+            </div>
+
+            {/* Tech Stack */}
+            <div>
+              <p className="text-xs text-accent font-semibold mb-2">Tech Stack:</p>
+              <div className="flex flex-wrap gap-1">
+                {project.languages.map((lang) => (
+                  <span key={lang} className="tag text-xs">
+                    {lang}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Footer with link and date */}
+            <div className="flex items-center justify-between pt-3 border-t border-accent/10 text-xs text-primary-content/70">
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1 px-3 py-2 bg-accent/10 hover:bg-accent/20 border border-accent/20 hover:border-accent/40 rounded text-accent hover:text-accent-focus transition-all"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View on GitHub
+              </a>
+              <span>Updated {project.updated}</span>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </motion.div>
+);
+
+const ListProjectCard = ({ project, isExpanded, onToggle }) => (
+  <motion.div
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: -20 }}
+    transition={{ duration: 0.3 }}
+    className="bg-[#232946] rounded-lg p-4 border border-accent/10 hover:border-accent/30 transition-colors cursor-pointer"
+    onClick={onToggle}
+  >
+    <div className="flex items-start gap-4">
+      <img
+        src={project.image}
+        alt={project.title}
+        className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
+        onError={(e) => {
+          e.target.src = `https://via.placeholder.com/96x96/232946/7f5af0?text=${encodeURIComponent(project.title)}`;
+        }}
+      />
+      <div className="flex-1 min-w-0">
+        <div className="flex items-start justify-between gap-4 mb-2">
+          <h3 className="text-lg font-semibold text-accent hover:text-accent-focus transition-colors">
+            {project.title}
+          </h3>
+          <div className="flex gap-2 flex-shrink-0">
+            <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(project.status)}`}>
+              {project.status}
+            </span>
+            <span className={`text-xs px-2 py-1 rounded-full ${getComplexityColor(project.complexity)}`}>
+              {project.complexity}
+            </span>
+          </div>
+        </div>
+        <p className="text-sm text-primary-content/80 line-clamp-2 mb-3">
+          {project.description}
+        </p>
+        <div className="flex flex-wrap gap-1">
+          {project.languages.map((lang) => (
+            <span key={lang} className="tag text-xs">
+              {lang}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="text-accent text-xl flex-shrink-0">
+        {isExpanded ? '▼' : '▶'}
+      </div>
+    </div>
+
+    <AnimatePresence>
+      {isExpanded && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.3 }}
+          className="overflow-hidden border-t border-accent/10 mt-4 pt-4"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="space-y-3">
+            {project.features && (
               <div>
-                <p className="text-xs text-accent font-semibold mb-2">Tech Stack:</p>
-                <div className="flex flex-wrap gap-1">
-                  {project.languages.map((lang) => (
-                    <span key={lang} className="tag text-xs">
-                      {lang}
+                <p className="text-xs text-accent font-semibold mb-2">Features:</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.features.map((feat, idx) => (
+                    <span key={idx} className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
+                      {feat}
                     </span>
                   ))}
                 </div>
               </div>
-
-              {/* Footer with link and date */}
-              <div className="flex items-center justify-between pt-3 border-t border-accent/10 text-xs text-primary-content/70">
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1 px-3 py-2 bg-accent/10 hover:bg-accent/20 border border-accent/20 hover:border-accent/40 rounded text-accent hover:text-accent-focus transition-all"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                  View on GitHub
-                </a>
-                <span>Updated {project.updated}</span>
-              </div>
+            )}
+            {project.collaborative && (
+              <p className="text-xs text-accent-focus">
+                Collaborative with @{project.collaborator}
+              </p>
+            )}
+            <div className="flex items-center justify-between pt-3 border-t border-accent/10 text-xs text-primary-content/70">
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1 px-3 py-2 bg-accent/10 hover:bg-accent/20 border border-accent/20 rounded text-accent transition-all"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+              </a>
+              <span>Updated {project.updated}</span>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
-};
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </motion.div>
+);
 
 export default function ProjectsRedesigned() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -398,6 +489,7 @@ export default function ProjectsRedesigned() {
   const [selectedComplexity, setSelectedComplexity] = useState('All');
   const [sortBy, setSortBy] = useState('updated');
   const [expandedProject, setExpandedProject] = useState(null);
+  const [viewMode, setViewMode] = useState('grid');
 
   const filteredAndSortedProjects = useMemo(() => {
     let filtered = projects.filter(project => {
@@ -432,7 +524,7 @@ export default function ProjectsRedesigned() {
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-accent mb-2">My Projects</h1>
         <p className="text-primary-content text-sm md:text-base">
-          Click on any project to see details. {filteredAndSortedProjects.length} projects found.
+          {filteredAndSortedProjects.length} {filteredAndSortedProjects.length === 1 ? 'project' : 'projects'} found
         </p>
       </div>
 
@@ -465,6 +557,23 @@ export default function ProjectsRedesigned() {
             <option value="complexity">Sort by Complexity</option>
           </select>
 
+          <div className="flex gap-2 ml-auto">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-accent text-[#232946]' : 'bg-accent/10 text-accent hover:bg-accent/20'}`}
+              title="Grid view"
+            >
+              <Grid3x3 size={20} />
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-accent text-[#232946]' : 'bg-accent/10 text-accent hover:bg-accent/20'}`}
+              title="List view"
+            >
+              <List size={20} />
+            </button>
+          </div>
+
           <button
             onClick={() => {
               setSearchTerm('');
@@ -480,23 +589,39 @@ export default function ProjectsRedesigned() {
         </div>
       </div>
 
-      {/* Projects Grid */}
+      {/* Projects */}
       {filteredAndSortedProjects.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-primary-content text-lg">No projects match your filters.</p>
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredAndSortedProjects.map((project, idx) => (
-            <motion.div key={project.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: idx * 0.05 }}>
-              <ProjectCard 
-                project={project} 
-                isExpanded={expandedProject === project.title}
-                onToggle={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
-              />
-            </motion.div>
-          ))}
-        </div>
+        <AnimatePresence mode="wait">
+          {viewMode === 'grid' ? (
+            <div key="grid" className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {filteredAndSortedProjects.map((project, idx) => (
+                <motion.div key={project.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: idx * 0.05 }}>
+                  <GridProjectCard 
+                    project={project} 
+                    isExpanded={expandedProject === project.title}
+                    onToggle={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div key="list" className="space-y-4">
+              {filteredAndSortedProjects.map((project, idx) => (
+                <motion.div key={project.title} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: idx * 0.05 }}>
+                  <ListProjectCard 
+                    project={project} 
+                    isExpanded={expandedProject === project.title}
+                    onToggle={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </AnimatePresence>
       )}
     </div>
   );
