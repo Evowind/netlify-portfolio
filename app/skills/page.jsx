@@ -1,181 +1,240 @@
-import React from 'react';
+'use client';
 
-export const metadata = {
-    title: 'Skills & Technologies',
-};
+import { useApp } from '../../lib/context';
+import { t, getLang } from '../../lib/translations';
+
+const categories = [
+    {
+        label: 'Programming Languages',
+        desc: 'Core languages used across projects',
+        skills: [
+            { name: 'Python',     level: 87, xp: '3+ yrs', projects: 8,  tags: ['ML', 'CV', 'Scripting', 'Data'] },
+            { name: 'C / C++',    level: 82, xp: '5+ yrs', projects: 4,  tags: ['Systems', 'OpenCV', 'Performance'] },
+            { name: 'Java',       level: 78, xp: '5+ yrs', projects: 3,  tags: ['OOP', 'Algorithms', 'Game Dev'] },
+            { name: 'JavaScript / TypeScript', level: 72, xp: '2+ yrs', projects: 6, tags: ['React', 'Next.js', 'Node'] },
+            { name: 'PHP',        level: 68, xp: '4+ yrs', projects: 3,  tags: ['Laravel', 'Web', 'Backend'] },
+        ],
+    },
+    {
+        label: 'AI & Machine Learning',
+        desc: 'Applied ML, computer vision, and deep learning',
+        skills: [
+            { name: 'OpenCV',       level: 80, xp: '2+ yrs', projects: 5, tags: ['Image Processing', 'Detection', 'Real-time'] },
+            { name: 'Scikit-learn', level: 72, xp: '3+ yrs', projects: 4, tags: ['Classification', 'Regression', 'Clustering'] },
+            { name: 'PyTorch',      level: 62, xp: '1+ yr',  projects: 2, tags: ['Deep Learning', 'CNN', 'Model Training'] },
+            { name: 'Deep Learning',level: 62, xp: '1+ yr',  projects: 3, tags: ['Neural Nets', 'Feature Extraction'] },
+            { name: 'Logic Systems',level: 80, xp: '3+ yrs', projects: 1, tags: ['Argumentation', 'Reasoning', 'Algorithms'] },
+        ],
+    },
+    {
+        label: 'Web & Mobile Development',
+        desc: 'Frontend, backend, and mobile engineering',
+        skills: [
+            { name: 'React / Next.js', level: 60, xp: '1+ yr',  projects: 3, tags: ['SSR', 'Components', 'State'] },
+            { name: 'React Native',    level: 70, xp: '1+ yr',  projects: 1, tags: ['Mobile', 'TypeScript', 'Expo'] },
+            { name: 'Laravel',         level: 68, xp: '5+ yrs', projects: 2, tags: ['MVC', 'ORM', 'Auth'] },
+            { name: 'MySQL / PostgreSQL', level: 74, xp: '5+ yrs', projects: 6, tags: ['Schema Design', 'Queries', 'Optimization'] },
+            { name: 'Flask',           level: 60, xp: '1+ yr',  projects: 2, tags: ['Python', 'REST API'] },
+        ],
+    },
+    {
+        label: 'DevOps & Systems',
+        desc: 'Infrastructure, containerisation, and low-level programming',
+        skills: [
+            { name: 'Docker',              level: 65, xp: '2+ yrs', projects: 3, tags: ['Containers', 'Compose', 'CI/CD'] },
+            { name: 'Kubernetes',          level: 48, xp: '6 months', projects: 1, tags: ['Orchestration', 'Microservices'] },
+            { name: 'Linux',               level: 76, xp: '4+ yrs', projects: 0, tags: ['CLI', 'Shell', 'Admin'] },
+            { name: 'Git / GitHub',        level: 85, xp: '5+ yrs', projects: 15, tags: ['Version Control', 'Collaboration'] },
+            { name: 'Systems Programming', level: 72, xp: '2+ yrs', projects: 2, tags: ['Shell impl.', 'Low-level', 'C'] },
+        ],
+    },
+];
+
+const overallStats = [
+    { val: '20+', label: 'Technologies' },
+    { val: '15+', label: 'Projects built' },
+    { val: '5+',  label: 'Languages' },
+    { val: '3+',  label: 'Years coding' },
+];
+
+function levelLabel(level) {
+    if (level >= 80) return { text: 'Advanced', color: 'var(--color-accent)' };
+    if (level >= 60) return { text: 'Intermediate', color: 'var(--color-accent2)' };
+    return { text: 'Learning', color: 'var(--color-muted)' };
+}
 
 export default function SkillsPage() {
-    const skillCategories = [
-        {
-            category: 'Programming Languages',
-            description: 'Core programming languages with hands-on project experience',
-            skills: [
-                { name: 'Python', level: 'Advanced', experience: '3+ years', projects: 8, description: 'AI/ML, computer vision, web scraping, data analysis' },
-                { name: 'C/C++', level: 'Advanced', experience: '5+ years', projects: 4, description: 'Systems programming, performance-critical applications' },
-                { name: 'JavaScript', level: 'Intermediate', experience: '2+ years', projects: 6, description: 'Full-stack web development, React, Node.js' },
-                { name: 'Java', level: 'Advanced', experience: '5+ year', projects: 3, description: 'Object-oriented programming, game development' },
-                { name: 'PHP', level: 'Intermediate', experience: '4+ year', projects: 3, description: 'Laravel framework, web applications, database integration' }
-            ]
-        },
-        {
-            category: 'AI & Machine Learning',
-            description: 'Artificial intelligence and machine learning technologies',
-            skills: [
-                { name: 'OpenCV', level: 'Advanced', experience: '2+ years', projects: 5, description: 'Computer vision, image processing, real-time detection' },
-                { name: 'Scikit-learn', level: 'Intermediate', experience: '3+ year', projects: 4, description: 'Classification, regression, clustering algorithms' },
-                { name: 'PyTorch', level: 'Intermediate', experience: '1+ year', projects: 2, description: 'Deep learning, neural networks, model training' },
-                { name: 'Deep Learning', level: 'Intermediate', experience: '1+ year', projects: 3, description: 'CNNs, document analysis, feature extraction' },
-                { name: 'Logic Systems', level: 'Advanced', experience: '3+ year', projects: 1, description: 'Argumentation frameworks, logical reasoning' }
-            ]
-        },
-        {
-            category: 'Web Development',
-            description: 'Frontend and backend web development technologies',
-            skills: [
-                { name: 'React/Next.js', level: 'Beginner', experience: '1+ year', projects: 3, description: 'Component-based UI, server-side rendering, modern React' },
-                { name: 'Laravel', level: 'Intermediate', experience: '5+ year', projects: 2, description: 'MVC architecture, ORM, authentication systems' },
-                { name: 'MySQL/PostgreSQL', level: 'Intermediate', experience: '5+ years', projects: 6, description: 'Database design, complex queries, optimization' },
-                { name: 'HTML/CSS', level: 'Advanced', experience: '5+ years', projects: 8, description: 'Responsive design, modern CSS, accessibility' },
-                { name: 'Flask', level: 'Beginner', experience: '1+ year', projects: 2, description: 'Python web framework, API development' }
-            ]
-        },
-        {
-            category: 'DevOps & Systems',
-            description: 'Development operations and systems administration',
-            skills: [
-                { name: 'Docker', level: 'Intermediate', experience: '2+ year', projects: 3, description: 'Containerization, multi-stage builds, orchestration' },
-                { name: 'Kubernetes', level: 'Beginner', experience: '6 months', projects: 1, description: 'Container orchestration, microservices deployment' },
-                { name: 'Linux', level: 'Intermediate', experience: '4+ years', projects: 'Daily use', description: 'Command line, shell scripting, system administration' },
-                { name: 'Git/GitHub', level: 'Advanced', experience: '5+ years', projects: 'All projects', description: 'Version control, collaboration, CI/CD workflows' },
-                { name: 'Systems Programming', level: 'Intermediate', experience: '2+ years', projects: 2, description: 'Shell implementation, low-level programming' }
-            ]
-        }
-    ];
-
-    const getLevelColor = (level) => {
-        switch (level) {
-            case 'Advanced': return 'bg-green-500/20 text-green-300 border-green-500/30';
-            case 'Intermediate': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
-            case 'Beginner': return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
-            default: return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
-        }
-    };
-
-    const getProgressWidth = (level) => {
-        switch (level) {
-            case 'Advanced': return 'w-5/6';
-            case 'Intermediate': return 'w-2/3';
-            case 'Beginner': return 'w-1/3';
-            default: return 'w-1/4';
-        }
-    };
-
+    const { lang } = useApp();
+    const L = (entry) => getLang(entry, lang);
     return (
-        <div className="max-w-5xl mx-auto p-6">
-            {/* Header */}
-            <div className="mb-12">
-                <h1 className="mb-4 text-4xl font-bold text-accent">Skills & Technologies</h1>
-                <p className="text-lg text-primary-content leading-relaxed max-w-3xl">
-                    Comprehensive overview of my technical expertise, experience levels, and practical applications 
-                    across various programming languages, frameworks, and technologies.
+        <div style={{ position: 'relative', zIndex: 1 }}>
+
+            {/* ── PAGE HEADER ── */}
+            <div style={{
+                maxWidth: 960, margin: '0 auto',
+                padding: 'clamp(56px, 8vw, 96px) 24px 64px',
+            }}>
+                <span className="label fade-in" style={{ marginBottom: 16 }}>Technical Profile</span>
+                <h1 className="fade-up delay-1" style={{ marginBottom: 16 }}>
+                    Skills &amp; <br /><span className="text-gradient">Technologies</span>
+                </h1>
+                <p className="fade-up delay-2" style={{
+                    fontFamily: 'var(--font-display)', fontStyle: 'italic',
+                    fontSize: '1.15rem', color: 'var(--color-muted)', maxWidth: 480,
+                }}>
+                    Hands-on experience across AI, computer vision, full-stack, and systems programming
                 </p>
             </div>
 
-            {/* Skills Overview Stats */}
-            <section className="mb-12 grid md:grid-cols-4 gap-4">
-                <div className="card p-4 text-center">
-                    <div className="text-2xl font-bold text-accent mb-1">15+</div>
-                    <div className="text-sm text-primary-content">Technologies</div>
+            {/* ── OVERALL STATS ── */}
+            <div style={{
+                background: 'var(--color-surface)',
+                borderTop: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
+            }}>
+                <div style={{
+                    maxWidth: 960, margin: '0 auto',
+                    display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+                }} className="stats-grid">
+                    {overallStats.map((s, i) => (
+                        <div key={i} style={{
+                            padding: '28px 24px', textAlign: 'center',
+                            borderRight: i < 3 ? '1px solid var(--color-border)' : 'none',
+                        }}>
+                            <div style={{
+                                fontFamily: 'var(--font-display)', fontSize: '1.8rem',
+                                fontWeight: 700, color: 'var(--color-accent)',
+                                lineHeight: 1, marginBottom: 8,
+                            }}>{s.val}</div>
+                            <div style={{
+                                fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                letterSpacing: '0.14em', textTransform: 'uppercase',
+                                color: 'var(--color-muted)',
+                            }}>{s.label}</div>
+                        </div>
+                    ))}
                 </div>
-                <div className="card p-4 text-center">
-                    <div className="text-2xl font-bold text-accent mb-1">5</div>
-                    <div className="text-sm text-primary-content">Programming Languages</div>
-                </div>
-                <div className="card p-4 text-center">
-                    <div className="text-2xl font-bold text-accent mb-1">15+</div>
-                    <div className="text-sm text-primary-content">Projects Completed</div>
-                </div>
-                <div className="card p-4 text-center">
-                    <div className="text-2xl font-bold text-accent mb-1">3+</div>
-                    <div className="text-sm text-primary-content">Years Experience</div>
-                </div>
-            </section>
+            </div>
 
-            {/* Skills Categories */}
-            {skillCategories.map((category, idx) => (
-                <section key={idx} className="mb-12">
-                    <div className="mb-6">
-                        <h2 className="text-3xl font-bold text-primary mb-2">{category.category}</h2>
-                        <p className="text-primary-content">{category.description}</p>
-                    </div>
-                    
-                    <div className="grid gap-6 lg:grid-cols-2">
-                        {category.skills.map((skill, skillIdx) => (
-                            <div key={skillIdx} className="card p-6 hover:shadow-xl transition-all duration-300">
-                                {/* Skill Header */}
-                                <div className="flex justify-between items-start mb-4">
-                                    <h3 className="text-xl font-semibold text-accent">{skill.name}</h3>
-                                    <span className={`text-xs px-3 py-1 rounded-full border ${getLevelColor(skill.level)}`}>
-                                        {skill.level}
-                                    </span>
-                                </div>
+            {/* ── SKILL CATEGORIES ── */}
+            {categories.map((cat, ci) => (
+                <div key={ci} style={{
+                    background: ci % 2 === 0 ? 'transparent' : 'var(--color-surface)',
+                    borderBottom: '1px solid var(--color-border)',
+                    padding: 'clamp(56px, 7vw, 88px) 24px',
+                }}>
+                    <div style={{ maxWidth: 960, margin: '0 auto' }}>
 
-                                {/* Progress Bar */}
-                                <div className="mb-4">
-                                    <div className="flex justify-between text-sm text-primary-content mb-2">
-                                        <span>Proficiency</span>
-                                        <span>{skill.level}</span>
-                                    </div>
-                                    <div className="w-full bg-gray-700 rounded-full h-2">
-                                        <div className={`bg-accent h-2 rounded-full transition-all duration-500 ${getProgressWidth(skill.level)}`}></div>
-                                    </div>
-                                </div>
-
-                                {/* Skill Details */}
-                                <div className="space-y-3">
-                                    <p className="text-sm text-primary-content leading-relaxed">
-                                        {skill.description}
-                                    </p>
-                                    
-                                    <div className="flex flex-col sm:flex-row sm:justify-between gap-2 text-sm">
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-accent font-medium">Experience:</span>
-                                            <span className="text-primary-content">{skill.experience}</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-accent font-medium">Projects:</span>
-                                            <span className="text-primary-content">{skill.projects}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                        {/* Section header */}
+                        <div style={{
+                            display: 'grid', gridTemplateColumns: '200px 1fr',
+                            gap: 48, marginBottom: 48,
+                        }} className="section-grid">
+                            <div>
+                                <span className="label" style={{ marginBottom: 8 }}>
+                                    {String(ci + 1).padStart(2, '0')}
+                                </span>
+                                <div style={{
+                                    fontFamily: 'var(--font-display)', fontSize: '1.2rem',
+                                    fontWeight: 700, color: 'var(--color-bright)', marginBottom: 8,
+                                }}>{cat.label}</div>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--color-muted)', lineHeight: 1.6 }}>
+                                    {cat.desc}
+                                </p>
                             </div>
-                        ))}
+
+                            {/* Skills grid */}
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 36 }}>
+                                {cat.skills.map((s, si) => {
+                                    const lvl = levelLabel(s.level);
+                                    return (
+                                        <div key={si} style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: 36 }}
+                                             className={`fade-up delay-${si + 1}`}>
+                                            {/* Top row */}
+                                            <div style={{
+                                                display: 'flex', justifyContent: 'space-between',
+                                                alignItems: 'baseline', marginBottom: 10, flexWrap: 'wrap', gap: 8,
+                                            }}>
+                                                <div style={{ display: 'flex', alignItems: 'baseline', gap: 14 }}>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-display)', fontSize: '1.1rem',
+                                                        fontWeight: 700, color: 'var(--color-bright)',
+                                                    }}>{s.name}</span>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                                        color: lvl.color, letterSpacing: '0.08em',
+                                                    }}>{lvl.text}</span>
+                                                </div>
+                                                <div style={{ display: 'flex', gap: 16, alignItems: 'baseline' }}>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                                        color: 'var(--color-muted)', letterSpacing: '0.06em',
+                                                    }}>{s.xp}</span>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                                        color: 'var(--color-muted)',
+                                                    }}>
+                                                        {s.projects > 0 ? `${s.projects} project${s.projects > 1 ? 's' : ''}` : 'Daily use'}
+                                                    </span>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
+                                                        color: 'var(--color-accent)', letterSpacing: '0.04em',
+                                                    }}>{s.level}%</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Bar */}
+                                            <div className="skill-bar-track" style={{ marginBottom: 14 }}>
+                                                <div className="skill-bar-fill" style={{ width: `${s.level}%` }} />
+                                            </div>
+
+                                            {/* Tags */}
+                                            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                                                {s.tags.map(t => (
+                                                    <span key={t} className="tag" style={{ fontSize: '0.6rem' }}>{t}</span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
-                </section>
+                </div>
             ))}
 
-            {/* Call to Action */}
-            <section className="text-center bg-gradient-to-r from-accent/5 to-accent/10 rounded-2xl p-8">
-                <h2 className="text-2xl font-bold text-primary mb-4">Want to See These Skills in Action?</h2>
-                <p className="text-primary-content mb-6 max-w-2xl mx-auto">
-                    Explore my portfolio to see how I apply these technologies to solve real-world problems 
-                    and build innovative solutions.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a 
-                        href="/projects" 
-                        className="btn bg-accent hover:bg-accent-focus text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
-                    >
-                        View My Projects
-                    </a>
-                    <a 
-                        href="/resume" 
-                        className="btn bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
-                    >
-                        Download Resume
-                    </a>
+            {/* ── CTA ── */}
+            <div style={{
+                background: 'var(--color-surface)',
+                borderTop: '1px solid var(--color-border)',
+                padding: 'clamp(56px, 7vw, 80px) 24px',
+            }}>
+                <div style={{
+                    maxWidth: 960, margin: '0 auto',
+                    display: 'flex', justifyContent: 'space-between',
+                    alignItems: 'center', flexWrap: 'wrap', gap: 32,
+                }}>
+                    <div>
+                        <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', marginBottom: 8 }}>
+                            See these skills in action
+                        </h2>
+                        <p style={{ color: 'var(--color-muted)', fontSize: '0.95rem' }}>
+                            Explore the projects where I've applied these technologies.
+                        </p>
+                    </div>
+                    <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                        <a href="/projects" className="btn btn-filled">View projects</a>
+                        <a href="/resume" className="btn">Download resume</a>
+                    </div>
                 </div>
-            </section>
+            </div>
+
+            <style>{`
+                @media (max-width: 640px) {
+                    .section-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+                    .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+                }
+            `}</style>
         </div>
     );
 }

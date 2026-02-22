@@ -1,288 +1,295 @@
+'use client';
 import Link from 'next/link';
-import { Card } from 'components/card';
-import { Markdown } from 'components/markdown';
-import { getNetlifyContext } from 'utils';
-import { RandomQuote } from 'components/random-quote';
-
-const introExplainer = `
-Hi! I'm Samy, a passionate software developer specializing in computer vision, artificial intelligence, and full-stack development.  
-With expertise spanning from low-level systems programming to advanced machine learning, I build innovative solutions that bridge the gap between complex algorithms and practical applications.
-`;
-
-// Featured projects with real data from your portfolio
-const featuredProjects = [
-    {
-        title: 'Argumentation Framework Solver',
-        image: '/images/argumentation-solver.jpg',
-        description: 'Advanced Python implementation of an argumentation framework solver for logical reasoning with multiple semantics support.',
-        languages: ['Python', 'Logic', 'Algorithms'],
-        href: '/projects',
-        category: 'AI/Logic',
-    },
-    {
-        title: 'Document Layout Analysis',
-        image: '/images/document-layout.jpg',
-        description: 'Computer vision project for document layout analysis using deep learning techniques and OCR integration.',
-        languages: ['Python', 'OpenCV', 'Deep Learning'],
-        href: '/projects',
-        category: 'Computer Vision',
-        collaborative: true
-    },
-    {
-        title: 'ShapeShifter Classifier',
-        image: '/images/shapeshifter.jpg',
-        description: 'High-performance C++ machine learning classifier for real-time shape recognition and classification tasks.',
-        languages: ['C++', 'OpenCV', 'ML'],
-        href: '/projects',
-        category: 'Computer Vision',
-    }
-];
-
-const quickLinks = [
-    {
-        title: 'Projects',
-        description: 'Explore my work in AI, computer vision, and software developing.',
-        href: '/projects',
-        icon: '🚀',
-        count: '15+ projects'
-    },
-    {
-        title: 'Resume',
-        description: 'View my professional experience and skills.',
-        href: '/resume',
-        icon: '📝',
-        count: 'Latest posts'
-    },
-    {
-        title: 'Skills',
-        description: 'Learn about my technical expertise and tools I use.',
-        href: '/skills',
-        icon: '🛠️',
-        count: 'Core competencies'
-    },
-    {
-        title: 'Contact',
-        description: 'Connect for collaboration opportunities or technical discussions.',
-        href: '/contact',
-        icon: '📬',
-        count: 'Get in touch'
-    },
-];
-
-// Technical expertise areas
-const expertiseAreas = [
-    {
-        title: 'Computer Vision',
-        description: 'Advanced image processing, object detection, and deep learning models',
-        icon: '👁️',
-        technologies: ['OpenCV', 'PyTorch', 'YOLO', 'Deep Learning']
-    },
-    {
-        title: 'Artificial Intelligence',
-        description: 'Machine learning, logical reasoning, and algorithmic problem solving',
-        icon: '🤖',
-        technologies: ['Python', 'Scikit-learn', 'Logic Systems', 'Algorithms']
-    },
-    {
-        title: 'Full-Stack Development',
-        description: 'Modern web applications with robust backend architectures',
-        icon: '💻',
-        technologies: ['JavaScript', 'React', 'Next.js', 'PHP', 'MySQL']
-    },
-    {
-        title: 'Systems & DevOps',
-        description: 'Low-level programming, containerization, and cloud deployment',
-        icon: '⚙️',
-        technologies: ['C/C++', 'Docker', 'Kubernetes', 'Linux']
-    }
-];
-
-const ctx = getNetlifyContext();
+import { useApp } from '../lib/context';
+import { t, getLang } from '../lib/translations';
 
 export default function Page() {
+    const { lang } = useApp();
+    const L = (entry) => getLang(entry, lang);
+
+    const experiences = [
+        { key: 'edu1', type: 'edu' },
+        { key: 'job1', type: 'work' },
+        { key: 'edu2', type: 'edu' },
+    ];
+
+    const competencyKeys = ['cv', 'ml', 'fs', 'sys', 'ai', 'res'];
+    const icons = ['◎', '⬡', '◈', '⬙', '⧉', '◐'];
+
+    const skills = [
+        { name: 'Python',           level: 87, tags: ['ML', 'CV', 'Data'] },
+        { name: 'C / C++',          level: 82, tags: ['Systems', 'OpenCV'] },
+        { name: 'JavaScript / TS',  level: 72, tags: ['React', 'Next.js'] },
+        { name: 'Java',             level: 78, tags: ['OOP', 'Algorithms'] },
+        { name: 'OpenCV',           level: 80, tags: ['Vision', 'Detection'] },
+        { name: 'PyTorch',          level: 62, tags: ['Deep Learning'] },
+        { name: 'PHP',              level: 68, tags: ['Laravel', 'MySQL'] },
+        { name: 'Docker / K8s',     level: 65, tags: ['DevOps', 'Infra'] },
+    ];
+
+    const projectKeys = [
+        { num: '01', title: 'Argumentation Framework Solver', cat: 'AI / Logic', desc: lang === 'fr' ? 'Solveur Python pour frameworks d\'argumentation, sémantiques admissible, stable, fondée et préférée. Moteur de raisonnement basé sur les graphes.' : 'Python solver for argumentation frameworks, admissible, stable, grounded, and preferred semantics. Graph-based reasoning engine.', langs: ['Python', 'Logic', 'Algorithms'], url: 'https://github.com/Evowind/argumentation-framework-solver' },
+        { num: '02', title: 'Document Layout Analysis', cat: 'Computer Vision', desc: lang === 'fr' ? 'Pipeline deep learning pour la détection de mise en page et intégration OCR. Projet de recherche collaboratif.' : 'Deep learning pipeline for document layout detection and OCR integration. Collaborative research project.', langs: ['Python', 'PyTorch', 'OpenCV'], url: 'https://github.com/Evowind/document-layout-analysis' },
+        { num: '03', title: 'Mario Kart Reset Online', cat: lang === 'fr' ? 'Full-Stack' : 'Full-Stack', desc: lang === 'fr' ? 'Tracker de tournois utilisant l\'algorithme TrueSkill. Flask + PostgreSQL, tableau de bord stats complet.' : 'Tournament tracker using the TrueSkill rating algorithm. Flask + PostgreSQL, full stats dashboard.', langs: ['Python', 'Flask', 'PostgreSQL', 'JS'], url: 'https://github.com/Evowind/mariokart-reset-online' },
+        { num: '04', title: 'ShapeShifter Classifier', cat: 'Computer Vision', desc: lang === 'fr' ? 'Reconnaissance de formes en temps réel en C++ avec OpenCV. Optimisé pour l\'inférence basse latence.' : 'Real-time shape recognition in C++ with OpenCV. Optimised for low-latency inference.', langs: ['C++', 'OpenCV', 'ML'], url: 'https://github.com/Evowind/shapeshifter-classifier' },
+        { num: '05', title: 'Distributed Tournament System', cat: 'DevOps', desc: lang === 'fr' ? 'Microservices avec orchestration Docker & Kubernetes. Suite de tests d\'intégration complète.' : 'Microservices with Docker & Kubernetes orchestration. Complete integration test suite.', langs: ['Docker', 'Kubernetes', 'JS'], url: 'https://github.com/Evowind/mkreset-kubernetes' },
+        { num: '06', title: 'Exoplanet Detection ML', cat: 'Machine Learning', desc: lang === 'fr' ? 'Pipeline de classification pour la détection d\'exoplanètes à partir de données astronomiques. Benchmark multi-modèles.' : 'Classification pipeline for detecting exoplanets from astronomical data. Multi-model benchmarking.', langs: ['Python', 'Scikit-learn', 'Data Science'], url: 'https://github.com/Evowind/exoplanet-detection-ml', wip: true },
+    ];
+
     return (
-        <div className="flex flex-col gap-16">
-            {/* Hero Section */}
-            <section className="relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/10 rounded-2xl"></div>
-                <div className="relative flex flex-col items-center justify-center text-center py-20 px-6">
-                    <div className="max-w-4xl">
-                        <h1 className="mb-6 text-4xl sm:text-5xl lg:text-6xl font-bold text-primary leading-tight">
-                            Samy&apos;s
-                            <span className="block text-accent mt-2">Developer Portfolio</span>
-                        </h1>
-                        <p className="mb-8 text-lg sm:text-xl text-primary-content max-w-3xl mx-auto leading-relaxed">
-                            Software developer specializing in <span className="text-accent font-semibold">Computer Vision</span>, 
-                            <span className="text-accent font-semibold"> Artificial Intelligence</span>, and 
-                            <span className="text-accent font-semibold"> Full-Stack Development</span>
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <Link href="/projects" className="btn btn-lg px-8 py-3 bg-accent hover:bg-accent-focus text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
-                                View My Projects
-                            </Link>
-                            <Link href="/resume" className="btn btn-lg px-8 py-3 bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-white font-semibold rounded-xl transition-all duration-300">
-                                Learn About Me
-                            </Link>
+        <div style={{ position: 'relative', zIndex: 1 }}>
+
+            {/* ── HERO ── */}
+            <section style={{
+                maxWidth: 960, margin: '0 auto',
+                padding: 'clamp(64px, 10vw, 120px) 24px clamp(80px, 12vw, 140px)',
+            }}>
+                <div className="fade-in" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 40 }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-accent)', boxShadow: '0 0 8px var(--color-accent)', display: 'inline-block' }} />
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-muted)' }}>
+                        {L(t.home.badge)}
+                    </span>
+                </div>
+
+                <h1 className="fade-up delay-1" style={{ marginBottom: 12 }}>
+                    Samy<br /><span className="text-gradient">Tadly</span>
+                </h1>
+
+                <p className="fade-up delay-2" style={{
+                    fontFamily: 'var(--font-display)', fontStyle: 'italic',
+                    fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)',
+                    color: 'var(--color-muted)', marginBottom: 48, maxWidth: 480,
+                    whiteSpace: 'pre-line',
+                }}>
+                    {L(t.home.role)}
+                </p>
+
+                <div className="fade-up delay-3" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                    <a href="#projects" className="btn btn-filled">{L(t.home.viewProjects)}</a>
+                    <a href="https://docs.google.com/document/d/1dQHVUnKcoxcptqzMPPZSS6Xuvhv0Tz2K/edit" target="_blank" rel="noopener noreferrer" className="btn">{L(t.common.downloadCv)}</a>
+                    <a href="https://github.com/Evowind" target="_blank" rel="noopener noreferrer" className="btn">
+                        <GithubIcon /> GitHub
+                    </a>
+                </div>
+
+                {/* Stats */}
+                <div className="fade-up delay-4" style={{
+                    display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+                    gap: 1, marginTop: 80,
+                    background: 'var(--color-border)', borderRadius: 12, overflow: 'hidden',
+                    border: '1px solid var(--color-border)',
+                }}>
+                    {[
+                        { val: '15+', label: L(t.home.statProjects) },
+                        { val: '5',   label: L(t.home.statLangs) },
+                        { val: '3+',  label: L(t.home.statYears) },
+                        { val: 'M2',  label: L(t.home.statDegree) },
+                    ].map(s => (
+                        <div key={s.label} style={{ background: 'var(--color-surface)', padding: '28px 20px', textAlign: 'center' }}>
+                            <div style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 700, color: 'var(--color-accent)', lineHeight: 1, marginBottom: 8 }}>{s.val}</div>
+                            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--color-muted)' }}>{s.label}</div>
                         </div>
-                    </div>
+                    ))}
                 </div>
             </section>
 
-            {/* Expertise Areas */}
-                        <section>
-                            <div className="text-center mb-12">
-                                <h2 className="text-3xl font-bold text-primary mb-4">Technical Expertise</h2>
-                                <p className="text-primary-content max-w-2xl mx-auto">
-                                    Specialized knowledge across multiple domains of software developing and computer science
-                                </p>
-                            </div>
-                            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                                {expertiseAreas.map((area, idx) => (
-                                    <div key={idx} className="card p-6 text-center hover:shadow-xl transition-all duration-300 group cursor-pointer">
-                                        <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                                            {area.icon}
-                                        </div>
-                                        <h3 className="text-xl font-semibold mb-3 text-accent group-hover:text-accent-focus transition-colors">
-                                            {area.title}
-                                        </h3>
-                                        <p className="text-primary-content mb-4 text-sm leading-relaxed">
-                                            {area.description}
-                                        </p>
-                                        <div className="flex flex-wrap gap-1 justify-center">
-                                            {area.technologies.slice(0, 3).map((tech, techIdx) => (
-                                                <span key={techIdx} className="text-xs bg-accent/10 text-accent px-2 py-1 rounded-full">
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                            {area.technologies.length > 3 && (
-                                                <span className="text-xs bg-gray-500/20 text-gray-400 px-2 py-1 rounded-full">
-                                                    +{area.technologies.length - 3}
-                                                </span>
-                                            )}
-                                        </div>
+            {/* ── ABOUT ── */}
+            <section style={{
+                maxWidth: 960, margin: '0 auto',
+                padding: '0 24px 120px',
+                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start',
+            }} className="about-grid">
+                <div>
+                    <span className="label fade-up" style={{ marginBottom: 20 }}>{L(t.home.aboutLabel)}</span>
+                    <h2 className="fade-up delay-1" style={{ marginBottom: 28, fontSize: 'clamp(1.6rem, 3vw, 2.2rem)' }}>
+                        {L(t.home.aboutTitle)}
+                    </h2>
+                    <p className="fade-up delay-2" style={{ marginBottom: 20, fontSize: '1.05rem', lineHeight: 1.85 }}
+                       dangerouslySetInnerHTML={{ __html: L(t.home.aboutP1) }} />
+                    <p className="fade-up delay-3" style={{ fontSize: '1.05rem', lineHeight: 1.85, color: 'var(--color-muted)' }}
+                       dangerouslySetInnerHTML={{ __html: L(t.home.aboutP2) }} />
+                    <div className="fade-up delay-4" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 36 }}>
+                        {['Python', 'C++', 'OpenCV', 'PyTorch', 'React Native', 'Docker', 'Next.js', 'Linux'].map(tag => (
+                            <span key={tag} className="tag accent">{tag}</span>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="fade-up delay-2">
+                    <span className="label" style={{ marginBottom: 24 }}>{L(t.home.backgroundLabel)}</span>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                        {experiences.map((e, i) => {
+                            const entry = t.experiences[e.key];
+                            return (
+                                <div key={i} style={{
+                                    paddingBottom: 32, paddingLeft: 20,
+                                    borderLeft: i < experiences.length - 1 ? '1px solid var(--color-border)' : '1px solid transparent',
+                                    position: 'relative',
+                                }}>
+                                    <span style={{
+                                        position: 'absolute', left: -4, top: 4,
+                                        width: 7, height: 7, borderRadius: '50%',
+                                        background: e.type === 'work' ? 'var(--color-accent)' : 'var(--color-muted)',
+                                        boxShadow: e.type === 'work' ? '0 0 8px var(--color-accent)' : 'none',
+                                    }} />
+                                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.1em', color: 'var(--color-muted)', marginBottom: 6 }}>
+                                        {L(entry.date)}
                                     </div>
-                                ))}
-                            </div>
-                        </section>
-
-                        {/* Featured Projects */}
-                        <section>
-                            <div className="flex justify-between items-center mb-8">
-                                <div>
-                                    <h2 className="text-3xl font-bold text-primary mb-2">Featured Projects</h2>
-                                    <p className="text-primary-content">Highlighting some of my most impactful work</p>
+                                    <div style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, color: 'var(--color-bright)', marginBottom: 2 }}>
+                                        {L(entry.role)}
+                                    </div>
+                                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--color-accent)', letterSpacing: '0.08em', marginBottom: 8 }}>
+                                        {L(entry.place)}
+                                    </div>
+                                    <p style={{ fontSize: '0.875rem', lineHeight: 1.65, color: 'var(--color-muted)' }}>
+                                        {L(entry.note)}
+                                    </p>
                                 </div>
-                                <Link href="/projects" className="text-accent hover:text-accent-focus font-semibold transition-colors flex items-center gap-2 no-underline">
-                                    View All Projects
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </Link>
-                            </div>
-                            <div className="grid gap-8 lg:grid-cols-3">
-                                {featuredProjects.map((project, idx) => (
-                                    <Link href={project.href} key={idx} className="group no-underline">
-                                        <div className="card overflow-hidden hover:shadow-2xl transition-all duration-300 h-full">
-                                            <div className="relative h-48 bg-gradient-to-br from-[#181c2a] to-[#232946] overflow-hidden">
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    className="object-cover h-full w-full group-hover:scale-110 transition-transform duration-500"
-                                                />
-                                                {project.collaborative && (
-                                                    <div className="absolute top-3 right-3 bg-blue-500/90 text-white px-2 py-1 rounded-md text-xs font-medium">
-                                                        Collaborative
-                                                    </div>
-                                                )}
-                                                <div className="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs">
-                                                    {project.category}
-                                                </div>
-                                            </div>
-                                            <div className="p-6">
-                                                <h3 className="text-xl font-semibold mb-3 text-accent group-hover:text-accent-focus transition-colors">
-                                                    {project.title}
-                                                </h3>
-                                                <p className="text-primary-content mb-4 text-sm leading-relaxed">
-                                                    {project.description}
-                                                </p>
-                                                <div className="flex flex-wrap gap-2 mb-4">
-                                                    {project.languages.slice(0, 3).map((lang, langIdx) => (
-                                                        <span key={langIdx} className="text-xs bg-accent/10 text-accent px-2 py-1 rounded-full">
-                                                            {lang}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        </section>
+                            );
+                        })}
+                    </div>
+                    <Link href="/resume" className="btn" style={{ marginTop: 8, fontSize: '0.65rem' }}>
+                        {L(t.common.fullResume)}
+                    </Link>
+                </div>
+            </section>
 
-                        {/* Quick Navigation */}
-                        <section>
-                            <div className="text-center mb-12">
-                                <h2 className="text-3xl font-bold text-primary mb-4">Explore My Work</h2>
-                                <p className="text-primary-content max-w-2xl mx-auto">
-                                    Navigate through different sections to learn more about my projects, thoughts, and background
+            {/* ── COMPETENCIES ── */}
+            <section style={{ background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
+                <div style={{ maxWidth: 960, margin: '0 auto' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, flexWrap: 'wrap', gap: 16 }}>
+                        <div>
+                            <span className="label" style={{ marginBottom: 16 }}>{L(t.home.expertiseLabel)}</span>
+                            <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)' }}>{L(t.home.expertiseTitle)}</h2>
+                        </div>
+                        <Link href="/skills" className="btn" style={{ fontSize: '0.65rem' }}>{L(t.common.allSkills)}</Link>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
+                        {competencyKeys.map((key, i) => (
+                            <div key={key} className={`comp-card fade-up delay-${i + 1}`}>
+                                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.1rem', color: 'var(--color-accent)', marginBottom: 16, opacity: 0.6 }}>{icons[i]}</div>
+                                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-bright)', marginBottom: 10 }}>
+                                    {L(t.competencies[key].title)}
+                                </div>
+                                <p style={{ fontSize: '0.875rem', lineHeight: 1.7, color: 'var(--color-muted)' }}>
+                                    {L(t.competencies[key].desc)}
                                 </p>
                             </div>
-                            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                                {quickLinks.map((link, idx) => (
-                                    <Link href={link.href} key={link.title} className="group no-underline">
-                                        <div className="card p-6 text-center hover:shadow-xl transition-all duration-300 h-full group-hover:border-accent/30">
-                                            <div className="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                                                {link.icon}
-                                            </div>
-                                            <h3 className="text-lg font-semibold mb-2 text-accent group-hover:text-accent-focus transition-colors">
-                                                {link.title}
-                                            </h3>
-                                            <p className="text-primary-content text-sm mb-3 leading-relaxed">
-                                                {link.description}
-                                            </p>
-                                            <span className="text-xs text-accent/80 font-medium">
-                                                {link.count}
-                                            </span>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        </section>
-
-            {/* About Preview */}
-            <section className="bg-gradient-to-r from-[#181c2a]/50 to-[#232946]/50 rounded-2xl p-8">
-                <div className="max-w-4xl mx-auto">
-                    <Markdown content={introExplainer} />
-                    <div className="mt-8 text-center">
-                        <Link href="/resume" className="inline-flex items-center gap-2 text-accent hover:text-accent-focus font-semibold transition-colors">
-                            Read more about my journey
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </Link>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* Random Quote Section */}
-            <section className="bg-gradient-to-br from-accent/5 via-[#232946]/80 to-accent/10 rounded-2xl p-8 border border-accent/10">
-                <div className="text-center mb-6">
-                    <h2 className="text-2xl font-bold text-primary mb-2">Fun Fact</h2>
-                    <p className="text-primary-content/80 text-sm">A little something about me.</p>
+            {/* ── SKILLS ── */}
+            <section style={{ maxWidth: 960, margin: '0 auto', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
+                <span className="label" style={{ marginBottom: 16 }}>{L(t.home.skillsLabel)}</span>
+                <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', marginBottom: 56 }}>{L(t.home.skillsTitle)}</h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px 64px' }}>
+                    {skills.map((s, i) => (
+                        <div key={i} className={`fade-up delay-${(i % 4) + 1}`}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
+                                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-bright)' }}>{s.name}</span>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--color-accent)', letterSpacing: '0.08em' }}>{s.level}%</span>
+                            </div>
+                            <div className="skill-bar-track">
+                                <div className="skill-bar-fill" style={{ width: `${s.level}%` }} />
+                            </div>
+                            <div style={{ display: 'flex', gap: 6, marginTop: 12, flexWrap: 'wrap' }}>
+                                {s.tags.map(tag => <span key={tag} className="tag" style={{ fontSize: '0.6rem' }}>{tag}</span>)}
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                <RandomQuote />
             </section>
 
-            {/* Netlify Context - Only show in development */}
-            {ctx === 'dev' && (
-                <section className="opacity-60">
-                    <Card title={`Development Mode Active`}>
-                        <p className="text-primary-content text-sm">
-                            Portfolio is running in development mode. Features and content are subject to frequent updates.
-                        </p>
-                    </Card>
-                </section>
-            )}
+            {/* ── PROJECTS ── */}
+            <section id="projects" style={{ background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
+                <div style={{ maxWidth: 960, margin: '0 auto' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, flexWrap: 'wrap', gap: 16 }}>
+                        <div>
+                            <span className="label" style={{ marginBottom: 16 }}>{L(t.home.workLabel)}</span>
+                            <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)' }}>{L(t.home.workTitle)}</h2>
+                        </div>
+                        <Link href="/projects" className="btn" style={{ fontSize: '0.65rem' }}>{L(t.common.allProjects)}</Link>
+                    </div>
+                    <div style={{ borderTop: '1px solid var(--color-border)' }}>
+                        {projectKeys.map((p, i) => (
+                            <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
+                               className="project-row"
+                               style={{ display: 'grid', gridTemplateColumns: '40px 1fr auto', gap: 24, alignItems: 'start', padding: '32px 0', borderBottom: '1px solid var(--color-border)', textDecoration: 'none', cursor: 'pointer' }}>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--color-muted)', letterSpacing: '0.08em', paddingTop: 3 }}>{p.num}</span>
+                                <div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
+                                        <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 700, color: 'var(--color-text)', transition: 'color 0.2s' }}>{p.title}</span>
+                                        <span className="tag">{p.cat}</span>
+                                        {p.wip && <span className="tag purple">{L(t.common.inProgress)}</span>}
+                                    </div>
+                                    <p style={{ fontSize: '0.9rem', lineHeight: 1.7, color: 'var(--color-muted)', marginBottom: 14 }}>{p.desc}</p>
+                                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                                        {p.langs.map(l => <span key={l} className="tag accent" style={{ fontSize: '0.6rem' }}>{l}</span>)}
+                                    </div>
+                                </div>
+                                <span className="project-arrow" style={{ fontFamily: 'var(--font-mono)', fontSize: '1.1rem', color: 'var(--color-accent)', paddingTop: 2 }}>↗</span>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ── CONTACT ── */}
+            <section style={{
+                maxWidth: 960, margin: '0 auto',
+                padding: 'clamp(64px, 8vw, 100px) 24px clamp(80px, 10vw, 120px)',
+                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center',
+            }} className="contact-grid">
+                <div>
+                    <span className="label" style={{ marginBottom: 20 }}>{L(t.home.contactLabel)}</span>
+                    <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', marginBottom: 20 }}>
+                        {L(t.home.contactTitle)}<br />
+                        <em style={{ fontStyle: 'italic', color: 'var(--color-accent)' }}>{L(t.home.contactTitleEm)}</em>
+                    </h2>
+                    <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: 'var(--color-muted)' }}>{L(t.home.contactDesc)}</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                    <a href="mailto:tadlysamy@gmail.com" className="btn btn-filled" style={{ justifyContent: 'flex-start', fontSize: '0.75rem', padding: '16px 24px' }}>
+                        <span style={{ opacity: 0.6, marginRight: 4 }}>✉</span> tadlysamy@gmail.com
+                    </a>
+                    <Link href="/contact" className="btn" style={{ justifyContent: 'flex-start', fontSize: '0.75rem', padding: '16px 24px' }}>
+                        <span style={{ opacity: 0.6, marginRight: 4 }}>◎</span> {L(t.home.openContactForm)}
+                    </Link>
+                    <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
+                        <a href="https://github.com/Evowind" target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem' }}>
+                            <GithubIcon /> GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/samy-tadly/" target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem' }}>
+                            <LinkedinIcon /> LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <style>{`
+                @media (max-width: 640px) {
+                    .about-grid   { grid-template-columns: 1fr !important; gap: 48px !important; }
+                    .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+                }
+            `}</style>
         </div>
+    );
+}
+
+function GithubIcon() {
+    return (
+        <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+    );
+}
+
+function LinkedinIcon() {
+    return (
+        <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+        </svg>
     );
 }

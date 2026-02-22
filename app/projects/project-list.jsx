@@ -1,40 +1,40 @@
-"use client";
+'use client';
 
-import React, { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Grid3x3, List } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { useApp } from '../../lib/context';
+import { t, getLang } from '../../lib/translations';
 
 const projects = [
-  {
+    {
         title: 'Exoplanet Detection ML',
         image: '/images/exoplanet-detection.jpg',
-        description: 'Python machine learning project for detecting exoplanets from astronomical observation data using classification algorithms.',
+        description: 'Machine learning pipeline for detecting exoplanets from astronomical observation data. Multiple classification models, performance benchmarking, and data visualization.',
         languages: ['Python', 'ML', 'Data Science'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/exoplanet-detection-ml',
         updated: 'Oct 29, 2025',
         status: 'In Progress',
         category: 'Machine Learning',
-        features: ['Data preprocessing', 'Classification models', 'Performance metrics', 'Data visualization'],
-        complexity: 'Intermediate'
-  },
-  {
+        features: ['Data preprocessing', 'Classification models', 'Performance metrics', 'Visualization'],
+        complexity: 'Intermediate',
+    },
+    {
         title: 'Superpixel Methods Comparison',
         image: '/images/superpixel-methods.jpg',
-        description: 'Python project comparing different superpixel segmentation algorithms (SLIC, hierarchical) on image datasets.',
+        description: 'Comparison of superpixel segmentation algorithms (SLIC, hierarchical) on image datasets, with performance analysis and benchmark results.',
         languages: ['Python', 'Computer Vision', 'Image Processing'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/slic-hierarchical-superpixels',
         updated: 'Oct 28, 2025',
         status: 'In Progress',
         category: 'Computer Vision',
-        features: ['Algorithm comparison', 'Image segmentation', 'Performance analysis', 'Benchmark results'],
-        complexity: 'Intermediate'
-  },
-	{
-        title: 'DockerEye 007 (Work in Progress)',
+        features: ['Algorithm comparison', 'Image segmentation', 'Performance analysis'],
+        complexity: 'Intermediate',
+    },
+    {
+        title: 'DockerEye 007',
         image: '/images/wip.jpg',
-        description: 'JavaScript tool for monitoring and managing Docker containers.',
+        description: 'JavaScript tool for monitoring and managing Docker containers in real-time, with alerts and container management UI.',
         languages: ['JavaScript', 'Docker', 'DevOps'],
         mainLang: 'JavaScript',
         githubUrl: 'https://github.com/Evowind/docker-eye-007',
@@ -42,25 +42,25 @@ const projects = [
         status: 'In Progress',
         category: 'DevOps',
         features: ['Real-time monitoring', 'Container management', 'Alert system'],
-        complexity: 'Advanced'
+        complexity: 'Advanced',
     },
-	{
+    {
         title: 'Netlify Portfolio',
         image: '/images/netlify-portfolio.jpg',
-        description: 'Modern responsive JavaScript portfolio website hosted on Netlify.',
+        description: 'This portfolio, a modern responsive Next.js website hosted on Netlify with dynamic content and SEO optimisation.',
         languages: ['JavaScript', 'HTML', 'CSS', 'Next.js'],
         mainLang: 'JavaScript',
         githubUrl: 'https://github.com/Evowind/netlify-portfolio',
         updated: 'Sep 1, 2025',
         status: 'Active',
         category: 'Web Development',
-        features: ['Responsive design', 'Dynamic content', 'SEO optimized'],
-        complexity: 'Intermediate'
+        features: ['Responsive design', 'Dynamic content', 'SEO optimised'],
+        complexity: 'Intermediate',
     },
-	{
+    {
         title: 'Morpion Computer Vision',
         image: '/images/morpion.jpg',
-        description: 'C++ Tic-tac-toe where the player can draw the grid from 3x3 to 5x5.',
+        description: 'C++ Tic-tac-toe where the player draws the grid (3×3 to 5×5) using a webcam. Computer vision detects the drawn grid and runs the game.',
         languages: ['C++', 'OpenCV', 'Algorithms'],
         mainLang: 'C++',
         githubUrl: 'https://github.com/Evowind/morpion-computer-vision',
@@ -68,13 +68,13 @@ const projects = [
         status: 'Completed',
         category: 'Computer Vision',
         features: ['Shape detection', 'AI opponent', 'Strategic gameplay'],
-        complexity: 'Advanced'
+        complexity: 'Advanced',
     },
-	{
-        title: 'Distributed Programming Project',
+    {
+        title: 'Distributed Tournament System',
         image: '/images/prog-distrib.jpg',
-        description: 'Tournament system with Docker, Kubernetes, and microservices architecture.',
-        languages: ['Docker', 'Kubernetes', 'JavaScript', 'Backend', 'Microservices'],
+        description: 'Tournament system with Docker, Kubernetes, and microservices architecture. Full container orchestration with comprehensive testing.',
+        languages: ['Docker', 'Kubernetes', 'JavaScript', 'Microservices'],
         mainLang: 'JavaScript',
         githubUrl: 'https://github.com/Evowind/mkreset-kubernetes',
         updated: 'May 30, 2025',
@@ -82,13 +82,13 @@ const projects = [
         category: 'DevOps',
         collaborative: true,
         collaborator: 'Kemoory',
-        features: ['Microservices', 'Container orchestration', 'Comprehensive testing'],
-        complexity: 'Advanced'
+        features: ['Microservices', 'Container orchestration', 'Integration testing'],
+        complexity: 'Advanced',
     },
-	{
+    {
         title: 'Mario Kart Reset Online',
         image: '/images/mk-reset.jpg',
-        description: 'Web app tracking Mario Kart tournaments using TrueSkill ratings.',
+        description: 'Web app tracking Mario Kart tournaments using the TrueSkill rating algorithm. Full player statistics, tournament management, and history.',
         languages: ['HTML', 'CSS', 'JavaScript', 'Flask', 'PostgreSQL', 'Python'],
         mainLang: 'JavaScript',
         githubUrl: 'https://github.com/Evowind/mariokart-reset-online',
@@ -98,12 +98,12 @@ const projects = [
         collaborative: true,
         collaborator: 'Kemoory',
         features: ['TrueSkill algorithm', 'Player statistics', 'Tournament management'],
-        complexity: 'Advanced'
+        complexity: 'Advanced',
     },
-	{
+    {
         title: 'Document Layout Analysis',
         image: '/images/document-layout.jpg',
-        description: 'CV project analyzing document layouts using deep learning and OCR.',
+        description: 'Computer vision project analysing document layouts using deep learning and OCR integration. PyTorch + OpenCV pipeline for layout detection.',
         languages: ['Python', 'OpenCV', 'Deep Learning', 'PyTorch'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/document-layout-analysis',
@@ -112,14 +112,14 @@ const projects = [
         category: 'Computer Vision',
         collaborative: true,
         collaborator: 'pontormo',
-        features: ['Layout detection', 'OCR integration', 'Deep learning models'],
-        complexity: 'Advanced'
+        features: ['Layout detection', 'OCR integration', 'Deep learning'],
+        complexity: 'Advanced',
     },
     {
         title: 'Stairway to Data',
         image: '/images/stairway-data.jpg',
-        description: 'CV project detecting and counting stair steps using ML models.',
-        languages: ['Python', 'OpenCV', 'Machine Learning', 'Scikit-learn', 'XGBoost'],
+        description: 'CV project detecting and counting stair steps using multiple ML models. XGBoost + Scikit-learn, edge detection, mobile-optimised.',
+        languages: ['Python', 'OpenCV', 'Scikit-learn', 'XGBoost'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/stairway-to-data',
         updated: 'Mar 30, 2025',
@@ -127,66 +127,66 @@ const projects = [
         category: 'Computer Vision',
         collaborative: true,
         collaborator: 'Kemoory, pontormo',
-        features: ['Edge detection', 'ML classification', 'Mobile optimization'],
-        complexity: 'Advanced'
+        features: ['Edge detection', 'ML classification', 'Mobile optimisation'],
+        complexity: 'Advanced',
     },
-	{
+    {
         title: 'Rental Car Service',
         image: '/images/rental-car.jpg',
-        description: 'Web app for rental car booking and management with DevOps practices.',
+        description: 'Web app for car booking and management with full DevOps practices: CI/CD, containerisation, automated deployment.',
         languages: ['HTML', 'CSS', 'JavaScript', 'DevOps'],
         mainLang: 'JavaScript',
         githubUrl: 'https://github.com/Evowind/rental-car-service',
         updated: 'Mar 5, 2025',
         status: 'Completed',
         category: 'Web Development',
-        features: ['Booking system', 'User management', 'DevOps practices'],
-        complexity: 'Intermediate'
+        features: ['Booking system', 'User management', 'DevOps'],
+        complexity: 'Intermediate',
     },
-	{
+    {
         title: 'Argumentation Framework Solver',
         image: '/images/argumentation-solver.jpg',
-        description: 'Python tool for solving argumentation frameworks with logical reasoning.',
+        description: 'Python tool for solving argumentation frameworks with multiple semantics: admissible, stable, grounded, preferred. Graph-based reasoning engine.',
         languages: ['Python', 'Logic', 'Algorithms'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/argumentation-framework-solver',
         updated: 'Dec 20, 2024',
         status: 'Completed',
-        category: 'AI/Logic',
-        features: ['Multiple semantics support', 'Graph algorithms', 'Logical reasoning'],
-        complexity: 'Advanced'
+        category: 'AI / Logic',
+        features: ['Multiple semantics', 'Graph algorithms', 'Logical reasoning'],
+        complexity: 'Advanced',
     },
-	{
+    {
         title: 'ShapeShifter Classifier',
         image: '/images/shapeshifter.jpg',
-        description: 'C++ classifier for recognizing and categorizing shapes.',
+        description: 'C++ real-time classifier for recognising and categorising shapes via webcam. Optimised for low-latency inference with OpenCV.',
         languages: ['C++', 'OpenCV', 'ML'],
         mainLang: 'C++',
         githubUrl: 'https://github.com/Evowind/shapeshifter-classifier',
         updated: 'Dec 8, 2024',
         status: 'Completed',
         category: 'Computer Vision',
-        features: ['Real-time classification', 'Shape detection', 'Performance optimization'],
-        complexity: 'Advanced'
+        features: ['Real-time classification', 'Shape detection', 'Performance optimisation'],
+        complexity: 'Advanced',
     },
     {
         title: 'ChamPygnon',
         image: '/images/champygnon.jpg',
-        description: 'Python project for classifying mushrooms using scraped data.',
+        description: 'Python project classifying mushrooms using scraped data. Web scraping automation, image classification, and data visualisation pipeline.',
         languages: ['Python', 'Web Scraping', 'ML'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/ChamPygnon',
         updated: 'Apr 12, 2024',
         status: 'Completed',
         category: 'Machine Learning',
-        features: ['Web scraping automation', 'Image classification', 'Data visualization'],
-        complexity: 'Intermediate'
+        features: ['Web scraping', 'Image classification', 'Data visualisation'],
+        complexity: 'Intermediate',
     },
-	{
+    {
         title: 'Pacman Game',
         image: '/images/pacman.jpg',
-        description: 'Java implementation of Pacman with design patterns and documentation.',
-        languages: ['Java', 'HTML', 'Design Patterns'],
+        description: 'Java implementation of Pacman with design patterns (State, Observer), AI ghosts, and full JavaDoc documentation.',
+        languages: ['Java', 'Design Patterns'],
         mainLang: 'Java',
         githubUrl: 'https://github.com/Evowind/pacman-game',
         updated: 'Jan 8, 2024',
@@ -194,13 +194,13 @@ const projects = [
         category: 'Game Development',
         collaborative: true,
         collaborator: 'cxre',
-        features: ['State pattern', 'Game mechanics', 'JavaDoc documentation'],
-        complexity: 'Intermediate'
+        features: ['State pattern', 'AI ghosts', 'JavaDoc'],
+        complexity: 'Intermediate',
     },
     {
-        title: 'Shell',
+        title: 'Custom Shell',
         image: '/images/shell.jpg',
-        description: 'Custom shell implementation for process management and I/O handling.',
+        description: 'Custom Unix shell implementation in C: process management, I/O redirection, piping, and built-in commands.',
         languages: ['C', 'Systems'],
         mainLang: 'C',
         githubUrl: 'https://github.com/Evowind/shell-project',
@@ -208,12 +208,12 @@ const projects = [
         status: 'Completed',
         category: 'Systems Programming',
         features: ['Process management', 'I/O redirection', 'Built-in commands'],
-        complexity: 'Intermediate'
+        complexity: 'Intermediate',
     },
-	{
+    {
         title: 'Othello Game',
         image: '/images/othello.jpg',
-        description: 'Java Othello game with MiniMax AI opponent for strategic play.',
+        description: 'Java Othello/Reversi with MiniMax AI opponent, alpha-beta pruning, and configurable depth. Strategic gameplay with full move validation.',
         languages: ['Java', 'AI', 'Algorithms'],
         mainLang: 'Java',
         githubUrl: 'https://github.com/Evowind/othello-game',
@@ -222,407 +222,374 @@ const projects = [
         category: 'Game Development',
         collaborative: true,
         collaborator: 'cxre',
-        features: ['MiniMax algorithm', 'AI opponent', 'Strategic gameplay'],
-        complexity: 'Advanced'
+        features: ['MiniMax + alpha-beta', 'AI opponent', 'Strategic gameplay'],
+        complexity: 'Advanced',
     },
     {
         title: 'Administration Panel',
         image: '/images/administration.jpg',
-        description: 'PHP admin panel with user management and CRUD operations.',
+        description: 'PHP admin panel with full user management, CRUD operations, role-based access control, and authentication.',
         languages: ['PHP', 'MySQL', 'HTML', 'CSS'],
         mainLang: 'PHP',
         githubUrl: 'https://github.com/Evowind/administration-system',
         updated: 'Jan 3, 2024',
         status: 'Completed',
         category: 'Web Development',
-        features: ['User management', 'CRUD operations', 'Authentication system'],
-        complexity: 'Intermediate'
+        features: ['User management', 'CRUD', 'Authentication'],
+        complexity: 'Intermediate',
     },
-	{
+    {
         title: 'Pizzeria Website',
         image: '/images/pizzeria.jpg',
-        description: 'Full-stack pizzeria website using Laravel and MySQL backend.',
-        languages: ['PHP', 'JavaScript', 'HTML', 'CSS', 'Laravel', 'MySQL'],
+        description: 'Full-stack pizzeria website with Laravel, MySQL, online ordering, and user authentication system.',
+        languages: ['PHP', 'JavaScript', 'Laravel', 'MySQL'],
         mainLang: 'PHP',
         githubUrl: 'https://github.com/Evowind/pizzeria-website',
         updated: 'Jan 3, 2024',
         status: 'Completed',
         category: 'Web Development',
-        features: ['Laravel framework', 'Database integration', 'User authentication'],
-        complexity: 'Intermediate'
-    }
+        features: ['Laravel', 'Database', 'Auth system'],
+        complexity: 'Intermediate',
+    },
 ];
 
-const categories = ['All', 'Computer Vision', 'Machine Learning', 'Web Development', 'Systems Programming', 'DevOps', 'AI/Logic'];
-const statusOptions = ['All', 'Completed', 'In Progress', 'Active'];
-const complexityOptions = ['All', 'Beginner', 'Intermediate', 'Advanced'];
+const categories = ['All', 'Computer Vision', 'Machine Learning', 'Web Development', 'Systems Programming', 'DevOps', 'AI / Logic', 'Game Development'];
+const statuses = ['All', 'Completed', 'In Progress', 'Active'];
+const complexities = ['All', 'Intermediate', 'Advanced'];
 
-const getStatusColor = (status) => {
-  switch (status) {
-    case 'Completed': return 'bg-green-500/20 text-green-300 border border-green-500/30';
-    case 'In Progress': return 'bg-blue-500/20 text-blue-300 border border-blue-500/30';
-    case 'Active': return 'bg-purple-500/20 text-purple-300 border border-purple-500/30';
-    default: return 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
-  }
-};
+function statusColor(s) {
+    if (s === 'Completed')  return { border: 'rgba(100,180,100,0.3)', color: '#7dc97d', bg: 'rgba(100,180,100,0.07)' };
+    if (s === 'In Progress') return { border: 'rgba(139,125,216,0.3)', color: 'var(--color-accent2)', bg: 'rgba(139,125,216,0.07)' };
+    if (s === 'Active')     return { border: 'rgba(200,169,110,0.3)', color: 'var(--color-accent)', bg: 'rgba(200,169,110,0.07)' };
+    return { border: 'var(--color-border)', color: 'var(--color-muted)', bg: 'transparent' };
+}
 
-const getComplexityColor = (complexity) => {
-  switch (complexity) {
-    case 'Beginner': return 'bg-green-500/20 text-green-300 border border-green-500/30';
-    case 'Intermediate': return 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30';
-    case 'Advanced': return 'bg-red-500/20 text-red-300 border border-red-500/30';
-    default: return 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
-  }
-};
+export default function ProjectsPage() {
+    const { lang } = useApp();
+    const L = (entry) => getLang(entry, lang);
 
-const GridProjectCard = ({ project, isExpanded, onToggle }) => (
-  <motion.div
-    layout
-    className="card p-0 overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300"
-    onClick={onToggle}
-  >
-    {/* Image + Title (Collapsed view) */}
-    <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#181c2a] to-[#232946] group">
-      <img
-        src={project.image}
-        alt={project.title}
-        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        onError={(e) => {
-          e.target.src = `https://via.placeholder.com/400x192/232946/7f5af0?text=${encodeURIComponent(project.title)}`;
-        }}
-      />
-      
-      {/* Overlay with title */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-4">
-        <h3 className="text-lg font-semibold text-white line-clamp-2">
-          {project.title}
-        </h3>
-      </div>
+    const [search, setSearch] = useState('');
+    const [cat, setCat] = useState('All');
+    const [status, setStatus] = useState('All');
+    const [complexity, setComplexity] = useState('All');
+    const [sort, setSort] = useState('updated');
+    const [expanded, setExpanded] = useState(null);
 
-      {/* Category - Top Right */}
-      <div className="absolute top-3 right-3 bg-accent text-[#232946] px-3 py-1 rounded-full text-xs font-semibold">
-        {project.category}
-      </div>
+    const filtered = useMemo(() => {
+        let list = projects.filter(p => {
+            const q = search.toLowerCase();
+            return (
+                (p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || p.languages.some(l => l.toLowerCase().includes(q))) &&
+                (cat === 'All' || p.category === cat) &&
+                (status === 'All' || p.status === status) &&
+                (complexity === 'All' || p.complexity === complexity)
+            );
+        });
+        if (sort === 'title') list.sort((a, b) => a.title.localeCompare(b.title));
+        else if (sort === 'complexity') {
+            const o = { Intermediate: 1, Advanced: 2 };
+            list.sort((a, b) => (o[b.complexity] || 0) - (o[a.complexity] || 0));
+        } else {
+            list.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+        }
+        return list;
+    }, [search, cat, status, complexity, sort]);
 
-      {/* Expand indicator */}
-      <div className="absolute top-3 left-3 text-accent text-xl opacity-0 group-hover:opacity-100 transition-opacity">
-        {isExpanded ? '▼' : '▶'}
-      </div>
-    </div>
+    const reset = () => { setSearch(''); setCat('All'); setStatus('All'); setComplexity('All'); setExpanded(null); };
 
-    {/* Expanded Content */}
-    <AnimatePresence>
-      {isExpanded && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
-          className="overflow-hidden"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="p-5 space-y-4 bg-[#232946] border-t border-accent/20">
-            
-            {/* Status & Collaborative Info */}
-            <div className="flex flex-wrap gap-2">
-              <div className={`inline-block px-2 py-1 rounded text-xs font-medium ${getStatusColor(project.status)}`}>
-                {project.status}
-              </div>
-              {project.collaborative && (
-                <div className="bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-1 rounded text-xs font-medium">
-                  Collaborative with @{project.collaborator}
+    return (
+        <div style={{ position: 'relative', zIndex: 1 }}>
+
+            {/* ── PAGE HEADER ── */}
+            <div style={{
+                maxWidth: 960, margin: '0 auto',
+                padding: 'clamp(56px, 8vw, 96px) 24px 64px',
+            }}>
+                <span className="label fade-in" style={{ marginBottom: 16 }}>Portfolio</span>
+                <h1 className="fade-up delay-1" style={{ marginBottom: 16 }}>
+                    Projects
+                </h1>
+                <p className="fade-up delay-2" style={{
+                    fontFamily: 'var(--font-display)', fontStyle: 'italic',
+                    fontSize: '1.15rem', color: 'var(--color-muted)',
+                }}>
+                    {filtered.length} project{filtered.length !== 1 ? 's' : ''} found
+                </p>
+            </div>
+
+            {/* ── FILTERS ── */}
+            <div style={{
+                background: 'var(--color-surface)',
+                borderTop: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
+                padding: '24px',
+                position: 'sticky', top: 56, zIndex: 40,
+            }}>
+                <div style={{ maxWidth: 960, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    {/* Search */}
+                    <input
+                        type="text" value={search} onChange={e => setSearch(e.target.value)}
+                        placeholder={L(t.projects.searchPlaceholder)}
+                        style={{
+                            fontFamily: 'var(--font-body)', fontSize: '0.9rem',
+                            padding: '10px 16px',
+                            background: 'var(--color-panel)',
+                            border: '1px solid var(--color-border)',
+                            color: 'var(--color-bright)', width: '100%',
+                            outline: 'none', borderRadius: 8,
+                            transition: 'border-color 0.2s',
+                        }}
+                        className="search-input"
+                    />
+                    {/* Filter row */}
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+                        {[
+                            { value: cat, setter: setCat, options: categories },
+                            { value: status, setter: setStatus, options: statuses },
+                            { value: complexity, setter: setComplexity, options: complexities },
+                            { value: sort, setter: setSort, options: [
+                                { value: 'updated', label: L(t.projects.sortRecent) },
+                                { value: 'title', label: L(t.projects.sortTitle) },
+                                { value: 'complexity', label: L(t.projects.sortComplex) },
+                            ]},
+                        ].map((sel, i) => (
+                            <select key={i} value={sel.value} onChange={e => sel.setter(e.target.value)}
+                                    style={{
+                                        fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
+                                        letterSpacing: '0.08em',
+                                        padding: '8px 12px',
+                                        background: 'var(--color-panel)',
+                                        border: '1px solid var(--color-border)',
+                                        color: 'var(--color-text)',
+                                        borderRadius: 6, outline: 'none', cursor: 'pointer',
+                                        appearance: 'none',
+                                    }}>
+                                {sel.options.map(o => (
+                                    typeof o === 'string'
+                                        ? <option key={o} value={o}>{o}</option>
+                                        : <option key={o.value} value={o.value}>{o.label}</option>
+                                ))}
+                            </select>
+                        ))}
+                        {(search || cat !== 'All' || status !== 'All' || complexity !== 'All') && (
+                            <button onClick={reset} style={{
+                                fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                letterSpacing: '0.1em', textTransform: 'uppercase',
+                                padding: '8px 14px', border: '1px solid var(--color-border)',
+                                color: 'var(--color-muted)', background: 'transparent',
+                                borderRadius: 6, cursor: 'pointer', transition: 'color 0.2s',
+                            }} className="reset-btn">
+                                {L(t.projects.resetLabel)}
+                            </button>
+                        )}
+                    </div>
                 </div>
-              )}
             </div>
 
+            {/* ── PROJECT LIST ── */}
+            <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 80px' }}>
+                {filtered.length === 0 ? (
+                    <div style={{ padding: '80px 0', textAlign: 'center' }}>
+                        <p style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '1.2rem' }}>
+                            {L(t.projects.noResults)}
+                        </p>
+                    </div>
+                ) : (
+                    <div style={{ borderBottom: '1px solid var(--color-border)' }}>
+                        {filtered.map((p, i) => {
+                            const isOpen = expanded === p.title;
+                            const sc = statusColor(p.status);
+                            return (
+                                <div key={p.title} style={{ borderTop: '1px solid var(--color-border)' }}>
+                                    {/* Row */}
+                                    <button
+                                        onClick={() => setExpanded(isOpen ? null : p.title)}
+                                        style={{
+                                            width: '100%', textAlign: 'left', background: 'none',
+                                            border: 'none', cursor: 'pointer', padding: '28px 0',
+                                            display: 'grid', gridTemplateColumns: '40px 1fr auto',
+                                            gap: 24, alignItems: 'start',
+                                            transition: 'background 0.2s',
+                                        }}
+                                        className="project-row-btn"
+                                    >
+                                        {/* Index */}
+                                        <span style={{
+                                            fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                            color: 'var(--color-muted)', letterSpacing: '0.08em',
+                                            paddingTop: 4,
+                                        }}>
+                                            {String(i + 1).padStart(2, '0')}
+                                        </span>
 
+                                        {/* Content */}
+                                        <div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 8 }}>
+                                                <span style={{
+                                                    fontFamily: 'var(--font-display)', fontSize: '1.05rem',
+                                                    fontWeight: 700, color: 'var(--color-bright)',
+                                                }}>{p.title}</span>
+                                                <span style={{
+                                                    fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
+                                                    letterSpacing: '0.1em', padding: '2px 8px',
+                                                    border: `1px solid ${sc.border}`, color: sc.color,
+                                                    background: sc.bg, borderRadius: 4,
+                                                    textTransform: 'uppercase',
+                                                }}>{p.status}</span>
+                                                {p.collaborative && (
+                                                    <span className="tag" style={{ fontSize: '0.58rem' }}>Collab</span>
+                                                )}
+                                            </div>
+                                            <p style={{
+                                                fontSize: '0.875rem', color: 'var(--color-muted)',
+                                                lineHeight: 1.65, marginBottom: 12,
+                                            }}>{p.description}</p>
+                                            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                                                {p.languages.slice(0, 4).map(l => (
+                                                    <span key={l} className="tag accent" style={{ fontSize: '0.58rem' }}>{l}</span>
+                                                ))}
+                                                {p.languages.length > 4 && (
+                                                    <span className="tag" style={{ fontSize: '0.58rem' }}>+{p.languages.length - 4}</span>
+                                                )}
+                                            </div>
+                                        </div>
 
-            {/* Description */}
-            <p className="text-sm text-primary-content leading-relaxed">
-              {project.description}
-            </p>
+                                        {/* Toggle */}
+                                        <span style={{
+                                            fontFamily: 'var(--font-mono)', fontSize: '0.8rem',
+                                            color: 'var(--color-muted)', paddingTop: 4,
+                                            transition: 'transform 0.2s, color 0.2s',
+                                            transform: isOpen ? 'rotate(45deg)' : 'none',
+                                        }}>+</span>
+                                    </button>
 
-            {/* Complexity */}
-            <div>
-              <div className={`inline-block px-2 py-1 rounded text-xs font-medium ${getComplexityColor(project.complexity)}`}>
-                Complexity: {project.complexity}
-              </div>
+                                    {/* Expanded detail */}
+                                    {isOpen && (
+                                        <div style={{
+                                            paddingBottom: 40,
+                                            paddingLeft: 64,
+                                            display: 'grid',
+                                            gridTemplateColumns: '260px 1fr',
+                                            gap: 40,
+                                            alignItems: 'start',
+                                            animation: 'expandIn 0.25s cubic-bezier(0.16,1,0.3,1) both',
+                                        }} className="expanded-grid">
+
+                                            {/* Screenshot */}
+                                            <div style={{
+                                                borderRadius: 8,
+                                                overflow: 'hidden',
+                                                border: '1px solid var(--color-border)',
+                                                background: 'var(--color-panel)',
+                                                aspectRatio: '16 / 10',
+                                                position: 'relative',
+                                            }}>
+                                                <img
+                                                    src={p.image}
+                                                    alt={`${p.title} screenshot`}
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        objectFit: 'cover',
+                                                        display: 'block',
+                                                        transition: 'opacity 0.3s',
+                                                    }}
+                                                    onError={e => {
+                                                        e.currentTarget.style.display = 'none';
+                                                        e.currentTarget.nextSibling.style.display = 'flex';
+                                                    }}
+                                                />
+                                                {/* Fallback placeholder */}
+                                                <div style={{
+                                                    display: 'none',
+                                                    position: 'absolute', inset: 0,
+                                                    alignItems: 'center', justifyContent: 'center',
+                                                    background: 'var(--color-panel)',
+                                                    flexDirection: 'column', gap: 8,
+                                                }}>
+                                                    <span style={{ fontSize: '1.4rem', opacity: 0.2 }}>◈</span>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
+                                                        color: 'var(--color-muted)', letterSpacing: '0.1em',
+                                                        textTransform: 'uppercase',
+                                                    }}>No preview</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Info */}
+                                            <div>
+                                                {/* Features */}
+                                                {p.features && (
+                                                    <div style={{ marginBottom: 24 }}>
+                                                        <div style={{
+                                                            fontFamily: 'var(--font-mono)', fontSize: '0.6rem',
+                                                            letterSpacing: '0.14em', textTransform: 'uppercase',
+                                                            color: 'var(--color-muted)', marginBottom: 12,
+                                                        }}>{L(t.projects.featuresLabel)}</div>
+                                                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                                                            {p.features.map(f => (
+                                                                <span key={f} className="tag" style={{ fontSize: '0.6rem' }}>{f}</span>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {/* Meta row */}
+                                                <div style={{
+                                                    display: 'flex', gap: 20, flexWrap: 'wrap',
+                                                    paddingTop: 16, marginBottom: 24,
+                                                    borderTop: '1px solid var(--color-border)',
+                                                }}>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                                        color: 'var(--color-muted)',
+                                                    }}>{L(t.projects.updatedLabel)} {p.updated}</span>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                                        color: 'var(--color-muted)',
+                                                    }}>{p.complexity}</span>
+                                                    {p.collaborative && (
+                                                        <span style={{
+                                                            fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                                            color: 'var(--color-accent)',
+                                                        }}>{L(t.projects.withLabel)} @{p.collaborator}</span>
+                                                    )}
+                                                </div>
+
+                                                {/* GitHub CTA */}
+                                                <a href={p.githubUrl} target="_blank" rel="noopener noreferrer"
+                                                   className="btn btn-filled"
+                                                   style={{ fontSize: '0.65rem', padding: '10px 20px' }}>
+                                                    {L(t.common.viewOnGithub)}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
             </div>
 
-            {/* Tech Stack */}
-            <div>
-              <p className="text-xs text-accent font-semibold mb-2">Tech Stack:</p>
-              <div className="flex flex-wrap gap-1">
-                {project.languages.map((lang) => (
-                  <span key={lang} className="tag text-xs">
-                    {lang}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Footer with link and date */}
-            <div className="flex items-center justify-between pt-3 border-t border-accent/10 text-xs text-primary-content/70">
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 px-3 py-2 bg-accent/10 hover:bg-accent/20 border border-accent/20 hover:border-accent/40 rounded text-accent hover:text-accent-focus transition-all"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                View on GitHub
-              </a>
-              <span>Updated {project.updated}</span>
-            </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </motion.div>
-);
-
-const ListProjectCard = ({ project, isExpanded, onToggle }) => (
-  <motion.div
-    initial={{ opacity: 0, x: -20 }}
-    animate={{ opacity: 1, x: 0 }}
-    exit={{ opacity: 0, x: -20 }}
-    transition={{ duration: 0.3 }}
-    className="bg-[#232946] rounded-lg p-4 border border-accent/10 hover:border-accent/30 transition-colors cursor-pointer"
-    onClick={onToggle}
-  >
-    <div className="flex items-start gap-4">
-      <img
-        src={project.image}
-        alt={project.title}
-        className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
-        onError={(e) => {
-          e.target.src = `https://via.placeholder.com/96x96/232946/7f5af0?text=${encodeURIComponent(project.title)}`;
-        }}
-      />
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-4 mb-2">
-          <h3 className="text-lg font-semibold text-accent hover:text-accent-focus transition-colors">
-            {project.title}
-          </h3>
-          <div className="flex gap-2 flex-shrink-0">
-            <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(project.status)}`}>
-              {project.status}
-            </span>
-            <span className={`text-xs px-2 py-1 rounded-full ${getComplexityColor(project.complexity)}`}>
-              {project.complexity}
-            </span>
-          </div>
+            <style>{`
+                .search-input:focus { border-color: rgba(200,169,110,0.35) !important; }
+                .project-row-btn:hover { background: rgba(200,169,110,0.02) !important; }
+                .reset-btn:hover { color: var(--color-accent) !important; border-color: rgba(200,169,110,0.3) !important; }
+                @keyframes expandIn {
+                    from { opacity: 0; transform: translateY(-6px); }
+                    to   { opacity: 1; transform: translateY(0); }
+                }
+                @media (max-width: 720px) {
+                    .expanded-grid {
+                        grid-template-columns: 1fr !important;
+                        padding-left: 0 !important;
+                    }
+                }
+                @media (max-width: 480px) {
+                    .expanded-grid { padding-left: 0 !important; }
+                }
+            `}</style>
         </div>
-        <p className="text-sm text-primary-content/80 line-clamp-2 mb-3">
-          {project.description}
-        </p>
-        <div className="flex flex-wrap gap-1">
-          {project.languages.map((lang) => (
-            <span key={lang} className="tag text-xs">
-              {lang}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="text-accent text-xl flex-shrink-0">
-        {isExpanded ? '▼' : '▶'}
-      </div>
-    </div>
-
-    <AnimatePresence>
-      {isExpanded && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
-          className="overflow-hidden border-t border-accent/10 mt-4 pt-4"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="space-y-3">
-            {project.features && (
-              <div>
-                <p className="text-xs text-accent font-semibold mb-2">Features:</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.features.map((feat, idx) => (
-                    <span key={idx} className="text-xs bg-accent/10 text-accent px-2 py-1 rounded">
-                      {feat}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {project.collaborative && (
-              <p className="text-xs text-accent-focus">
-                Collaborative with @{project.collaborator}
-              </p>
-            )}
-            <div className="flex items-center justify-between pt-3 border-t border-accent/10 text-xs text-primary-content/70">
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 px-3 py-2 bg-accent/10 hover:bg-accent/20 border border-accent/20 rounded text-accent transition-all"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
-              <span>Updated {project.updated}</span>
-            </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </motion.div>
-);
-
-export default function ProjectsRedesigned() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedStatus, setSelectedStatus] = useState('All');
-  const [selectedComplexity, setSelectedComplexity] = useState('All');
-  const [sortBy, setSortBy] = useState('updated');
-  const [expandedProject, setExpandedProject] = useState(null);
-  const [viewMode, setViewMode] = useState('grid');
-
-  const filteredAndSortedProjects = useMemo(() => {
-    let filtered = projects.filter(project => {
-      const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            project.languages.some(lang => lang.toLowerCase().includes(searchTerm.toLowerCase()));
-
-      const matchesCategory = selectedCategory === 'All' || project.category === selectedCategory;
-      const matchesStatus = selectedStatus === 'All' || project.status === selectedStatus;
-      const matchesComplexity = selectedComplexity === 'All' || project.complexity === selectedComplexity;
-
-      return matchesSearch && matchesCategory && matchesStatus && matchesComplexity;
-    });
-
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case 'title': return a.title.localeCompare(b.title);
-        case 'complexity': 
-          const order = { 'Beginner': 1, 'Intermediate': 2, 'Advanced': 3 };
-          return (order[b.complexity] || 0) - (order[a.complexity] || 0);
-        case 'updated':
-        default: return new Date(b.updated) - new Date(a.updated);
-      }
-    });
-
-    return filtered;
-  }, [searchTerm, selectedCategory, selectedStatus, selectedComplexity, sortBy]);
-
-  return (
-    <div className="p-6">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-accent mb-2">My Projects</h1>
-        <p className="text-primary-content text-sm md:text-base">
-          {filteredAndSortedProjects.length} {filteredAndSortedProjects.length === 1 ? 'project' : 'projects'} found
-        </p>
-      </div>
-
-      {/* Controls */}
-      <div className="mb-8 space-y-4">
-        <input
-          type="text"
-          placeholder="Search projects, technologies..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-3 bg-[#232946] border border-accent/20 rounded-lg text-primary-content focus:outline-none focus:border-accent transition"
-        />
-        
-        <div className="flex flex-wrap gap-3">
-          <select value={selectedCategory} onChange={e => setSelectedCategory(e.target.value)} className="px-4 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm focus:outline-none focus:border-accent transition">
-            {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-          </select>
-          
-          <select value={selectedStatus} onChange={e => setSelectedStatus(e.target.value)} className="px-4 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm focus:outline-none focus:border-accent transition">
-            {statusOptions.map(status => <option key={status} value={status}>{status}</option>)}
-          </select>
-
-          <select value={selectedComplexity} onChange={e => setSelectedComplexity(e.target.value)} className="px-4 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm focus:outline-none focus:border-accent transition">
-            {complexityOptions.map(comp => <option key={comp} value={comp}>{comp}</option>)}
-          </select>
-          
-          <select value={sortBy} onChange={e => setSortBy(e.target.value)} className="px-4 py-2 bg-[#232946] border border-accent/20 rounded-lg text-primary-content text-sm focus:outline-none focus:border-accent transition">
-            <option value="updated">Sort by Date</option>
-            <option value="title">Sort by Title</option>
-            <option value="complexity">Sort by Complexity</option>
-          </select>
-
-          <div className="flex gap-2 ml-auto">
-            <button
-              onClick={() => setViewMode('grid')}
-              className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-accent text-[#232946]' : 'bg-accent/10 text-accent hover:bg-accent/20'}`}
-              title="Grid view"
-            >
-              <Grid3x3 size={20} />
-            </button>
-            <button
-              onClick={() => setViewMode('list')}
-              className={`p-2 rounded-lg transition-all ${viewMode === 'list' ? 'bg-accent text-[#232946]' : 'bg-accent/10 text-accent hover:bg-accent/20'}`}
-              title="List view"
-            >
-              <List size={20} />
-            </button>
-          </div>
-
-          <button
-            onClick={() => {
-              setSearchTerm('');
-              setSelectedCategory('All');
-              setSelectedStatus('All');
-              setSelectedComplexity('All');
-              setExpandedProject(null);
-            }}
-            className="px-4 py-2 bg-accent/10 hover:bg-accent/20 border border-accent/20 rounded-lg text-accent text-sm transition"
-          >
-            Reset
-          </button>
-        </div>
-      </div>
-
-      {/* Projects */}
-      {filteredAndSortedProjects.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-primary-content text-lg">No projects match your filters.</p>
-        </div>
-      ) : (
-        <AnimatePresence mode="wait">
-          {viewMode === 'grid' ? (
-            <div key="grid" className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredAndSortedProjects.map((project, idx) => (
-                <motion.div key={project.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: idx * 0.05 }}>
-                  <GridProjectCard 
-                    project={project} 
-                    isExpanded={expandedProject === project.title}
-                    onToggle={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div key="list" className="space-y-4">
-              {filteredAndSortedProjects.map((project, idx) => (
-                <motion.div key={project.title} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: idx * 0.05 }}>
-                  <ListProjectCard 
-                    project={project} 
-                    isExpanded={expandedProject === project.title}
-                    onToggle={() => setExpandedProject(expandedProject === project.title ? null : project.title)}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </AnimatePresence>
-      )}
-    </div>
-  );
+    );
 }

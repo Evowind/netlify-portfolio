@@ -1,308 +1,423 @@
-import { Download } from 'components/download';
+'use client';
 
-export const metadata = {
-    title: 'Resume',
+import Link from 'next/link';
+import { useApp } from '../../lib/context';
+import { t, getLang } from '../../lib/translations';
+
+const experiences = [
+    {
+        date: 'May – Jun 2024',
+        role: 'React Native Developer',
+        place: 'Ondrh / Artem5',
+        location: 'Paris, France',
+        type: 'work',
+        desc: 'Developed "Socializus": a social event app for expatriates, using React Native & TypeScript.',
+        achievements: [
+            'Built LoginRegister, CreateProfile and EditProfile flows with full validation and error handling',
+            'Implemented image cropping for profile photos and SMS verification system',
+            'Migrated JavaScript codebase to TypeScript; configured Webpack for improved robustness',
+            'Developed reusable components with multilingual support across 36 languages',
+            'Actively participated in Daily Scrum meetings; maintained detailed Git documentation',
+        ],
+        stack: ['React Native', 'TypeScript', 'Redux', 'AsyncStorage', 'Webpack', 'MongoDB', 'Node.js'],
+    },
+];
+
+const education = [
+    {
+        date: '2024 — present',
+        degree: "Master's in Computer Science",
+        sub: 'Vision & Machine Intelligence',
+        school: 'Université Paris Cité',
+        status: 'current',
+        coursework: ['Machine Learning & AI', 'Computer Vision & Image Processing', 'Optimization & Data Mining', 'Advanced Algorithms'],
+        focus: ['Deep Learning & Neural Networks', 'Pattern Recognition', 'Intelligent Systems'],
+    },
+    {
+        date: '2021 – 2024',
+        degree: "Bachelor's in Computer Science",
+        school: 'UPEC: Université Paris-Est Créteil',
+        status: 'done',
+        coursework: ['Data Structures & Algorithms', 'Systems Programming (C, C++)', 'Database Systems', 'Web & Software Engineering'],
+        focus: ['Argumentation Frameworks', 'Distributed Systems & DevOps', 'Human-Computer Interaction'],
+    },
+];
+
+const skills = {
+    'Programming Languages': ['Java', 'Python', 'C / C++', 'PHP', 'TypeScript', 'JavaScript'],
+    'Web & Mobile': ['React Native', 'Next.js', 'Laravel', 'HTML / CSS', 'MySQL', 'PostgreSQL'],
+    'AI & Vision': ['OpenCV', 'PyTorch', 'Scikit-learn', 'Deep Learning'],
+    'Tools & Infra': ['Linux', 'Docker', 'Kubernetes', 'Git', 'Figma'],
 };
 
+const languages = [
+    { lang: 'French', level: 'Native' },
+    { lang: 'English', level: 'Bilingual' },
+];
+
 export default function ResumePage() {
-    const experiences = [
-        {
-            title: 'React Native Web & Mobile Developer',
-            company: 'Ondrh/Artem5',
-            period: 'May 2024 — Jun 2024',
-            location: 'Paris, France',
-            type: 'Work',
-            description: 'Developed mobile and web applications using React Native & TypeScript.',
-            achievements: [
-                'Developed and maintained "Socializus" social event app for expatriates using React Native & TypeScript',
-                'Implemented LoginRegister, CreateProfile, and EditProfile sections with data validation and error handling',
-                'Created image cropping system for profile photos and developed SMS verification system',
-                'Migrated JavaScript codebase to TypeScript and configured Webpack for improved project robustness',
-                'Developed reusable components with multilingual support (36 languages)',
-                'Actively participated in Daily Scrum Meetings and maintained detailed Git documentation',
-                'Architecture: React Native Web/Mobile Frontend, Node.js Backend, MongoDB, Geolocation API integration',
-                'Tech stack: React Native CLI, Redux, AsyncStorage, Babel, Webpack, Figma, Git'
-            ]
-        },
-        {
-            title: "Master in Computer Science - Vision & Machine Intelligence",
-            company: "Université Paris Cité",
-            period: "2024 — Present",
-            location: "Paris, France",
-            type: "Education",
-            description: "Pursuing a Master's degree in Computer Science at UFR de mathématiques et informatique.",
-            coursework: [
-                "Machine Learning & Artificial Intelligence",
-                "Computer Vision & Image Processing",
-                "Optimization & Data Mining",
-                "Advanced Algorithms"
-            ],
-            specializations: [
-                "Deep Learning & Neural Networks",
-                "Pattern Recognition & Image Analysis",
-                "Intelligent Systems"
-            ]
-        },
-        {
-            title: "Bachelor in Computer Science",
-            company: "Université Paris-Est Créteil (UPEC)",
-            period: "2021 — 2024",
-            location: "France",
-            type: "Education",
-            description: "Completed Bachelor's degree in Computer Science.",
-            coursework: [
-                "Data Structures & Algorithms",
-                "Systems Programming (C, C++)",
-                "Database Systems & Architecture",
-                "Web Development & Software Engineering"
-            ],
-            specializations: [
-                "Argumentation Frameworks & Logic Systems",
-                "Distributed Systems & DevOps",
-                "Human-Computer Interaction"
-            ]
-        }
-    ];
-
-    const skills = {
-        'Programming Languages': ['Java', 'Python', 'C', 'PHP', 'TypeScript', 'JavaScript'],
-        'Web & Mobile Development': ['React Native', 'Laravel', 'HTML', 'Bootstrap', 'MySQL', 'SQLite'],
-        'Systems & Tools': ['Linux','Windows', 'GitLab', 'Figma', 'Docker', 'Git'],
-        'Core Competencies': ['Algorithm Analysis', 'Pattern Recognition']
-    };
-
+    const { lang } = useApp();
+    const L = (entry) => getLang(entry, lang);
     return (
-        <div className="max-w-5xl mx-auto p-6">
-            {/* Header */}
-            <div className="mb-12">
-                <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6">
+        <div style={{ position: 'relative', zIndex: 1 }}>
+
+            {/* ── PAGE HEADER ── */}
+            <div style={{
+                maxWidth: 960, margin: '0 auto',
+                padding: 'clamp(56px, 8vw, 96px) 24px 64px',
+                display: 'grid', gridTemplateColumns: '1fr auto',
+                gap: 32, alignItems: 'flex-end',
+            }} className="resume-header-grid">
+                <div>
+                    <span className="label fade-in" style={{ marginBottom: 16 }}>Curriculum Vitæ</span>
+                    <h1 className="fade-up delay-1" style={{ marginBottom: 12 }}>
+                        Resume
+                    </h1>
+                    <p className="fade-up delay-2" style={{
+                        fontFamily: 'var(--font-display)', fontStyle: 'italic',
+                        fontSize: '1.15rem', color: 'var(--color-muted)', maxWidth: 440,
+                    }}>
+                        Computer Science student specialising in AI, Computer Vision &amp; Full-Stack Development
+                    </p>
+                </div>
+                <div className="fade-up delay-3">
+                    <a
+                        href="https://docs.google.com/document/d/1dQHVUnKcoxcptqzMPPZSS6Xuvhv0Tz2K/edit"
+                        target="_blank" rel="noopener noreferrer"
+                        className="btn btn-filled"
+                        style={{ whiteSpace: 'nowrap' }}
+                    >
+                        ↓ Download PDF
+                    </a>
+                </div>
+            </div>
+
+            {/* ── QUICK STATS ── */}
+            <div style={{
+                background: 'var(--color-surface)',
+                borderTop: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
+                padding: '0',
+            }}>
+                <div style={{
+                    maxWidth: 960, margin: '0 auto',
+                    display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+                    gap: 0,
+                }} className="stats-grid">
+                    {[
+                        { val: '6+', label: 'Languages' },
+                        { val: 'M2',  label: 'Current degree' },
+                        { val: 'AI/ML', label: 'Specialisation' },
+                        { val: '1',   label: 'Work experience' },
+                    ].map((s, i) => (
+                        <div key={i} style={{
+                            padding: '28px 24px', textAlign: 'center',
+                            borderRight: i < 3 ? '1px solid var(--color-border)' : 'none',
+                        }}>
+                            <div style={{
+                                fontFamily: 'var(--font-display)', fontSize: '1.8rem',
+                                fontWeight: 700, color: 'var(--color-accent)',
+                                lineHeight: 1, marginBottom: 8,
+                            }}>{s.val}</div>
+                            <div style={{
+                                fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                letterSpacing: '0.14em', textTransform: 'uppercase',
+                                color: 'var(--color-muted)',
+                            }}>{s.label}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* ── SUMMARY ── */}
+            <div style={{ maxWidth: 960, margin: '0 auto', padding: 'clamp(56px, 7vw, 88px) 24px' }}>
+                <div style={{
+                    display: 'grid', gridTemplateColumns: '200px 1fr',
+                    gap: 48, alignItems: 'start',
+                }} className="section-grid">
                     <div>
-                        <h1 className="mb-4 text-4xl font-bold text-accent">Samy - Resume</h1>
-                        <p className="text-lg text-primary-content leading-relaxed max-w-3xl mb-2">
-                            Computer Science Student & Software Developer
-                        </p>
-                        <p className="text-primary-content leading-relaxed max-w-3xl">
-                            Specializing in AI, Computer Vision & Full-Stack Development with hands-on experience 
-                            in modern web and mobile technologies.
-                        </p>
+                        <span className="label" style={{ marginBottom: 0 }}>Summary</span>
                     </div>
-                    <div className="flex-shrink-0">
-                        <Download />
+                    <div>
+                        <p style={{ fontSize: '1.1rem', lineHeight: 1.85, marginBottom: 20 }}>
+                            CS student at <em>Université Paris Cité</em> with a strong foundation in programming
+                            and hands-on experience across mobile, web, and systems development. My background
+                            spans algorithm design, computer vision, and modern web engineering.
+                        </p>
+                        <p style={{ fontSize: '1.1rem', lineHeight: 1.85, color: 'var(--color-muted)' }}>
+                            I've worked as a React Native developer and continue building expertise
+                            in machine learning and computer vision through both coursework and independent projects.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            {/* Resume Overview Stats */}
-            <section className="mb-12 grid md:grid-cols-3 gap-4">
-                <div className="card p-4 text-center">
-                    <div className="text-2xl font-bold text-accent mb-1">6+</div>
-                    <div className="text-sm text-primary-content">Programming Languages</div>
-                </div>
-                <div className="card p-4 text-center">
-                    <div className="text-2xl font-bold text-accent mb-1">Master's</div>
-                    <div className="text-sm text-primary-content">Current Degree</div>
-                </div>
-                <div className="card p-4 text-center">
-                    <div className="text-2xl font-bold text-accent mb-1">AI/ML</div>
-                    <div className="text-sm text-primary-content">Specialization</div>
-                </div>
-            </section>
-
-            {/* Professional Summary */}
-            <section className="mb-12">
-                <div className="mb-6">
-                    <h2 className="text-3xl font-bold text-primary mb-2">Professional Summary</h2>
-                    <p className="text-primary-content">Overview of my background, expertise, and career focus</p>
-                </div>
-                <div className="card p-6 hover:shadow-xl transition-all duration-300">
-                    <p className="text-primary-content leading-relaxed">
-                        I am a Computer Science student at Université Paris Cité with a strong foundation in programming 
-                        (Java, C, OCaml, PHP) and experience in mobile and full-stack development. My background spans 
-                        algorithm analysis, system design, and web technologies. I have professional experience as a 
-                        React Native developer and continue to expand my expertise in modern software engineering practices.
-                    </p>
-                </div>
-            </section>
-
-            {/* Experience Section */}
-            <section className="mb-12">
-                <div className="mb-6">
-                    <h2 className="text-3xl font-bold text-primary mb-2">Professional Experience</h2>
-                    <p className="text-primary-content">Work experience and professional achievements</p>
-                </div>
-                <div className="space-y-6">
-                    {experiences.filter(exp => exp.type === 'Work').map((exp, idx) => (
-                        <div key={idx} className="card p-6 hover:shadow-xl transition-all duration-300">
-                            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-4">
-                                <div className="flex-1">
-                                    <h3 className="text-xl font-semibold text-accent mb-1">{exp.title}</h3>
-                                    <div className="text-primary-content mb-2">
-                                        <span className="font-medium">{exp.company}</span>
-                                        {exp.location && <span className="text-primary-content/70"> • {exp.location}</span>}
+            {/* ── EXPERIENCE ── */}
+            <div style={{
+                background: 'var(--color-surface)',
+                borderTop: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
+                padding: 'clamp(56px, 7vw, 88px) 24px',
+            }}>
+                <div style={{ maxWidth: 960, margin: '0 auto' }}>
+                    <div style={{
+                        display: 'grid', gridTemplateColumns: '200px 1fr',
+                        gap: 48,
+                    }} className="section-grid">
+                        <div>
+                            <span className="label" style={{ marginBottom: 0 }}>Experience</span>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
+                            {experiences.map((e, i) => (
+                                <div key={i}>
+                                    {/* Header */}
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
+                                        <div>
+                                            <div style={{
+                                                fontFamily: 'var(--font-display)', fontSize: '1.3rem',
+                                                fontWeight: 700, color: 'var(--color-bright)', marginBottom: 4,
+                                            }}>{e.role}</div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                                                <span style={{
+                                                    fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
+                                                    color: 'var(--color-accent)', letterSpacing: '0.06em',
+                                                }}>{e.place}</span>
+                                                <span style={{ color: 'var(--color-border)', fontSize: '0.8rem' }}>·</span>
+                                                <span style={{
+                                                    fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
+                                                    color: 'var(--color-muted)', letterSpacing: '0.06em',
+                                                }}>{e.location}</span>
+                                            </div>
+                                        </div>
+                                        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                                            <span style={{
+                                                fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
+                                                color: 'var(--color-muted)', letterSpacing: '0.08em',
+                                            }}>{e.date}</span>
+                                            <span className="tag accent" style={{ fontSize: '0.6rem' }}>Work</span>
+                                        </div>
                                     </div>
-                                    <p className="text-primary-content text-sm mb-3 leading-relaxed">{exp.description}</p>
-                                </div>
-                                <div className="flex flex-col items-end gap-2">
-                                    <span className="text-primary-content font-medium">{exp.period}</span>
-                                    <span className="text-xs px-3 py-1 rounded-full bg-green-500/20 text-green-300 border border-green-500/30">
-                                        {exp.type}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="space-y-3">
-                                <h4 className="font-semibold text-primary">Key Achievements:</h4>
-                                <ul className="space-y-2">
-                                    {exp.achievements.map((achievement, achievementIdx) => (
-                                        <li key={achievementIdx} className="flex items-start gap-2 text-primary-content text-sm">
-                                            <span className="text-accent mt-1 flex-shrink-0">•</span>
-                                            <span className="leading-relaxed">{achievement}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Education Section */}
-            <section className="mb-12">
-                <div className="mb-6">
-                    <h2 className="text-3xl font-bold text-primary mb-2">Education</h2>
-                    <p className="text-primary-content">Academic background and qualifications</p>
-                </div>
-                <div className="space-y-6">
-                    {experiences.filter(exp => exp.type === 'Education').map((edu, idx) => (
-                        <div key={idx} className="card p-6 hover:shadow-xl transition-all duration-300">
-                            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-4">
-                                <div className="flex-1">
-                                    <h3 className="text-xl font-semibold text-accent mb-2">{edu.title}</h3>
-                                    <p className="text-primary-content mb-3">
-                                        {edu.company} • {edu.period}
-                                    </p>
-                                    <p className="text-primary-content text-sm leading-relaxed">{edu.description}</p>
-                                </div>
-                                <div className="flex-shrink-0">
-                                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium border ${
-                                        edu.period.includes('Present') 
-                                            ? 'bg-blue-500/20 text-blue-300 border-blue-500/30' 
-                                            : 'bg-green-500/20 text-green-300 border-green-500/30'
-                                    }`}>
-                                        {edu.period.includes('Present') ? 'Current Student' : 'Completed'}
-                                    </span>
-                                </div>
-                            </div>
-                            
-                            <div className="grid lg:grid-cols-2 gap-6 mt-6">
-                                <div>
-                                    <h4 className="font-semibold text-primary mb-3">Core Coursework:</h4>
-                                    <ul className="space-y-2 text-primary-content">
-                                        {edu.coursework.map((course, courseIdx) => (
-                                            <li key={courseIdx} className="flex items-start gap-2 text-sm">
-                                                <span className="text-accent mt-1 flex-shrink-0">•</span>
-                                                <span className="leading-relaxed">{course}</span>
+                                    <p style={{ marginBottom: 20, lineHeight: 1.75 }}>{e.desc}</p>
+                                    {/* Achievements */}
+                                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                                        {e.achievements.map((a, j) => (
+                                            <li key={j} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                                                <span style={{ color: 'var(--color-accent)', marginTop: 3, flexShrink: 0, fontSize: '0.7rem' }}>◆</span>
+                                                <span style={{ fontSize: '0.95rem', lineHeight: 1.7, color: 'var(--color-text)' }}>{a}</span>
                                             </li>
                                         ))}
                                     </ul>
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-primary mb-3">Specialized Areas:</h4>
-                                    <ul className="space-y-2 text-primary-content">
-                                        {edu.specializations.map((spec, specIdx) => (
-                                            <li key={specIdx} className="flex items-start gap-2 text-sm">
-                                                <span className="text-accent mt-1 flex-shrink-0">•</span>
-                                                <span className="leading-relaxed">{spec}</span>
-                                            </li>
+                                    {/* Stack */}
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 24 }}>
+                                        {e.stack.map(t => (
+                                            <span key={t} className="tag accent" style={{ fontSize: '0.6rem' }}>{t}</span>
                                         ))}
-                                    </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </div>
-            </section>
+            </div>
 
-            {/* Technical Skills */}
-            <section className="mb-12">
-                <div className="mb-6">
-                    <h2 className="text-3xl font-bold text-primary mb-2">Technical Skills</h2>
-                    <p className="text-primary-content">Programming languages, frameworks, and technologies</p>
-                </div>
-                <div className="card p-6 hover:shadow-xl transition-all duration-300">
-                    <div className="grid lg:grid-cols-2 gap-6">
-                        {Object.entries(skills).map(([category, skillList], idx) => (
-                            <div key={idx}>
-                                <h3 className="font-semibold text-accent mb-4">{category}</h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {skillList.map((skill, skillIdx) => (
-                                        <span key={skillIdx} className="text-xs bg-accent/10 text-accent px-3 py-1 rounded-full border border-accent/20 hover:bg-accent/20 transition-all duration-300">
-                                            {skill}
+            {/* ── EDUCATION ── */}
+            <div style={{ maxWidth: 960, margin: '0 auto', padding: 'clamp(56px, 7vw, 88px) 24px' }}>
+                <div style={{
+                    display: 'grid', gridTemplateColumns: '200px 1fr', gap: 48,
+                }} className="section-grid">
+                    <div>
+                        <span className="label" style={{ marginBottom: 0 }}>Education</span>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+                        {education.map((e, i) => (
+                            <div key={i} style={{
+                                padding: '32px', background: 'var(--color-panel)',
+                                border: '1px solid var(--color-border)', borderRadius: 12,
+                                transition: 'border-color 0.3s',
+                            }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
+                                    <div>
+                                        <div style={{
+                                            fontFamily: 'var(--font-display)', fontSize: '1.2rem',
+                                            fontWeight: 700, color: 'var(--color-bright)', marginBottom: 4,
+                                        }}>{e.degree}</div>
+                                        {e.sub && (
+                                            <div style={{
+                                                fontFamily: 'var(--font-display)', fontStyle: 'italic',
+                                                fontSize: '0.95rem', color: 'var(--color-accent)', marginBottom: 4,
+                                            }}>{e.sub}</div>
+                                        )}
+                                        <div style={{
+                                            fontFamily: 'var(--font-mono)', fontSize: '0.68rem',
+                                            color: 'var(--color-muted)', letterSpacing: '0.06em',
+                                        }}>{e.school}</div>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+                                        <span style={{
+                                            fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
+                                            color: 'var(--color-muted)',
+                                        }}>{e.date}</span>
+                                        <span className={`tag ${e.status === 'current' ? 'purple' : 'accent'}`}
+                                              style={{ fontSize: '0.6rem' }}>
+                                            {e.status === 'current' ? 'Current' : 'Completed'}
                                         </span>
-                                    ))}
+                                    </div>
+                                </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }} className="edu-cols">
+                                    <div>
+                                        <div style={{
+                                            fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                            letterSpacing: '0.14em', textTransform: 'uppercase',
+                                            color: 'var(--color-muted)', marginBottom: 12,
+                                        }}>Core coursework</div>
+                                        <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                            {e.coursework.map((c, j) => (
+                                                <li key={j} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: '0.9rem', color: 'var(--color-text)' }}>
+                                                    <span style={{ color: 'var(--color-border)', marginTop: 2, flexShrink: 0 }}>—</span>
+                                                    {c}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <div style={{
+                                            fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                            letterSpacing: '0.14em', textTransform: 'uppercase',
+                                            color: 'var(--color-muted)', marginBottom: 12,
+                                        }}>Focus areas</div>
+                                        <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                            {e.focus.map((f, j) => (
+                                                <li key={j} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: '0.9rem', color: 'var(--color-text)' }}>
+                                                    <span style={{ color: 'var(--color-accent)', marginTop: 2, flexShrink: 0, fontSize: '0.6rem' }}>◆</span>
+                                                    {f}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-            </section>
+            </div>
 
-            {/* Languages & Additional Info */}
-            <section className="mb-12">
-                <div className="mb-6">
-                    <h2 className="text-3xl font-bold text-primary mb-2">Additional Information</h2>
-                    <p className="text-primary-content">Languages, interests, and other relevant details</p>
-                </div>
-                <div className="grid lg:grid-cols-2 gap-6">
-                    <div className="card p-6 hover:shadow-xl transition-all duration-300">
-                        <h3 className="font-semibold text-accent mb-4">Languages</h3>
-                        <div className="space-y-3">
-                            <div className="flex justify-between items-center">
-                                <span className="text-primary-content">French</span>
-                                <span className="text-xs bg-accent/10 text-accent px-3 py-1 rounded-full border border-accent/20">Native</span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <span className="text-primary-content">English</span>
-                                <span className="text-xs bg-accent/10 text-accent px-3 py-1 rounded-full border border-accent/20">Bilingual</span>
-                            </div>
+            {/* ── SKILLS ── */}
+            <div style={{
+                background: 'var(--color-surface)',
+                borderTop: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
+                padding: 'clamp(56px, 7vw, 88px) 24px',
+            }}>
+                <div style={{ maxWidth: 960, margin: '0 auto' }}>
+                    <div style={{
+                        display: 'grid', gridTemplateColumns: '200px 1fr', gap: 48,
+                    }} className="section-grid">
+                        <div>
+                            <span className="label" style={{ marginBottom: 12 }}>Skills</span>
+                            <Link href="/skills" className="btn" style={{ fontSize: '0.62rem', padding: '8px 14px' }}>
+                                Full breakdown →
+                            </Link>
                         </div>
-                    </div>
-                    <div className="card p-6 hover:shadow-xl transition-all duration-300">
-                        <h3 className="font-semibold text-accent mb-4">Interests</h3>
-                        <div className="flex flex-wrap gap-2">
-                            {['Computer Science Research', 'Web Development', 'Mobile Development', 'Open Source'].map((interest, idx) => (
-                                <span key={idx} className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/20 hover:bg-primary/20 transition-all duration-300">
-                                    {interest}
-                                </span>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 40 }}>
+                            {Object.entries(skills).map(([cat, list]) => (
+                                <div key={cat}>
+                                    <div style={{
+                                        fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                        letterSpacing: '0.14em', textTransform: 'uppercase',
+                                        color: 'var(--color-muted)', marginBottom: 16,
+                                    }}>{cat}</div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                        {list.map(s => (
+                                            <span key={s} style={{
+                                                fontFamily: 'var(--font-body)', fontSize: '0.95rem',
+                                                color: 'var(--color-text)',
+                                                paddingBottom: 8,
+                                                borderBottom: '1px solid var(--color-border)',
+                                            }}>{s}</span>
+                                        ))}
+                                    </div>
+                                </div>
                             ))}
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            {/* Call to Action */}
-            <section className="text-center bg-gradient-to-r from-accent/5 to-accent/10 rounded-2xl p-8">
-                <h2 className="text-2xl font-bold text-primary mb-4">Let's Connect</h2>
-                <p className="text-primary-content mb-6 max-w-2xl mx-auto">
-                    Interested in my background or potential collaboration opportunities? 
-                    I'm always open to discussing new projects and opportunities.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a 
-                        href="/contact" 
-                        className="btn bg-accent hover:bg-accent-focus text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
-                    >
-                        Get in Touch
-                    </a>
-                    <a 
-                        href="https://github.com/Evowind" 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn bg-transparent border-2 border-accent text-accent hover:bg-accent hover:text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
-                    >
-                        View GitHub
-                    </a>
+            {/* ── LANGUAGES & INTERESTS ── */}
+            <div style={{ maxWidth: 960, margin: '0 auto', padding: 'clamp(56px, 7vw, 88px) 24px' }}>
+                <div style={{
+                    display: 'grid', gridTemplateColumns: '200px 1fr', gap: 48,
+                }} className="section-grid">
+                    <div>
+                        <span className="label" style={{ marginBottom: 0 }}>More</span>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }} className="more-grid">
+                        <div>
+                            <div style={{
+                                fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                letterSpacing: '0.14em', textTransform: 'uppercase',
+                                color: 'var(--color-muted)', marginBottom: 20,
+                            }}>Languages</div>
+                            {languages.map(l => (
+                                <div key={l.lang} style={{
+                                    display: 'flex', justifyContent: 'space-between',
+                                    alignItems: 'center', paddingBottom: 16, marginBottom: 16,
+                                    borderBottom: '1px solid var(--color-border)',
+                                }}>
+                                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', color: 'var(--color-bright)' }}>{l.lang}</span>
+                                    <span className="tag accent" style={{ fontSize: '0.6rem' }}>{l.level}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <div>
+                            <div style={{
+                                fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                                letterSpacing: '0.14em', textTransform: 'uppercase',
+                                color: 'var(--color-muted)', marginBottom: 20,
+                            }}>Interests</div>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                                {['CS Research', 'Web Dev', 'Mobile Dev', 'Open Source', 'Dark Ambient Music', 'Retro Hardware', 'Dystopian Literature'].map(t => (
+                                    <span key={t} className="tag" style={{ fontSize: '0.62rem' }}>{t}</span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </div>
+
+            {/* ── CTA ── */}
+            <div style={{
+                background: 'var(--color-surface)',
+                borderTop: '1px solid var(--color-border)',
+                padding: 'clamp(56px, 7vw, 80px) 24px',
+            }}>
+                <div style={{
+                    maxWidth: 960, margin: '0 auto',
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    flexWrap: 'wrap', gap: 32,
+                }}>
+                    <div>
+                        <h2 style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', marginBottom: 8 }}>Let's connect</h2>
+                        <p style={{ color: 'var(--color-muted)', fontSize: '0.95rem' }}>
+                            Open to internships, research collabs, and interesting projects.
+                        </p>
+                    </div>
+                    <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                        <Link href="/contact" className="btn btn-filled">Get in touch</Link>
+                        <a href="https://github.com/Evowind" target="_blank" rel="noopener noreferrer" className="btn">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <style>{`
+                @media (max-width: 640px) {
+                    .resume-header-grid { grid-template-columns: 1fr !important; }
+                    .section-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+                    .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+                    .edu-cols { grid-template-columns: 1fr !important; }
+                    .more-grid { grid-template-columns: 1fr !important; }
+                }
+            `}</style>
         </div>
     );
 }

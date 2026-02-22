@@ -1,32 +1,25 @@
 import '../styles/globals.css';
-import { Footer } from '../components/footer';
+import { AppProvider } from '../lib/context';
 import { Header } from '../components/header';
+import { Footer } from '../components/footer';
 
 export const metadata = {
     title: {
-        template: '%s | Samy Portfolio',
-        default: 'Samy Portfolio'
+        template: '%s | Samy Tadly',
+        default: 'Samy Tadly · Developer Portfolio',
     },
-    description: "Samy's portfolio showcasing computer vision, AI, and web development projects.",
-    keywords: [
-        'portfolio',
-        'computer vision',
-        'AI',
-        'web development',
-        'Samy',
-        'projects',
-        'blog'
-    ],
-    authors: [{ name: 'Samy' }],
-    creator: 'Samy',
+    description: "Samy Tadly — Computer Vision, AI, and Full-Stack Engineering. Master's student at Université Paris Cité.",
+    keywords: ['portfolio', 'computer vision', 'AI', 'machine learning', 'web development', 'Samy Tadly'],
+    authors: [{ name: 'Samy Tadly' }],
+    creator: 'Samy Tadly',
     openGraph: {
-        title: "Samy Portfolio",
-        description: "Explore Samy's work in computer vision, AI, and web development.",
+        title: 'Samy Tadly · Developer Portfolio',
+        description: 'Computer Vision, AI, and Full-Stack Engineering.',
         url: 'https://samy-tadly.netlify.app/',
-        siteName: "Samy Portfolio",
+        siteName: 'Samy Tadly Portfolio',
         locale: 'en_US',
-        type: 'website'
-    }
+        type: 'website',
+    },
 };
 
 export default function RootLayout({ children }) {
@@ -34,15 +27,21 @@ export default function RootLayout({ children }) {
         <html suppressHydrationWarning={true}>
             <head>
                 <link rel="icon" href="/portfolio.svg" sizes="any" />
+                <script dangerouslySetInnerHTML={{ __html: `
+                    (function() {
+                        try {
+                            var theme = localStorage.getItem('theme') || 'dark';
+                            document.documentElement.setAttribute('data-theme', theme);
+                        } catch(e) {}
+                    })();
+                `}} />
             </head>
-            <body className="antialiased text-white bg-blue-900">
-                <Header />
-                <div className="flex flex-col min-h-screen px-6 bg-noise sm:px-12">
-                    <div className="flex flex-col w-full max-w-5xl mx-auto grow">
-                        <main className="grow">{children}</main>
-                    </div>
-                </div>
-                <Footer />
+            <body className="antialiased">
+                <AppProvider>
+                    <Header />
+                    <main>{children}</main>
+                    <Footer />
+                </AppProvider>
             </body>
         </html>
     );
