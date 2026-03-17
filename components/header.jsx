@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useApp } from './context';
-import { t, getLang } from './translations';
+import { useApp } from '../lib/context'
+import { t, getLang } from '../lib/translations';
 
 export function Header() {
     const { lang, setLang, theme, setTheme } = useApp();
