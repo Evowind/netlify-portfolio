@@ -8,7 +8,7 @@ const projects = [
     {
         title: 'Exoplanet Detection ML',
         image: '/images/exoplanet-detection.jpg',
-        description: 'Machine learning pipeline for detecting exoplanets from astronomical observation data. Multiple classification models, performance benchmarking, and data visualization.',
+        descKey: 'exoplanet',
         languages: ['Python', 'ML', 'Data Science'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/exoplanet-detection-ml',
@@ -21,7 +21,7 @@ const projects = [
     {
         title: 'Superpixel Methods Comparison',
         image: '/images/superpixel-methods.jpg',
-        description: 'Comparison of superpixel segmentation algorithms (SLIC, hierarchical) on image datasets, with performance analysis and benchmark results.',
+        descKey: 'superpixel',
         languages: ['Python', 'Computer Vision', 'Image Processing'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/slic-hierarchical-superpixels',
@@ -34,7 +34,7 @@ const projects = [
     {
         title: 'DockerEye 007',
         image: '/images/wip.jpg',
-        description: 'JavaScript tool for monitoring and managing Docker containers in real-time, with alerts and container management UI.',
+        descKey: 'dockereye',
         languages: ['JavaScript', 'Docker', 'DevOps'],
         mainLang: 'JavaScript',
         githubUrl: 'https://github.com/Evowind/docker-eye-007',
@@ -47,7 +47,7 @@ const projects = [
     {
         title: 'Netlify Portfolio',
         image: '/images/netlify-portfolio.jpg',
-        description: 'This portfolio, a modern responsive Next.js website hosted on Netlify with dynamic content and SEO optimisation.',
+        descKey: 'portfolio',
         languages: ['JavaScript', 'HTML', 'CSS', 'Next.js'],
         mainLang: 'JavaScript',
         githubUrl: 'https://github.com/Evowind/netlify-portfolio',
@@ -60,7 +60,7 @@ const projects = [
     {
         title: 'Morpion Computer Vision',
         image: '/images/morpion.jpg',
-        description: 'C++ Tic-tac-toe where the player draws the grid (3×3 to 5×5) using a webcam. Computer vision detects the drawn grid and runs the game.',
+        descKey: 'morpion',
         languages: ['C++', 'OpenCV', 'Algorithms'],
         mainLang: 'C++',
         githubUrl: 'https://github.com/Evowind/morpion-computer-vision',
@@ -73,7 +73,7 @@ const projects = [
     {
         title: 'Distributed Tournament System',
         image: '/images/prog-distrib.jpg',
-        description: 'Tournament system with Docker, Kubernetes, and microservices architecture. Full container orchestration with comprehensive testing.',
+        descKey: 'distrib',
         languages: ['Docker', 'Kubernetes', 'JavaScript', 'Microservices'],
         mainLang: 'JavaScript',
         githubUrl: 'https://github.com/Evowind/mkreset-kubernetes',
@@ -88,7 +88,7 @@ const projects = [
     {
         title: 'Mario Kart Reset Online',
         image: '/images/mk-reset.jpg',
-        description: 'Web app tracking Mario Kart tournaments using the TrueSkill rating algorithm. Full player statistics, tournament management, and history.',
+        descKey: 'mkrerset',
         languages: ['HTML', 'CSS', 'JavaScript', 'Flask', 'PostgreSQL', 'Python'],
         mainLang: 'JavaScript',
         githubUrl: 'https://github.com/Evowind/mariokart-reset-online',
@@ -103,7 +103,7 @@ const projects = [
     {
         title: 'Document Layout Analysis',
         image: '/images/document-layout.jpg',
-        description: 'Computer vision project analysing document layouts using deep learning and OCR integration. PyTorch + OpenCV pipeline for layout detection.',
+        descKey: 'docLayout',
         languages: ['Python', 'OpenCV', 'Deep Learning', 'PyTorch'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/document-layout-analysis',
@@ -118,7 +118,7 @@ const projects = [
     {
         title: 'Stairway to Data',
         image: '/images/stairway-data.jpg',
-        description: 'CV project detecting and counting stair steps using multiple ML models. XGBoost + Scikit-learn, edge detection, mobile-optimised.',
+        descKey: 'stairway',
         languages: ['Python', 'OpenCV', 'Scikit-learn', 'XGBoost'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/stairway-to-data',
@@ -133,7 +133,7 @@ const projects = [
     {
         title: 'Rental Car Service',
         image: '/images/rental-car.jpg',
-        description: 'Web app for car booking and management with full DevOps practices: CI/CD, containerisation, automated deployment.',
+        descKey: 'rentalcar',
         languages: ['HTML', 'CSS', 'JavaScript', 'DevOps'],
         mainLang: 'JavaScript',
         githubUrl: 'https://github.com/Evowind/rental-car-service',
@@ -146,7 +146,7 @@ const projects = [
     {
         title: 'Argumentation Framework Solver',
         image: '/images/argumentation-solver.jpg',
-        description: 'Python tool for solving argumentation frameworks with multiple semantics: admissible, stable, grounded, preferred. Graph-based reasoning engine.',
+        descKey: 'argFramework',
         languages: ['Python', 'Logic', 'Algorithms'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/argumentation-framework-solver',
@@ -159,7 +159,7 @@ const projects = [
     {
         title: 'ShapeShifter Classifier',
         image: '/images/shapeshifter.jpg',
-        description: 'C++ real-time classifier for recognising and categorising shapes via webcam. Optimised for low-latency inference with OpenCV.',
+        descKey: 'shapeshifter',
         languages: ['C++', 'OpenCV', 'ML'],
         mainLang: 'C++',
         githubUrl: 'https://github.com/Evowind/shapeshifter-classifier',
@@ -172,7 +172,7 @@ const projects = [
     {
         title: 'ChamPygnon',
         image: '/images/champygnon.jpg',
-        description: 'Python project classifying mushrooms using scraped data. Web scraping automation, image classification, and data visualisation pipeline.',
+        descKey: 'champygnon',
         languages: ['Python', 'Web Scraping', 'ML'],
         mainLang: 'Python',
         githubUrl: 'https://github.com/Evowind/ChamPygnon',
@@ -185,7 +185,7 @@ const projects = [
     {
         title: 'Pacman Game',
         image: '/images/pacman.jpg',
-        description: 'Java implementation of Pacman with design patterns (State, Observer), AI ghosts, and full JavaDoc documentation.',
+        descKey: 'pacman',
         languages: ['Java', 'Design Patterns'],
         mainLang: 'Java',
         githubUrl: 'https://github.com/Evowind/pacman-game',
@@ -200,7 +200,7 @@ const projects = [
     {
         title: 'Custom Shell',
         image: '/images/shell.jpg',
-        description: 'Custom Unix shell implementation in C: process management, I/O redirection, piping, and built-in commands.',
+        descKey: 'shell',
         languages: ['C', 'Systems'],
         mainLang: 'C',
         githubUrl: 'https://github.com/Evowind/shell-project',
@@ -213,7 +213,7 @@ const projects = [
     {
         title: 'Othello Game',
         image: '/images/othello.jpg',
-        description: 'Java Othello/Reversi with MiniMax AI opponent, alpha-beta pruning, and configurable depth. Strategic gameplay with full move validation.',
+        descKey: 'othello',
         languages: ['Java', 'AI', 'Algorithms'],
         mainLang: 'Java',
         githubUrl: 'https://github.com/Evowind/othello-game',
@@ -228,7 +228,7 @@ const projects = [
     {
         title: 'Administration Panel',
         image: '/images/administration.jpg',
-        description: 'PHP admin panel with full user management, CRUD operations, role-based access control, and authentication.',
+        descKey: 'admin',
         languages: ['PHP', 'MySQL', 'HTML', 'CSS'],
         mainLang: 'PHP',
         githubUrl: 'https://github.com/Evowind/administration-system',
@@ -241,7 +241,7 @@ const projects = [
     {
         title: 'Pizzeria Website',
         image: '/images/pizzeria.jpg',
-        description: 'Full-stack pizzeria website with Laravel, MySQL, online ordering, and user authentication system.',
+        descKey: 'pizzeria',
         languages: ['PHP', 'JavaScript', 'Laravel', 'MySQL'],
         mainLang: 'PHP',
         githubUrl: 'https://github.com/Evowind/pizzeria-website',
@@ -253,9 +253,7 @@ const projects = [
     },
 ];
 
-const categories = ['All', 'Computer Vision', 'Machine Learning', 'Web Development', 'Systems Programming', 'DevOps', 'AI / Logic', 'Game Development'];
-const statuses = ['All', 'Completed', 'In Progress', 'Active'];
-const complexities = ['All', 'Intermediate', 'Advanced'];
+
 
 function statusColor(s) {
     if (s === 'Completed')  return { border: 'rgba(100,180,100,0.3)', color: '#7dc97d', bg: 'rgba(100,180,100,0.07)' };
@@ -268,20 +266,58 @@ export default function ProjectsPage() {
     const { lang } = useApp();
     const L = (entry) => getLang(entry, lang);
 
+    // Filter/sort metadata — defined here so L() is available
+    const categoryKeys = [
+        { en: 'All',                 label: L(t.projectMeta.catAll) },
+        { en: 'Computer Vision',     label: L(t.projectMeta.catCV) },
+        { en: 'Machine Learning',    label: L(t.projectMeta.catML) },
+        { en: 'Web Development',     label: L(t.projectMeta.catWeb) },
+        { en: 'Systems Programming', label: L(t.projectMeta.catSystems) },
+        { en: 'DevOps',              label: L(t.projectMeta.catDevops) },
+        { en: 'AI / Logic',          label: L(t.projectMeta.catAI) },
+        { en: 'Game Development',    label: L(t.projectMeta.catGame) },
+    ];
+    const categories  = categoryKeys.map(c => c.label);
+    const catMap      = Object.fromEntries(categoryKeys.map(c => [c.label, c.en]));
+
+    const statusKeys = [
+        { en: 'All',         label: L(t.projectMeta.statAll) },
+        { en: 'Completed',   label: L(t.projectMeta.statCompleted) },
+        { en: 'In Progress', label: L(t.projectMeta.statProgress) },
+        { en: 'Active',      label: L(t.projectMeta.statActive) },
+    ];
+    const statuses      = statusKeys.map(s => s.label);
+    const statusMap     = Object.fromEntries(statusKeys.map(s => [s.label, s.en]));
+    const statusDisplay = Object.fromEntries(statusKeys.map(s => [s.en, s.label]));
+
+    const complexKeys = [
+        { en: 'All',          label: L(t.projectMeta.compAll) },
+        { en: 'Intermediate', label: L(t.projectMeta.compInter) },
+        { en: 'Advanced',     label: L(t.projectMeta.compAdvanced) },
+    ];
+    const complexities  = complexKeys.map(c => c.label);
+    const complexityMap = Object.fromEntries(complexKeys.map(c => [c.label, c.en]));
+
+    // State always stores EN keys — independent of language
     const [search, setSearch] = useState('');
-    const [cat, setCat] = useState('All');
-    const [status, setStatus] = useState('All');
-    const [complexity, setComplexity] = useState('All');
+    const [cat, setCat] = useState('All');          // EN key
+    const [status, setStatus] = useState('All');    // EN key
+    const [complexity, setComplexity] = useState('All'); // EN key
     const [sort, setSort] = useState('updated');
     const [expanded, setExpanded] = useState(null);
 
     const filtered = useMemo(() => {
-        let list = projects.filter(p => {
+        // cat/status/complexity are EN keys — compare directly
+        const descProjects = projects.map(p => ({
+            ...p,
+            description: getLang(t.projectDesc[p.descKey], lang),
+        }));
+        let list = descProjects.filter(p => {
             const q = search.toLowerCase();
             return (
                 (p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || p.languages.some(l => l.toLowerCase().includes(q))) &&
-                (cat === 'All' || p.category === cat) &&
-                (status === 'All' || p.status === status) &&
+                (cat        === 'All' || p.category   === cat) &&
+                (status     === 'All' || p.status     === status) &&
                 (complexity === 'All' || p.complexity === complexity)
             );
         });
@@ -293,7 +329,7 @@ export default function ProjectsPage() {
             list.sort((a, b) => new Date(b.updated) - new Date(a.updated));
         }
         return list;
-    }, [search, cat, status, complexity, sort]);
+    }, [search, cat, status, complexity, sort, lang]);
 
     const reset = () => { setSearch(''); setCat('All'); setStatus('All'); setComplexity('All'); setExpanded(null); };
 
@@ -313,7 +349,7 @@ export default function ProjectsPage() {
                     fontFamily: 'var(--font-display)', fontStyle: 'italic',
                     fontSize: '1.15rem', color: 'var(--color-muted)',
                 }}>
-                    {filtered.length} project{filtered.length !== 1 ? 's' : ''} found
+                    {filtered.length} {lang === 'fr' ? (filtered.length !== 1 ? 'projets trouvés' : 'projet trouvé') : (filtered.length !== 1 ? 'projects found' : 'project found')}
                 </p>
             </div>
 
@@ -343,14 +379,15 @@ export default function ProjectsPage() {
                     />
                     {/* Filter row */}
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+                        {/* Each select: value = stable EN key, text = translated label */}
                         {[
-                            { value: cat, setter: setCat, options: categories },
-                            { value: status, setter: setStatus, options: statuses },
-                            { value: complexity, setter: setComplexity, options: complexities },
-                            { value: sort, setter: setSort, options: [
-                                { value: 'updated', label: L(t.projects.sortRecent) },
-                                { value: 'title', label: L(t.projects.sortTitle) },
-                                { value: 'complexity', label: L(t.projects.sortComplex) },
+                            { value: cat,        setter: setCat,        opts: categoryKeys },
+                            { value: status,     setter: setStatus,     opts: statusKeys },
+                            { value: complexity, setter: setComplexity, opts: complexKeys },
+                            { value: sort,       setter: setSort,       opts: [
+                                { en: 'updated',    label: L(t.projects.sortRecent) },
+                                { en: 'title',      label: L(t.projects.sortTitle) },
+                                { en: 'complexity', label: L(t.projects.sortComplex) },
                             ]},
                         ].map((sel, i) => (
                             <select key={i} value={sel.value} onChange={e => sel.setter(e.target.value)}
@@ -363,11 +400,10 @@ export default function ProjectsPage() {
                                         color: 'var(--color-text)',
                                         borderRadius: 6, outline: 'none', cursor: 'pointer',
                                         appearance: 'none',
+                                        minWidth: [140, 110, 120, 130][i],
                                     }}>
-                                {sel.options.map(o => (
-                                    typeof o === 'string'
-                                        ? <option key={o} value={o}>{o}</option>
-                                        : <option key={o.value} value={o.value}>{o.label}</option>
+                                {sel.opts.map(o => (
+                                    <option key={o.en} value={o.en}>{o.label}</option>
                                 ))}
                             </select>
                         ))}
@@ -435,9 +471,9 @@ export default function ProjectsPage() {
                                                     border: `1px solid ${sc.border}`, color: sc.color,
                                                     background: sc.bg, borderRadius: 4,
                                                     textTransform: 'uppercase',
-                                                }}>{p.status}</span>
+                                                }}>{statusDisplay[p.status] || p.status}</span>
                                                 {p.collaborative && (
-                                                    <span className="tag" style={{ fontSize: '0.58rem' }}>Collab</span>
+                                                    <span className="tag" style={{ fontSize: '0.58rem' }}>{L(t.common.collab)}</span>
                                                 )}
                                             </div>
                                             <p style={{
@@ -547,7 +583,7 @@ export default function ProjectsPage() {
                                                     <span style={{
                                                         fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
                                                         color: 'var(--color-muted)',
-                                                    }}>{p.complexity}</span>
+                                                    }}>{lang === 'fr' ? ({ 'Intermediate': 'Intermédiaire', 'Advanced': 'Avancé' }[p.complexity] || p.complexity) : p.complexity}</span>
                                                     {p.collaborative && (
                                                         <span style={{
                                                             fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
@@ -559,7 +595,7 @@ export default function ProjectsPage() {
                                                 {/* GitHub CTA */}
                                                 <a href={p.githubUrl} target="_blank" rel="noopener noreferrer"
                                                    className="btn btn-filled"
-                                                   style={{ fontSize: '0.65rem', padding: '10px 20px' }}>
+                                                   style={{ fontSize: '0.65rem' }}>
                                                     {L(t.common.viewOnGithub)}
                                                 </a>
                                             </div>

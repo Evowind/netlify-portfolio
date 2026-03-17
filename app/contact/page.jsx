@@ -1,8 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { useApp } from '../../lib/context';
+import { t, getLang } from '../../lib/translations';
 
 export default function ContactPage() {
+    const { lang } = useApp();
+    const L = (entry) => getLang(entry, lang);
+
     const [status, setStatus] = useState(null);
     const [error, setError] = useState(null);
 
@@ -33,19 +38,17 @@ export default function ContactPage() {
         <div style={{ position: 'relative', zIndex: 1 }}>
 
             {/* ── PAGE HEADER ── */}
-            <div style={{
-                maxWidth: 960, margin: '0 auto',
-                padding: 'clamp(56px, 8vw, 96px) 24px 72px',
-            }}>
-                <span className="label fade-in" style={{ marginBottom: 16 }}>Get in touch</span>
+            <div style={{ maxWidth: 960, margin: '0 auto', padding: 'clamp(56px, 8vw, 96px) 24px 72px' }}>
+                <span className="label fade-in" style={{ marginBottom: 16 }}>{L(t.contact.pageLabel)}</span>
                 <h1 className="fade-up delay-1" style={{ marginBottom: 16 }}>
-                    Let's work <br /><span className="text-gradient">together</span>
+                    {L(t.contact.pageTitle)}<br />
+                    <span className="text-gradient">{L(t.contact.pageTitleEm)}</span>
                 </h1>
                 <p className="fade-up delay-2" style={{
                     fontFamily: 'var(--font-display)', fontStyle: 'italic',
                     fontSize: '1.15rem', color: 'var(--color-muted)', maxWidth: 440,
                 }}>
-                    Open to internships, research collaborations, and projects worth building
+                    {L(t.contact.pageDesc)}
                 </p>
             </div>
 
@@ -60,7 +63,7 @@ export default function ContactPage() {
                     maxWidth: 960, margin: '0 auto',
                     display: 'grid', gridTemplateColumns: '1fr 1.4fr',
                     gap: 80, alignItems: 'start',
-                }} className="contact-grid">
+                }} className="contact-main-grid">
 
                     {/* Left — info */}
                     <div>
@@ -69,7 +72,7 @@ export default function ContactPage() {
                                 fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
                                 letterSpacing: '0.14em', textTransform: 'uppercase',
                                 color: 'var(--color-muted)', marginBottom: 20,
-                            }}>Direct email</div>
+                            }}>{L(t.contact.emailLabel)}</div>
                             <a href="mailto:tadlysamy@gmail.com" style={{
                                 fontFamily: 'var(--font-display)', fontSize: '1.1rem',
                                 fontWeight: 700, color: 'var(--color-bright)',
@@ -79,7 +82,7 @@ export default function ContactPage() {
                                 tadlysamy@gmail.com
                             </a>
                             <p style={{ fontSize: '0.875rem', color: 'var(--color-muted)', lineHeight: 1.6 }}>
-                                Best for quick questions and direct collaboration proposals.
+                                {L(t.contact.emailDesc)}
                             </p>
                         </div>
 
@@ -88,31 +91,23 @@ export default function ContactPage() {
                                 fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
                                 letterSpacing: '0.14em', textTransform: 'uppercase',
                                 color: 'var(--color-muted)', marginBottom: 20,
-                            }}>Profiles</div>
+                            }}>{L(t.contact.profilesLabel)}</div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                                 {[
-                                    { label: 'GitHub', sub: 'github.com/Evowind', href: 'https://github.com/Evowind' },
-                                    { label: 'LinkedIn', sub: 'samy-tadly', href: 'https://www.linkedin.com/in/samy-tadly/' },
+                                    { label: 'GitHub',   sub: 'github.com/Evowind', href: 'https://github.com/Evowind' },
+                                    { label: 'LinkedIn', sub: 'samy-tadly',          href: 'https://www.linkedin.com/in/samy-tadly/' },
                                 ].map(l => (
                                     <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer"
                                        style={{
                                            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                                           padding: '14px 16px',
-                                           border: '1px solid var(--color-border)',
-                                           borderRadius: 8,
-                                           textDecoration: 'none',
+                                           padding: '14px 16px', border: '1px solid var(--color-border)',
+                                           borderRadius: 8, textDecoration: 'none',
                                            background: 'var(--color-panel)',
                                            transition: 'border-color 0.2s, background 0.2s',
                                        }} className="profile-link">
                                         <div>
-                                            <div style={{
-                                                fontFamily: 'var(--font-body)', fontSize: '0.9rem',
-                                                fontWeight: 500, color: 'var(--color-bright)', marginBottom: 2,
-                                            }}>{l.label}</div>
-                                            <div style={{
-                                                fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
-                                                color: 'var(--color-muted)', letterSpacing: '0.04em',
-                                            }}>{l.sub}</div>
+                                            <div style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', fontWeight: 500, color: 'var(--color-bright)', marginBottom: 2 }}>{l.label}</div>
+                                            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--color-muted)', letterSpacing: '0.04em' }}>{l.sub}</div>
                                         </div>
                                         <span style={{ color: 'var(--color-accent)', fontSize: '0.9rem' }}>↗</span>
                                     </a>
@@ -125,12 +120,12 @@ export default function ContactPage() {
                                 fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
                                 letterSpacing: '0.14em', textTransform: 'uppercase',
                                 color: 'var(--color-muted)', marginBottom: 16,
-                            }}>Currently open to</div>
+                            }}>{L(t.contact.openToLabel)}</div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                                {['Internships (2025)', 'Research collaborations', 'Open-source contributions', 'Freelance projects'].map(t => (
-                                    <div key={t} style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: '0.9rem', color: 'var(--color-text)' }}>
+                                {L(t.contact.openToList).map(item => (
+                                    <div key={item} style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: '0.9rem', color: 'var(--color-text)' }}>
                                         <span style={{ color: 'var(--color-accent)', fontSize: '0.55rem' }}>◆</span>
-                                        {t}
+                                        {item}
                                     </div>
                                 ))}
                             </div>
@@ -143,16 +138,14 @@ export default function ContactPage() {
                             <div style={{
                                 padding: '48px 40px',
                                 border: '1px solid rgba(200,169,110,0.25)',
-                                borderRadius: 12,
-                                background: 'rgba(200,169,110,0.04)',
+                                borderRadius: 12, background: 'rgba(200,169,110,0.04)',
                                 textAlign: 'center',
                             }}>
-                                <div style={{
-                                    fontFamily: 'var(--font-display)', fontSize: '1.4rem',
-                                    color: 'var(--color-bright)', marginBottom: 12,
-                                }}>Message sent</div>
+                                <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--color-bright)', marginBottom: 12 }}>
+                                    {L(t.contact.successTitle)}
+                                </div>
                                 <p style={{ color: 'var(--color-muted)', fontSize: '0.95rem' }}>
-                                    Thanks for reaching out, I'll get back to you soon.
+                                    {L(t.contact.successDesc)}
                                 </p>
                             </div>
                         ) : (
@@ -161,27 +154,27 @@ export default function ContactPage() {
                                 <input type="hidden" name="form-name" value="feedback" />
 
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="form-top-row">
-                                    <FormField label="Name" required>
+                                    <FormField label={L(t.contact.formName)} required>
                                         <input name="name" type="text" required
-                                               placeholder="Your name"
+                                               placeholder={L(t.contact.formNamePh)}
                                                style={inputStyle} className="form-input" />
                                     </FormField>
-                                    <FormField label="Email">
+                                    <FormField label={L(t.contact.formEmail)}>
                                         <input name="email" type="email"
-                                               placeholder="your@email.com"
+                                               placeholder={L(t.contact.formEmailPh)}
                                                style={inputStyle} className="form-input" />
                                     </FormField>
                                 </div>
 
-                                <FormField label="Subject">
+                                <FormField label={L(t.contact.formSubject)}>
                                     <input name="subject" type="text"
-                                           placeholder="What's this about?"
+                                           placeholder={L(t.contact.formSubjectPh)}
                                            style={inputStyle} className="form-input" />
                                 </FormField>
 
-                                <FormField label="Message" required>
+                                <FormField label={L(t.contact.formMessage)} required>
                                     <textarea name="message" required rows={6}
-                                              placeholder="Tell me about your project, question, or how we can work together..."
+                                              placeholder={L(t.contact.formMessagePh)}
                                               style={{ ...inputStyle, resize: 'vertical', minHeight: 160 }}
                                               className="form-input" />
                                 </FormField>
@@ -194,7 +187,7 @@ export default function ContactPage() {
                                         fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
                                         color: '#b54a4a',
                                     }}>
-                                        Failed to send: {error}
+                                        {L(t.contact.formError)}{error}
                                     </div>
                                 )}
 
@@ -206,7 +199,7 @@ export default function ContactPage() {
                                             opacity: status === 'pending' ? 0.6 : 1,
                                             cursor: status === 'pending' ? 'not-allowed' : 'pointer',
                                         }}>
-                                    {status === 'pending' ? 'Sending…' : 'Send message →'}
+                                    {status === 'pending' ? L(t.contact.formSending) : L(t.contact.formSend)}
                                 </button>
                             </form>
                         )}
@@ -221,16 +214,10 @@ export default function ContactPage() {
                     background: rgba(200,169,110,0.04) !important;
                 }
                 .form-input {
-                    font-family: var(--font-body);
-                    font-size: 0.9rem;
-                    padding: 12px 16px;
-                    background: var(--color-panel);
-                    border: 1px solid var(--color-border);
-                    color: var(--color-bright);
-                    width: 100%;
-                    outline: none;
-                    border-radius: 8px;
-                    transition: border-color 0.2s, box-shadow 0.2s;
+                    font-family: var(--font-body); font-size: 0.9rem; padding: 12px 16px;
+                    background: var(--color-panel); border: 1px solid var(--color-border);
+                    color: var(--color-bright); width: 100%; outline: none;
+                    border-radius: 8px; transition: border-color 0.2s, box-shadow 0.2s;
                     box-sizing: border-box;
                 }
                 .form-input::placeholder { color: var(--color-muted); }
@@ -239,7 +226,7 @@ export default function ContactPage() {
                     box-shadow: 0 0 0 3px rgba(200,169,110,0.06);
                 }
                 @media (max-width: 640px) {
-                    .contact-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+                    .contact-main-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
                     .form-top-row { grid-template-columns: 1fr !important; }
                 }
             `}</style>
@@ -251,8 +238,7 @@ function FormField({ label, required, children }) {
     return (
         <div>
             <label style={{
-                display: 'block',
-                fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
+                display: 'block', fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
                 letterSpacing: '0.14em', textTransform: 'uppercase',
                 color: 'var(--color-muted)', marginBottom: 8,
             }}>
@@ -264,13 +250,7 @@ function FormField({ label, required, children }) {
 }
 
 const inputStyle = {
-    fontFamily: 'var(--font-body)',
-    fontSize: '0.9rem',
-    padding: '12px 16px',
-    background: 'var(--color-panel)',
-    border: '1px solid rgba(255,255,255,0.07)',
-    color: 'var(--color-bright)',
-    width: '100%',
-    outline: 'none',
-    borderRadius: 8,
+    fontFamily: 'var(--font-body)', fontSize: '0.9rem', padding: '12px 16px',
+    background: 'var(--color-panel)', border: '1px solid rgba(255,255,255,0.07)',
+    color: 'var(--color-bright)', width: '100%', outline: 'none', borderRadius: 8,
 };

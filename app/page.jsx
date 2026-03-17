@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { Reveal, RevealGroup } from '../components/reveal';
 import { useApp } from '../lib/context';
 import { t, getLang } from '../lib/translations';
 
@@ -28,7 +29,7 @@ export default function Page() {
     ];
 
     const projectKeys = [
-        { num: '01', title: 'Argumentation Framework Solver', cat: 'AI / Logic', desc: lang === 'fr' ? 'Solveur Python pour frameworks d\'argumentation, sémantiques admissible, stable, fondée et préférée. Moteur de raisonnement basé sur les graphes.' : 'Python solver for argumentation frameworks, admissible, stable, grounded, and preferred semantics. Graph-based reasoning engine.', langs: ['Python', 'Logic', 'Algorithms'], url: 'https://github.com/Evowind/argumentation-framework-solver' },
+        { num: '01', title: 'Argumentation Framework Solver', cat: 'AI / Logic', desc: lang === 'fr' ? 'Solveur Python pour frameworks d\'argumentation — sémantiques admissible, stable, fondée et préférée. Moteur de raisonnement basé sur les graphes.' : 'Python solver for argumentation frameworks — admissible, stable, grounded, and preferred semantics. Graph-based reasoning engine.', langs: ['Python', 'Logic', 'Algorithms'], url: 'https://github.com/Evowind/argumentation-framework-solver' },
         { num: '02', title: 'Document Layout Analysis', cat: 'Computer Vision', desc: lang === 'fr' ? 'Pipeline deep learning pour la détection de mise en page et intégration OCR. Projet de recherche collaboratif.' : 'Deep learning pipeline for document layout detection and OCR integration. Collaborative research project.', langs: ['Python', 'PyTorch', 'OpenCV'], url: 'https://github.com/Evowind/document-layout-analysis' },
         { num: '03', title: 'Mario Kart Reset Online', cat: lang === 'fr' ? 'Full-Stack' : 'Full-Stack', desc: lang === 'fr' ? 'Tracker de tournois utilisant l\'algorithme TrueSkill. Flask + PostgreSQL, tableau de bord stats complet.' : 'Tournament tracker using the TrueSkill rating algorithm. Flask + PostgreSQL, full stats dashboard.', langs: ['Python', 'Flask', 'PostgreSQL', 'JS'], url: 'https://github.com/Evowind/mariokart-reset-online' },
         { num: '04', title: 'ShapeShifter Classifier', cat: 'Computer Vision', desc: lang === 'fr' ? 'Reconnaissance de formes en temps réel en C++ avec OpenCV. Optimisé pour l\'inférence basse latence.' : 'Real-time shape recognition in C++ with OpenCV. Optimised for low-latency inference.', langs: ['C++', 'OpenCV', 'ML'], url: 'https://github.com/Evowind/shapeshifter-classifier' },
@@ -99,9 +100,10 @@ export default function Page() {
                 padding: '0 24px 120px',
                 display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start',
             }} className="about-grid">
+                <Reveal>
                 <div>
-                    <span className="label fade-up" style={{ marginBottom: 20 }}>{L(t.home.aboutLabel)}</span>
-                    <h2 className="fade-up delay-1" style={{ marginBottom: 28, fontSize: 'clamp(1.6rem, 3vw, 2.2rem)' }}>
+                    <span className="label" style={{ marginBottom: 20 }}>{L(t.home.aboutLabel)}</span>
+                    <h2 style={{ marginBottom: 28, fontSize: 'clamp(1.6rem, 3vw, 2.2rem)' }}>
                         {L(t.home.aboutTitle)}
                     </h2>
                     <p className="fade-up delay-2" style={{ marginBottom: 20, fontSize: '1.05rem', lineHeight: 1.85 }}
@@ -114,8 +116,10 @@ export default function Page() {
                         ))}
                     </div>
                 </div>
+                </Reveal>
 
-                <div className="fade-up delay-2">
+                <Reveal delay={100}>
+                <div>
                     <span className="label" style={{ marginBottom: 24 }}>{L(t.home.backgroundLabel)}</span>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
                         {experiences.map((e, i) => {
@@ -152,6 +156,7 @@ export default function Page() {
                         {L(t.common.fullResume)}
                     </Link>
                 </div>
+                </Reveal>
             </section>
 
             {/* ── COMPETENCIES ── */}
@@ -166,7 +171,8 @@ export default function Page() {
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
                         {competencyKeys.map((key, i) => (
-                            <div key={key} className={`comp-card fade-up delay-${i + 1}`}>
+                            <Reveal key={key} delay={i * 70} y={12}>
+                            <div className="comp-card">
                                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.1rem', color: 'var(--color-accent)', marginBottom: 16, opacity: 0.6 }}>{icons[i]}</div>
                                 <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-bright)', marginBottom: 10 }}>
                                     {L(t.competencies[key].title)}
@@ -175,6 +181,7 @@ export default function Page() {
                                     {L(t.competencies[key].desc)}
                                 </p>
                             </div>
+                            </Reveal>
                         ))}
                     </div>
                 </div>
@@ -182,22 +189,32 @@ export default function Page() {
 
             {/* ── SKILLS ── */}
             <section style={{ maxWidth: 960, margin: '0 auto', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
-                <span className="label" style={{ marginBottom: 16 }}>{L(t.home.skillsLabel)}</span>
-                <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', marginBottom: 56 }}>{L(t.home.skillsTitle)}</h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px 64px' }}>
+                <Reveal>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, flexWrap: 'wrap', gap: 16 }}>
+                    <div>
+                        <span className="label" style={{ marginBottom: 16 }}>{L(t.home.skillsLabel)}</span>
+                        <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)' }}>{L(t.home.skillsTitle)}</h2>
+                    </div>
+                    <Link href="/skills" className="btn" style={{ fontSize: '0.65rem' }}>{L(t.common.allSkills)}</Link>
+                </div>
+                </Reveal>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '28px 64px' }}>
                     {skills.map((s, i) => (
-                        <div key={i} className={`fade-up delay-${(i % 4) + 1}`}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
-                                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-bright)' }}>{s.name}</span>
-                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--color-accent)', letterSpacing: '0.08em' }}>{s.level}%</span>
-                            </div>
-                            <div className="skill-bar-track">
-                                <div className="skill-bar-fill" style={{ width: `${s.level}%` }} />
-                            </div>
-                            <div style={{ display: 'flex', gap: 6, marginTop: 12, flexWrap: 'wrap' }}>
-                                {s.tags.map(tag => <span key={tag} className="tag" style={{ fontSize: '0.6rem' }}>{tag}</span>)}
+                        <Reveal key={i} delay={(i % 4) * 60} y={10}>
+                        <div style={{
+                            display: 'flex', justifyContent: 'space-between',
+                            alignItems: 'center',
+                            paddingBottom: 20,
+                            borderBottom: '1px solid var(--color-border)',
+                        }}>
+                            <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, color: 'var(--color-bright)' }}>
+                                {s.name}
+                            </span>
+                            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                                {s.tags.map(tag => <span key={tag} className="tag" style={{ fontSize: '0.58rem' }}>{tag}</span>)}
                             </div>
                         </div>
+                        </Reveal>
                     ))}
                 </div>
             </section>
@@ -205,6 +222,7 @@ export default function Page() {
             {/* ── PROJECTS ── */}
             <section id="projects" style={{ background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)', padding: 'clamp(64px, 8vw, 100px) 24px' }}>
                 <div style={{ maxWidth: 960, margin: '0 auto' }}>
+                    <Reveal>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, flexWrap: 'wrap', gap: 16 }}>
                         <div>
                             <span className="label" style={{ marginBottom: 16 }}>{L(t.home.workLabel)}</span>
@@ -212,9 +230,11 @@ export default function Page() {
                         </div>
                         <Link href="/projects" className="btn" style={{ fontSize: '0.65rem' }}>{L(t.common.allProjects)}</Link>
                     </div>
+                    </Reveal>
                     <div style={{ borderTop: '1px solid var(--color-border)' }}>
                         {projectKeys.map((p, i) => (
-                            <a key={i} href={p.url} target="_blank" rel="noopener noreferrer"
+                            <Reveal key={i} delay={i * 50} y={8} threshold={0.05}>
+                            <a href={p.url} target="_blank" rel="noopener noreferrer"
                                className="project-row"
                                style={{ display: 'grid', gridTemplateColumns: '40px 1fr auto', gap: 24, alignItems: 'start', padding: '32px 0', borderBottom: '1px solid var(--color-border)', textDecoration: 'none', cursor: 'pointer' }}>
                                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--color-muted)', letterSpacing: '0.08em', paddingTop: 3 }}>{p.num}</span>
@@ -231,6 +251,7 @@ export default function Page() {
                                 </div>
                                 <span className="project-arrow" style={{ fontFamily: 'var(--font-mono)', fontSize: '1.1rem', color: 'var(--color-accent)', paddingTop: 2 }}>↗</span>
                             </a>
+                            </Reveal>
                         ))}
                     </div>
                 </div>
@@ -242,6 +263,7 @@ export default function Page() {
                 padding: 'clamp(64px, 8vw, 100px) 24px clamp(80px, 10vw, 120px)',
                 display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center',
             }} className="contact-grid">
+                <Reveal>
                 <div>
                     <span className="label" style={{ marginBottom: 20 }}>{L(t.home.contactLabel)}</span>
                     <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', marginBottom: 20 }}>
@@ -250,6 +272,8 @@ export default function Page() {
                     </h2>
                     <p style={{ fontSize: '1.05rem', lineHeight: 1.8, color: 'var(--color-muted)' }}>{L(t.home.contactDesc)}</p>
                 </div>
+                </Reveal>
+                <Reveal delay={120}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                     <a href="mailto:tadlysamy@gmail.com" className="btn btn-filled" style={{ justifyContent: 'flex-start', fontSize: '0.75rem', padding: '16px 24px' }}>
                         <span style={{ opacity: 0.6, marginRight: 4 }}>✉</span> tadlysamy@gmail.com
@@ -258,14 +282,15 @@ export default function Page() {
                         <span style={{ opacity: 0.6, marginRight: 4 }}>◎</span> {L(t.home.openContactForm)}
                     </Link>
                     <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
-                        <a href="https://github.com/Evowind" target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem' }}>
+                        <a href="https://github.com/Evowind" target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem', padding: '16px 24px' }}>
                             <GithubIcon /> GitHub
                         </a>
-                        <a href="https://www.linkedin.com/in/samy-tadly/" target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem' }}>
+                        <a href="https://www.linkedin.com/in/samy-tadly/" target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem', padding: '16px 24px' }}>
                             <LinkedinIcon /> LinkedIn
                         </a>
                     </div>
                 </div>
+                </Reveal>
             </section>
 
             <style>{`
