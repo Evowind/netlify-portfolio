@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useApp } from '../lib/context'
-import { t, getLang } from '../lib/translations';
+import { useApp } from './context';
+import { t, getLang } from './translations';
 
 export function Header() {
     const { lang, setLang, theme, setTheme } = useApp();
@@ -65,7 +65,7 @@ export function Header() {
                     transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
                 }
                 .header-bar.scrolled {
-                    background: rgba(10,10,12,0.85) !important;
+                    background: rgba(28,28,34,0.88) !important;
                     backdrop-filter: blur(16px);
                     -webkit-backdrop-filter: blur(16px);
                     border-bottom-color: var(--color-border) !important;
@@ -217,7 +217,7 @@ export function Header() {
                     {/* Desktop controls */}
                     <div className="desktop-social" style={{
                         display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0,
-                        minWidth: 320, justifyContent: 'flex-end',
+                        minWidth: 340, justifyContent: 'flex-end',
                     }}>
                         {/* Social icons */}
                         <a href="https://github.com/Evowind" target="_blank" rel="noopener noreferrer"
@@ -258,7 +258,7 @@ export function Header() {
 
                         {/* Hire me */}
                         <a href="mailto:tadlysamy@gmail.com" className="btn"
-                           style={{ fontSize: '0.62rem', padding: '7px 14px', marginLeft: 4, minWidth: 100, textAlign: 'center', justifyContent: 'center' }}>
+                           style={{ fontSize: '0.62rem', padding: '7px 14px', marginLeft: 4, minWidth: 118, textAlign: 'center', justifyContent: 'center', whiteSpace: 'nowrap' }}>
                             {L(t.nav.hireMe)}
                         </a>
                     </div>
