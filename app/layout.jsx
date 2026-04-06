@@ -30,9 +30,21 @@ export default function RootLayout({ children }) {
                 <script dangerouslySetInnerHTML={{ __html: `
                     (function() {
                         try {
-                            var theme = localStorage.getItem('theme') || 'dark';
+                            var saved = localStorage.getItem('theme');
+                            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
                             document.documentElement.setAttribute('data-theme', theme);
                         } catch(e) {}
+                    })();
+                `}} />
+                <script dangerouslySetInnerHTML={{ __html: `
+                    (function() {
+                        var c = 'color:#c87941;font-weight:500;';
+                        var m = 'color:#4a5568;font-weight:400;';
+                        var b = 'font-weight:700;font-size:1.1em;color:#edf2f7;';
+                        console.log('%c\\n  Samy Tadly%c  ·  portfolio\\n', b, m);
+                        console.log('%c  Built with Next.js & a lot of coffee.', m);
+                        console.log('%c  github.com/Evowind%c  ←  source', c, m);
+                        console.log('%c  tadlysamy@gmail.com%c  ←  if you'\''re hiring\\n', c, m);
                     })();
                 `}} />
             </head>

@@ -1,30 +1,62 @@
-import { getNetlifyContext } from 'utils';
-import { Alert } from './alert';
-import { Markdown } from './markdown';
+'use client';
 
-const noNetlifyContextAlert = `
-For full functionality, either run this site locally via \`netlify dev\`
-([see docs](https://docs.netlify.com/cli/local-development/")) or deploy it to Netlify.
-`;
+import { createContext, useContext, useEffect, useState } from 'react';
 
-export function ContextAlert(props) {
-    const { addedChecksFunction, className } = props;
-    const ctx = getNetlifyContext();
+const AppContext = createContext({
+    lang: 'en',
+    setLang: () => {},
+    theme: 'dark',
+    setTheme: () => {},
+});
 
-    let markdownText = null;
-    if (!ctx) {
-        markdownText = noNetlifyContextAlert;
-    } else if (addedChecksFunction) {
-        markdownText = addedChecksFunction(ctx);
-    }
+export function AppProvider({ children }) {
+    const [lang, setLangState] = useState('en');
+    const [theme, setThemeState] = useState('dark');
+    const [mounted, setMounted] = useState(false);
 
-    if (markdownText) {
-        return (
-            <Alert className={className}>
-                <Markdown content={markdownText} />
-            </Alert>
-        );
-    } else {
-        return <></>;
-    }
+    // Read from localStorage on mount — fall back to OS preference
+    useEffect(() => {
+        const savedLang = localStorage.getItem('lang') || 'en';
+        // If no saved preference, follow the OS
+        const savedTheme = localStorage.getItem('theme')
+            || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        setLangState(savedLang);
+        setThemeState(savedTheme);
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.documentElement.setAttribute('data-lang', savedLang);
+        setMounted(true);
+    }, []);
+
+    const setLang = (l) => {
+        setLangState(l);
+        localStorage.setItem('lang', l);
+        document.documentElement.setAttribute('data-lang', l);
+    };
+
+    const setTheme = (t) => {
+        setThemeState(t);
+        localStorage.setItem('theme', t);
+        document.documentElement.setAttribute('data-theme', t);
+    };
+
+    // Avoid flash of wrong theme before hydration
+    if (!mounted) return (
+        <div style={{ visibility: 'hidden' }}>{children}</div>
+    );
+
+    return (
+        <AppContext.Provider value={{ lang, setLang, theme, setTheme }}>
+            {children}
+        </AppContext.Provider>
+    );
+}
+
+export function useApp() {
+    return useContext(AppContext);
+}
+
+// Convenience hook that returns the right strings for current lang
+export function useT(translations) {
+    const { lang } = useApp();
+    return translations[lang] || translations['en'];
 }

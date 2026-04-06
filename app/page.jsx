@@ -44,53 +44,67 @@ export default function Page() {
             <section style={{
                 maxWidth: 960, margin: '0 auto',
                 padding: 'clamp(64px, 10vw, 120px) 24px clamp(80px, 12vw, 140px)',
+                position: 'relative',
             }}>
-                <div className="fade-in" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 40 }}>
+                {/* Large background initial — breaks the grid, gives depth */}
+                <span aria-hidden="true" style={{
+                    position: 'absolute',
+                    right: -60, top: '45%',
+                    transform: 'translateY(-52%)',
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(200px, 28vw, 340px)',
+                    fontWeight: 700,
+                    lineHeight: 1,
+                    color: 'transparent',
+                    WebkitTextStroke: '1.5px rgba(200,121,65,0.13)',
+                    userSelect: 'none',
+                    pointerEvents: 'none',
+                    letterSpacing: '-0.05em',
+                }}>ST</span>
+
+                {/* Badge */}
+                <div className="fade-in" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 40, position: 'relative' }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-accent)', boxShadow: '0 0 8px var(--color-accent)', display: 'inline-block' }} />
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--color-muted)' }}>
                         {L(t.home.badge)}
                     </span>
                 </div>
 
-                <h1 className="fade-up delay-1" style={{ marginBottom: 12 }}>
-                    Samy<br /><span className="text-gradient">Tadly</span>
+                {/* Name — "Tadly" intentionally overflows the container */}
+                <h1 className="fade-up delay-1" style={{ marginBottom: 16, position: 'relative', lineHeight: 0.92, paddingBottom: '0.15em' }}>
+                    <span style={{
+                        display: 'block',
+                        fontSize: 'clamp(3.4rem, 9vw, 7.5rem)',
+                        letterSpacing: '-0.03em',
+                        color: 'var(--color-bright)',
+                    }}>Samy</span>
+                    <span className="text-gradient" style={{
+                        display: 'block',
+                        fontSize: 'clamp(3.4rem, 9vw, 7.5rem)',
+                        letterSpacing: '-0.04em',
+                        marginLeft: '-0.04em',
+                        whiteSpace: 'nowrap',
+                    }}>Tadly.</span>
                 </h1>
 
+                {/* Role — sentence, not a list */}
                 <p className="fade-up delay-2" style={{
                     fontFamily: 'var(--font-display)', fontStyle: 'italic',
-                    fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)',
-                    color: 'var(--color-muted)', marginBottom: 48, maxWidth: 480,
-                    whiteSpace: 'pre-line',
+                    fontSize: 'clamp(1.1rem, 2.2vw, 1.35rem)',
+                    color: 'var(--color-muted)', marginBottom: 52, maxWidth: 440,
+                    whiteSpace: 'pre-line', position: 'relative',
+                    lineHeight: 1.6, letterSpacing: '0.01em',
                 }}>
                     {L(t.home.role)}
                 </p>
 
-                <div className="fade-up delay-3" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                {/* CTAs */}
+                <div className="fade-up delay-3" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', position: 'relative' }}>
                     <a href="#projects" className="btn btn-filled">{L(t.home.viewProjects)}</a>
                     <a href="https://docs.google.com/document/d/1dQHVUnKcoxcptqzMPPZSS6Xuvhv0Tz2K/edit" target="_blank" rel="noopener noreferrer" className="btn">{L(t.common.downloadCv)}</a>
                     <a href="https://github.com/Evowind" target="_blank" rel="noopener noreferrer" className="btn">
                         <GithubIcon /> GitHub
                     </a>
-                </div>
-
-                {/* Stats */}
-                <div className="fade-up delay-4" style={{
-                    display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: 1, marginTop: 80,
-                    background: 'var(--color-border)', borderRadius: 12, overflow: 'hidden',
-                    border: '1px solid var(--color-border)',
-                }}>
-                    {[
-                        { val: '15+', label: L(t.home.statProjects) },
-                        { val: '5',   label: L(t.home.statLangs) },
-                        { val: '3+',  label: L(t.home.statYears) },
-                        { val: 'M2',  label: L(t.home.statDegree) },
-                    ].map(s => (
-                        <div key={s.label} style={{ background: 'var(--color-surface)', padding: '28px 20px', textAlign: 'center' }}>
-                            <div style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 700, color: 'var(--color-accent)', lineHeight: 1, marginBottom: 8 }}>{s.val}</div>
-                            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--color-muted)' }}>{s.label}</div>
-                        </div>
-                    ))}
                 </div>
             </section>
 
@@ -275,17 +289,17 @@ export default function Page() {
                 </Reveal>
                 <Reveal delay={120}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    <a href="mailto:tadlysamy@gmail.com" className="btn btn-filled" style={{ justifyContent: 'flex-start', fontSize: '0.75rem', padding: '16px 24px' }}>
+                    <a href="mailto:tadlysamy@gmail.com" className="btn btn-filled" style={{ justifyContent: 'flex-start', fontSize: '0.75rem' }}>
                         <span style={{ opacity: 0.6, marginRight: 4 }}>✉</span> tadlysamy@gmail.com
                     </a>
-                    <Link href="/contact" className="btn" style={{ justifyContent: 'flex-start', fontSize: '0.75rem', padding: '16px 24px' }}>
+                    <Link href="/contact" className="btn" style={{ justifyContent: 'flex-start', fontSize: '0.75rem' }}>
                         <span style={{ opacity: 0.6, marginRight: 4 }}>◎</span> {L(t.home.openContactForm)}
                     </Link>
                     <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
-                        <a href="https://github.com/Evowind" target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem', padding: '16px 24px' }}>
+                        <a href="https://github.com/Evowind" target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem' }}>
                             <GithubIcon /> GitHub
                         </a>
-                        <a href="https://www.linkedin.com/in/samy-tadly/" target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem', padding: '16px 24px' }}>
+                        <a href="https://www.linkedin.com/in/samy-tadly/" target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: 1, justifyContent: 'center', fontSize: '0.65rem' }}>
                             <LinkedinIcon /> LinkedIn
                         </a>
                     </div>

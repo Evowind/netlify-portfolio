@@ -101,22 +101,15 @@ export default function SkillsPage() {
                 </p>
             </div>
 
-            {/* ── STATS ── */}
-            <div style={{ background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
-                <div style={{ maxWidth: 960, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }} className="stats-grid">
-                    {[
-                        { val: '20+', label: L(t.skills.statTech) },
-                        { val: '15+', label: L(t.skills.statBuilt) },
-                        { val: '5+',  label: L(t.skills.statLangs) },
-                        { val: '5+',  label: L(t.skills.statYears) },
-                    ].map((s, i) => (
-                        <div key={i} style={{ padding: '28px 24px', textAlign: 'center', borderRight: i < 3 ? '1px solid var(--color-border)' : 'none' }}>
-                            <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', fontWeight: 700, color: 'var(--color-accent)', lineHeight: 1, marginBottom: 8 }}>{s.val}</div>
-                            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--color-muted)' }}>{s.label}</div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+
+
+            {/* ── DIVIDER ── */}
+            <div style={{
+                background: 'var(--color-surface)',
+                borderTop: '1px solid var(--color-border)',
+                borderBottom: '1px solid var(--color-border)',
+                height: 2,
+            }} />
 
             {/* ── CATEGORIES ── */}
             {categories.map((cat, ci) => (
@@ -209,7 +202,6 @@ export default function SkillsPage() {
             <style>{`
                 @media (max-width: 640px) {
                     .section-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
-                    .stats-grid   { grid-template-columns: repeat(2, 1fr) !important; }
                 }
             `}</style>
         </div>
